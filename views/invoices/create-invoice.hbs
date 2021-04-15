@@ -1,0 +1,25 @@
+<!--borders are set to top & right only, except edging elements
+<input name="" id="" type="text" placeholder="" value="">
+-->
+<body class="flex justify-center">
+<h1>Detail faktúry</h1>
+<div class="a4 relative h-screen border-black border-4 text-sm font-sans bg-white">
+    <form id="itemForm" action="/invoices/create" method="POST">
+        {{>invoiceInputs}}
+    </form>
+
+
+</div>
+
+<script src="/script.js"></script>
+
+<script>
+    function removeItem(itemListId){
+    }
+
+
+
+    window.onload = () => {
+        addItem();
+    }
+</script>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="utf-8">
+    <title>Detail</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+<table id="fancyTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Názov</th>
+            <th>Kód</th>
+            <th>Cena bez dane</th>
+            <th>Množstevná jednotka</th>
+            <th>Daň v %</th>
+            <th>Popis</th>
+            <th>Poznámka</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each this}}
+            {{#if this.id}}
+            <tr class="hover:bg-gray-300 text-center">
+                <td>{{this.id}}</td>
+                <td>{{this.itemName}}</td>
+                <td>{{this.itemBarcode}}</td>
+                <td>{{this.itemPriceWithoutTax}}</td>
+                <td>{{this.itemUnit}}</td>
+                <td>{{this.itemTax}}</td>
+                <td>{{this.itemBody}}</td>
+                <td>{{this.itemNote}}</td>
+            </tr>
+            {{/if}}
+        {{/each}}
+    </tbody>
+</table>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#fancyTable').DataTable({
+            "language":{
+                url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Slovak.json"
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
