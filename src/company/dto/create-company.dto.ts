@@ -26,8 +26,6 @@ export class CreateCompanyDto {
     @IsNotEmpty() //10-digit
     supplierDic: string;
 
-
-
     @IsOptional()
     @IsNotEmpty()
     supplierIcDph: string;
