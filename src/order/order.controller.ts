@@ -27,6 +27,9 @@ export class OrderController{
         private invoicesListService: InvoiceItemListsService,
         private employeeService: EmployeeService,
     ) {}
+
+
+
     @Get()
     @Render('orders/orders.hbs')
     getOrders(
@@ -82,24 +85,20 @@ export class OrderController{
     }
 
     @Post('/:id')
-    @Render('invoices/invoice-detail.hbs')
+    @Render('orders/order-detail.hbs')
     async editOrder(
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         @Body() createEmployeeDto: CreateEmployeeDto,
         @Body() createOrderDto: CreateOrderDto,
-        @Param('invoiceId', ParseIntPipe) invoiceId: number,
+        @Param('id', ParseIntPipe) invoiceId: number,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Order> {
         const company = new Company();
         company.id = 1;
         console.log('DTO: ', createEmployeeDto)
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        let employee = await this.employeeService.findDuplicity(company, createEmployeeDto);
-        if (employee == null){
-            employee = await this.employeeService.createEmployee(company, createEmployeeDto);
-        }
         return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
     }
 

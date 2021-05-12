@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/nestjs-bp-fullajtar-main.iml" filepath="$PROJECT_DIR$/.idea/nestjs-bp-fullajtar-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/filipmoney.iml" filepath="$PROJECT_DIR$/.idea/filipmoney.iml" />
     </modules>
   </component>
 </project>
