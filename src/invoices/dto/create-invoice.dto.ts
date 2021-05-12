@@ -21,6 +21,10 @@ export class CreateInvoiceDto {
 
     @IsOptional()
     @IsNotEmpty()
+    bank: string;
+
+    @IsOptional()
+    @IsNotEmpty()
     bankAccountNumber: string; //cislo uctu
 
     @IsOptional()

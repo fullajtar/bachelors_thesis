@@ -1,15 +1,19 @@
 TODO:
-prehlad prijmov
-setnut si aspon 3 bakove ucty kt mozno prepinat
-vymazat obsah kolonky dodavatel
-set nullable na zakazku, tag, poznamku
-lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts
-nastylovat tabulky faktur/objednavok
-vytvorenie faktury z objednavky
-spravit IBA PREHLAD zamestnancov
-export do pdf: cez printcss/server-side
+setnut si aspon 3 bakove ucty kt mozno prepinat                                                                         dnes
+lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts       dnes
+prehlad prijmov                                                                                                         2-3 dni
+
+vymazat obsah kolonky dodavatel                                                                                         30 minut
+set nullable na zakazku, tag, poznamku                                                                                  30 minut
+nastylovat tabulky faktur/objednavok                                                                                    ?
+vytvorenie faktury z objednavky                                                                                         2-3 hodiny
+spravit IBA PREHLAD zamestnancov                                                                                        1 den
+export do pdf: cez printcss/server-side                                                                                 1 den
 company.swift - pravdepodobne zbytocne, asi sa moze zmazat
+autorizacia pouzivatela                                                                                                 ? dni
 
 BUGS:
-neda sa zmenit zakazku, tag, poznamku
+neda sa zmenit zakazku, tag, poznamku                                                                                   30 minut
 "zmenit udaje" odkazuje na neexistujucu uri
+zobrazenie deailu faktury nevypisuje zakladne info o company                                                            1 hodina
+niektore tabulky nemaju vsetky potrebne stlpce (kvoli bugu v DB)                                                        1-2 hodiny

@@ -137,6 +137,7 @@ export class InvoicesService {
         const {
             currency,
             invoiceName,
+            bank,
             bankAccountNumber,
             iban,
             variableSymbol,
@@ -163,6 +164,7 @@ export class InvoicesService {
         invoice.deliveryDate = deliveryDate;
         invoice.currency = currency;
         invoice.invoiceName = invoiceName;
+        invoice.bank = bank;
         invoice.bankAccountNumber = bankAccountNumber;
         invoice.iban = iban;
         invoice.variableSymbol = variableSymbol;

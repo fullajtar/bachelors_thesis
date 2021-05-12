@@ -33,6 +33,9 @@ export class Invoice extends BaseEntity {
     invoiceName: string;
 
     @Column()
+    bank: string;
+
+    @Column()
     bankAccountNumber: string; //cislo uctu
 
     @Column()
