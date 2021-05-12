@@ -32,6 +32,7 @@ export class OrderRepository extends Repository<Order> {
         const {
             currency,
             orderName,
+            bank,
             bankAccountNumber,
             iban,
             note,
@@ -54,6 +55,7 @@ export class OrderRepository extends Repository<Order> {
         order.currency = currency;
         order.orderName = orderName;
         order.bankAccountNumber = bankAccountNumber;
+        order.bank = bank;
         order.iban = iban;
         order.note = note;
         order.tag = tag;

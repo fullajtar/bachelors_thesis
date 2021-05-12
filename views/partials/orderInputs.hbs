@@ -12,13 +12,13 @@
         <p>IČDPH: {{this.company.supplierIcDph}}</p>
         <p>Register: {{this.company.supplierRegister}}</p>
         <a class="text-xs logoColourText underline hover:text-green-700" href="/company">Zmeniť údaje</a><br>
-        <label for="supplierSwift">ÚČET:</label><input list="bank-accounts" class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="supplierSwift" id="supplierSwift" type="text" placeholder="SWIFT" value="{{this.company.bankAccountNumber}}" required minlength="8" maxlength="11"><br>
+        <label for="supplierSwift">ÚČET:</label><input list="bank-accounts" class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="bankAccountNumber" id="bankAccountNumber" type="text" placeholder="Číslo Účtu" value="{{this.bankAccountNumber}}"  required minlength="8" maxlength="11"><br>
         <datalist id="bank-accounts">
             <option value="{{this.company.bankAccountNumber1}}">{{this.company.bankAccountNumber1}}</option>
             <option value="{{this.company.bankAccountNumber2}}">{{this.company.bankAccountNumber2}}</option>
             <option value="{{this.company.bankAccountNumber3}}">{{this.company.bankAccountNumber3}}</option>
         </datalist>
-        <label for="supplierBank">Banka:</label><input list="bank-names" class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="supplierBank" id="supplierBank" type="text" placeholder="Moja Banka, a.s." value="{{this.company.supplierBank}}" required><br>
+        <label for="supplierBank">Banka:</label><input list="bank-names" class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="bank" id="bank" type="text" placeholder="Moja Banka, a.s." value="{{this.bank}}" required><br>
         <datalist id="bank-names">
             <option value="{{this.company.supplierBank1}}">{{this.company.supplierBank1}}</option>
             <option value="{{this.company.supplierBank2}}">{{this.company.supplierBank2}}</option>

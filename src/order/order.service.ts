@@ -128,6 +128,7 @@ export class OrderService {
         const {
             currency,
             orderName,
+            bank,
             bankAccountNumber,
             iban,
             note,
@@ -145,6 +146,7 @@ export class OrderService {
         order.dateOfIssue = dateOfIssue;
         order.currency = currency;
         order.orderName = orderName;
+        order.bank = bank;
         order.bankAccountNumber = bankAccountNumber;
         order.iban = iban;
         order.note = note;

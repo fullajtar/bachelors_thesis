@@ -11,9 +11,14 @@ spravit IBA PREHLAD zamestnancov                                                
 export do pdf: cez printcss/server-side                                                                                 1 den
 company.swift - pravdepodobne zbytocne, asi sa moze zmazat
 autorizacia pouzivatela                                                                                                 ? dni
+paddingy na inputy
 
 BUGS:
 neda sa zmenit zakazku, tag, poznamku                                                                                   30 minut
 "zmenit udaje" odkazuje na neexistujucu uri
 zobrazenie deailu faktury nevypisuje zakladne info o company                                                            1 hodina
 niektore tabulky nemaju vsetky potrebne stlpce (kvoli bugu v DB)                                                        1-2 hodiny
+https://ctrlv.sk/0DBZ
+platitel dbph checkbox nefunguje
+
+                                                                                                                        5-7 dni

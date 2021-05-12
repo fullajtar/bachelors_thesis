@@ -21,6 +21,9 @@ export class Order extends BaseEntity {
     orderName: string;
 
     @Column()
+    bank: string;
+
+    @Column()
     bankAccountNumber: string; //cislo uctu
 
     @Column()

@@ -14,6 +14,9 @@ export class CreateOrderDto {
     @IsNotEmpty()
     orderName: string;
 
+    @IsNotEmpty()
+    bank: string;
+
     @IsOptional()
     @IsNotEmpty()
     bankAccountNumber: string; //cislo uctu
