@@ -39,13 +39,18 @@ export class CompanyService {
             supplierFoundedIn,
             supplierIco,
             supplierDic,
-            supplierBank,
-            supplierSwift,
             supplierIcDph,
             supplierRegister,
             supplierPayingTax,
-            bankAccountNumber,
-            iban,
+            supplierBank1,
+            bankAccountNumber1,
+            iban1,
+            supplierBank2,
+            bankAccountNumber2,
+            iban2,
+            supplierBank3,
+            bankAccountNumber3,
+            iban3,
         } = createCompanyDto;
         const company = await this.getMyCompany(user);
         company.supplierName = supplierName;
@@ -56,13 +61,21 @@ export class CompanyService {
         company.supplierFoundedIn = supplierFoundedIn;
         company.supplierIco = supplierIco;
         company.supplierDic = supplierDic;
-        company.supplierBank = supplierBank;
-        company.supplierSwift = supplierSwift;
         company.supplierIcDph = supplierIcDph;
         company.supplierRegister = supplierRegister;
         company.supplierPayingTax = supplierPayingTax;
-        company.bankAccountNumber = bankAccountNumber;
-        company.iban = iban;
+
+        company.supplierBank1 = supplierBank1;
+        company.bankAccountNumber1 = bankAccountNumber1;
+        company.iban1 = iban1;
+
+        company.supplierBank2 = supplierBank2;
+        company.bankAccountNumber2 = bankAccountNumber2;
+        company.iban2 = iban2;
+
+        company.supplierBank3 = supplierBank3;
+        company.bankAccountNumber3 = bankAccountNumber3;
+        company.iban3 = iban3;
 
         await company.save()
 

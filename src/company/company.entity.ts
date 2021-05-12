@@ -30,19 +30,13 @@ export class Company extends BaseEntity {
     supplierFoundedIn: Date;
 
     @Column()
-    supplierIco: number;
+    supplierIco: string;
 
     @Column()
-    supplierDic: number;
+    supplierDic: string;
 
-    @Column()
-    supplierBank: string;
 
-    @Column()
-    bankAccountNumber: string;
 
-    @Column()
-    supplierSwift: string;
 
     @Column()
     supplierIcDph: string;
@@ -51,10 +45,46 @@ export class Company extends BaseEntity {
     supplierRegister: string;
 
     @Column()
-    supplierPayingTax: string;
+    supplierPayingTax: boolean;
 
     @Column()
-    iban: string;
+    supplierBank1: string;
+
+    @Column()
+    bankAccountNumber1: string;
+
+    @Column()
+    iban1: string;
+
+    @Column({
+        nullable: true,
+    })
+    supplierBank2: string;
+
+    @Column({
+        nullable: true,
+    })
+    bankAccountNumber2: string;
+
+    @Column({
+            nullable: true,
+    })
+    iban2: string;
+
+    @Column({
+        nullable: true,
+    })
+    supplierBank3: string;
+
+    @Column({
+        nullable: true,
+    })
+    bankAccountNumber3: string;
+
+    @Column({
+        nullable: true,
+    })
+    iban3: string;
 
     @OneToMany(
         (type) => Invoice,

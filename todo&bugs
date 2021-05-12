@@ -8,6 +8,8 @@ nastylovat tabulky faktur/objednavok
 vytvorenie faktury z objednavky
 spravit IBA PREHLAD zamestnancov
 export do pdf: cez printcss/server-side
+company.swift - pravdepodobne zbytocne, asi sa moze zmazat
 
 BUGS:
 neda sa zmenit zakazku, tag, poznamku
+"zmenit udaje" odkazuje na neexistujucu uri

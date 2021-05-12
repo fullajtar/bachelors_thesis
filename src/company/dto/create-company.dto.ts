@@ -21,17 +21,12 @@ export class CreateCompanyDto {
     supplierFoundedIn: Date;
 
     @IsNotEmpty()
-    supplierIco: number;
+    supplierIco: string;
 
     @IsNotEmpty() //10-digit
-    supplierDic: number;
+    supplierDic: string;
 
-    @IsOptional()
-    @IsNotEmpty()
-    supplierBank: string;
 
-    @IsNotEmpty()
-    supplierSwift: string;
 
     @IsOptional()
     @IsNotEmpty()
@@ -41,11 +36,39 @@ export class CreateCompanyDto {
     supplierRegister: string;
 
     @IsNotEmpty()
-    supplierPayingTax: string;
+    supplierPayingTax: boolean;
+
+
+
+
 
     @IsNotEmpty()
-    iban: string;
+    supplierBank1: string;
 
     @IsNotEmpty()
-    bankAccountNumber: string;
+    bankAccountNumber1: string;
+
+    @IsNotEmpty()
+    iban1: string;
+
+    @IsOptional()
+    supplierBank2: string;
+
+    @IsOptional()
+    bankAccountNumber2: string;
+
+    @IsOptional()
+    iban2: string;
+
+    @IsOptional()
+    supplierBank3: string;
+
+    @IsOptional()
+    bankAccountNumber3: string;
+
+    @IsOptional()
+    iban3: string;
+
+
+
 }
