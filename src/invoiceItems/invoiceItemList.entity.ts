@@ -23,7 +23,9 @@ export class InvoiceItemList extends BaseEntity {
   // })
   // order: Order;
 
-  @Column()
+  @Column(
+      "decimal", {scale: 2}
+  )
   quantity: number;
 
   @Column()

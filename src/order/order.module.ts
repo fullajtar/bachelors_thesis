@@ -12,13 +12,15 @@ import {ItemRepository} from "../Items/item.repository";
 import {ItemService} from "../Items/item.service";
 import {CompanyRepository} from "../company/company.repository";
 import {CompanyService} from "../company/company.service";
+import {EmployeeRepository} from "../employee/employee.repository";
+import {EmployeeService} from "../employee/employee.service";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([OrderRepository, CustomerRepository, InvoiceItemListRepository, ItemRepository, CompanyRepository]),
+        TypeOrmModule.forFeature([OrderRepository, CustomerRepository, InvoiceItemListRepository, ItemRepository, CompanyRepository, EmployeeRepository]),
         AuthModule,
     ],
     controllers: [OrderController],
-    providers: [OrderService, CustomerService, InvoiceItemListsService, ItemService, CompanyService],
+    providers: [OrderService, CustomerService, InvoiceItemListsService, ItemService, CompanyService, EmployeeService],
 })
 export class OrderModule {}

@@ -13,6 +13,10 @@ import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service"
 import {User} from "../auth/user.entity";
 import {Invoice} from "../invoices/invoice.entity";
 import {CompanyService} from "../company/company.service";
+import {CreateInvoiceDto} from "../invoices/dto/create-invoice.dto";
+import {InvoicePatchValidationPipe} from "../invoices/pipes/invoice-patch-validation.pipe";
+import {InvoicePaymentEnum} from "../invoices/invoice-payment.enum";
+import {EmployeeService} from "../employee/employee.service";
 
 @Controller('order')
 export class OrderController{
@@ -21,6 +25,7 @@ export class OrderController{
         private customerService: CustomerService,
         private companyService: CompanyService,
         private invoicesListService: InvoiceItemListsService,
+        private employeeService: EmployeeService,
     ) {}
     @Get()
     @Render('orders/orders.hbs')
@@ -74,6 +79,28 @@ export class OrderController{
         company.id = 1;
         console.log(await this.orderService.getOrderById(company, id));
         return this.orderService.getOrderById(company, id);
+    }
+
+    @Post('/:id')
+    @Render('invoices/invoice-detail.hbs')
+    async editOrder(
+        @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
+        @Body() createItemDto: CreateItemDto,
+        @Body() createCustomerDto: CreateCustomerDto,
+        @Body() createEmployeeDto: CreateEmployeeDto,
+        @Body() createOrderDto: CreateOrderDto,
+        @Param('invoiceId', ParseIntPipe) invoiceId: number,
+        @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
+    ): Promise<Order> {
+        const company = new Company();
+        company.id = 1;
+        console.log('DTO: ', createEmployeeDto)
+        const customer = await this.customerService.createCustomer(company, createCustomerDto);
+        let employee = await this.employeeService.findDuplicity(company, createEmployeeDto);
+        if (employee == null){
+            employee = await this.employeeService.createEmployee(company, createEmployeeDto);
+        }
+        return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
     }
 
 }
