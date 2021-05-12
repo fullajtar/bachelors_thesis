@@ -1,5 +1,4 @@
-import {IsNotEmpty, IsOptional, LENGTH, MAX} from "class-validator";
-import {Column} from "typeorm";
+import {IsNotEmpty, IsOptional} from "class-validator";
 
 export class CreateCompanyDto {
 

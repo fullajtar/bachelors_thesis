@@ -1,7 +1,6 @@
 import {Order} from "./oder.entity";
 import {EntityRepository, getConnection, Repository} from "typeorm";
 import {CreateOrderDto} from "./dto/create-order.dto";
-import {Employee} from "../employee/employee.entity";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 import {InvoiceItemList} from "../invoiceItems/invoiceItemList.entity";
@@ -27,6 +26,7 @@ export class OrderRepository extends Repository<Order> {
         company: Company,
         createOrderDto: CreateOrderDto,
         itemLists: InvoiceItemList[],
+        customer: Customer,
     ): Promise<Order> {
 
         const {
@@ -42,6 +42,9 @@ export class OrderRepository extends Repository<Order> {
             customerName,
             customerSurname,
             customerTitleAfter,
+            stamp,
+            signature,
+            paymentMethod,
         } = createOrderDto;
 
         const order = new Order();
@@ -59,11 +62,15 @@ export class OrderRepository extends Repository<Order> {
         order.customerName = customerName;
         order.customerSurname = customerSurname;
         order.customerTitleAfter = customerTitleAfter;
+        order.paymentMethod = paymentMethod;
+        order.stamp = stamp;
+        order.signature = signature;
 
 
         //relations
         order.company = company;
         order.invoiceItemLists = itemLists;
+        order.customer = customer;
 
         await getConnection().manager.save(order);
         return order;

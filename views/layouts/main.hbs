@@ -14,11 +14,14 @@
 
 <body class="grid grid-cols-12 bg-gray-200 min-h-screen">
 
-{{> navigation}}
+<aside class="col-span-2">
+    {{> navigation}}
+</aside>
 
-<div class="col-span-10 p-6">
+
+<main class="col-span-10 p-6">
     {{{body}}}
-</div>
+</main>
 
 <!--
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>

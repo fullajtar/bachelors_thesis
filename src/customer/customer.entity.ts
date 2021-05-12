@@ -1,6 +1,7 @@
-import {BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Company} from "../company/company.entity";
 import {Invoice} from "../invoices/invoice.entity";
+import {Order} from "../order/oder.entity";
 
 @Entity()
 export class Customer extends BaseEntity{
@@ -19,7 +20,14 @@ export class Customer extends BaseEntity{
         (invoice) => invoice.customer,
         {eager: false}
     )
-    clientOrders: Invoice[];
+    clientOrders: Invoice[]; //TODO retardovany nazov premennej -> zmenit
+
+    @OneToMany(
+        (type) => Order,
+        (order) => order.customer,
+        {eager: false}
+    )
+    customerOrders: Order[]; //TODO retardovany nazov premennej -> zmenit
 
     @Column()
     clientName: string;

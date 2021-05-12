@@ -1,5 +1,5 @@
-import { BadRequestException, PipeTransform } from "@nestjs/common";
-import { InvoicePaymentEnum } from "../invoice-payment.enum";
+import {BadRequestException, PipeTransform} from "@nestjs/common";
+import {InvoicePaymentEnum} from "../invoice-payment.enum";
 
 export class InvoicePaymentMethodValidationPipe implements PipeTransform {
     readonly allowedStatuses = [
@@ -7,6 +7,7 @@ export class InvoicePaymentMethodValidationPipe implements PipeTransform {
         InvoicePaymentEnum.POST_COUPON,
         InvoicePaymentEnum.PROMISSORY_NOTE,
         InvoicePaymentEnum.TRANSFER,
+        InvoicePaymentEnum.CARD,
     ];
 
     transform(value: any) {

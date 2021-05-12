@@ -1,12 +1,10 @@
 import {Injectable, NotFoundException} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {InvoiceItemListRepository} from "./invoiceItemList.repository";
-import {Invoice} from "../invoices/invoice.entity";
 import {InvoiceItemList} from "./invoiceItemList.entity";
 import {CreateInvoiceItemListDto} from "./dto/create-invoiceItemList.dto";
 import {Company} from "../company/company.entity";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
-import {Item} from "../Items/item.entity";
 import {ItemService} from "../Items/item.service";
 
 @Injectable()

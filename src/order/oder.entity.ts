@@ -1,7 +1,6 @@
 import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn,} from 'typeorm';
 
 import {InvoiceItemList} from '../invoiceItems/invoiceItemList.entity';
-import {Employee} from '../employee/employee.entity';
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 
@@ -46,7 +45,16 @@ export class Order extends BaseEntity {
     customerTitleAfter: string;
 
     @Column()
+    paymentMethod: string;
+
+    @Column()
     deliveryMethod: string;
+
+    @Column()
+    stamp: string;
+
+    @Column()
+    signature: string;
 
     @OneToMany( //TODO edit services of itemLists
         (type) => InvoiceItemList,
@@ -62,9 +70,10 @@ export class Order extends BaseEntity {
     )
     company: Company;
 
-    @Column()
-    stamp: string;
-
-    @Column()
-    signature: string;
+    @ManyToOne(
+        (type) => Customer,
+        (customer) => customer.customerOrders,
+        {eager: true}
+    )
+    customer: Customer;
 }

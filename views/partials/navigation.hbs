@@ -1,4 +1,4 @@
-    <header class="h-full col-span-2 bg-gray-600 p-4 flex flex-col justify-between ">
+    <header class="h-screen col-span-2 bg-gray-600 p-4 flex flex-col justify-between sticky top-0">
         <div class="flex-col">
             <div class="flex flex-row items-center">
                 <a href="#">
@@ -8,16 +8,15 @@
                     <p class="text-white">Prihlásený:</p>
                     <p class="text-white">Anon Anonymous</p>
                 </div>
-
             </div>
 
             <div id="myDIV" class="px-2 pt-2 pb-4">
                 <a href="#" class="block px-2 py-1 text-white font-semibold rounded hover:bg-gray-500">Prehľad</a>
                 <a href="/invoices" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Faktúry</a>
-                <a href="#" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Objednávky</a>
-                <a href="/invoices/employee/get" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Zamestnanci</a>
-                <a href="/invoices/items/get" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Položky</a>
-                <a href="/invoices/company/info" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Moja Firma</a>
+                <a href="/order" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Objednávky</a>
+                <a href="/employee" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Zamestnanci</a>
+                <a href="/item" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Položky</a>
+                <a href="/company" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Moja Firma</a>
             </div>
         </div>
 
@@ -58,7 +57,7 @@
         console.log('DOM fully loaded and parsed');
             const elements = document.getElementById('myDIV').childNodes
             for (const element of elements){
-                if (window.location.href === element.href){
+                if (window.location.href.includes(element.href)){
                     element.className += " logoColourBackground";
                     return
                 }

@@ -1,10 +1,10 @@
-import {BaseEntity, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Invoice} from "../invoices/invoice.entity";
 import {Customer} from "../customer/customer.entity";
 import {Item} from "../Items/item.entity";
 import {Employee} from "../employee/employee.entity";
 import {User} from "../auth/user.entity";
-import {IsNotEmpty} from "class-validator";
+import {Order} from "../order/oder.entity";
 
 @Entity()
 export class Company extends BaseEntity {
@@ -63,12 +63,12 @@ export class Company extends BaseEntity {
         )
     invoices: Invoice[];
 
-    // @OneToMany(
-    //     (type) => Order,
-    //     (order) => order.company,
-    //     {}
-    // )
-    // orders: Order[];
+    @OneToMany(
+        (type) => Order,
+        (order) => order.company,
+        {}
+    )
+    orders: Order[];
 
 
     @OneToMany(

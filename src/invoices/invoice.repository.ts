@@ -15,6 +15,7 @@ export class InvoiceRepository extends Repository<Invoice> {
         InvoicePaymentEnum.POST_COUPON,
         InvoicePaymentEnum.PROMISSORY_NOTE,
         InvoicePaymentEnum.TRANSFER,
+        InvoicePaymentEnum.CARD,
     ];
 
     async getInvoices(
@@ -70,7 +71,7 @@ export class InvoiceRepository extends Repository<Invoice> {
             variableSymbol,
             specificSymbol,
             constantSymbol,
-            body,
+            tag,
             note,
             dateOfIssue,
             deliveryDate,
@@ -97,7 +98,7 @@ export class InvoiceRepository extends Repository<Invoice> {
         invoice.variableSymbol = variableSymbol;
         invoice.specificSymbol = specificSymbol;
         invoice.constantSymbol = constantSymbol;
-        invoice.body = body;
+        invoice.tag = tag;
         invoice.note = note;
         invoice.deposit = deposit;
         invoice.deliveryMethod = deliveryMethod;

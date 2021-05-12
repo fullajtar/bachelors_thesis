@@ -3,8 +3,6 @@ import {Employee} from "./employee.entity";
 import {CreateEmployeeDto} from "./dto/create-employee.dto";
 import {GetEmployeeFilterDto} from "./dto/get-employee-filter.dto";
 import {Company} from "../company/company.entity";
-import {CreateItemDto} from "../Items/dto/create-item.dto";
-import {Item} from "../Items/item.entity";
 
 @EntityRepository(Employee)
 export class EmployeeRepository extends Repository<Employee>{

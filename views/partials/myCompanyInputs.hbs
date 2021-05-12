@@ -45,7 +45,8 @@
     div.settings label:after { content: ":"; }
 </style>
 
-<div class="settings"><label for="supplierName">Názov firmy</label><input
+<div class="settings">
+    <label for="supplierName">Názov firmy</label><input
         class="border-2 border-gray-400 bg-gray-300 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm ml-1"
         name="supplierName" id="supplierName" type="text" value="{{this.supplierName}}" placeholder="Názov firmy">
     <label for="street">Ulica</label><input
@@ -71,6 +72,8 @@
             class="border-2 border-gray-400 bg-gray-300 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm ml-1"
             name="supplierDic" id="supplierDic" type="number" value="{{this.supplierDic}}" placeholder="DIČ"
             maxlength="10" minlength="10">
+<!--</div>-->
+<!--<div class="settings">-->
     <label for="supplierBank">Banka</label><input
             class="border-2 border-gray-400 bg-gray-300 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm ml-1"
             name="supplierBank" id="supplierBank" type="text" value="{{this.supplierBank}}" placeholder="Banka">

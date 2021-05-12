@@ -1,6 +1,5 @@
 import {EntityRepository, Repository} from "typeorm";
 import {InvoiceItemList} from "./invoiceItemList.entity";
-import {Invoice} from "../invoices/invoice.entity";
 import {CreateInvoiceItemListDto} from "./dto/create-invoiceItemList.dto";
 import {Company} from "../company/company.entity";
 import {Item} from "../Items/item.entity";

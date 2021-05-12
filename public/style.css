@@ -37,3 +37,21 @@
     @apply border-green-700;
     @apply rounded;
 }
+
+.inputStyle{
+    @apply border-2;
+    @apply border-gray-400;
+    @apply bg-gray-200;
+    @apply rounded;
+    @apply mb-0.5;
+    @apply hover:bg-gray-100;
+    @apply hover:shadow-sm;
+}
+
+.align-inputs {
+    display:grid;
+    grid-template-columns: max-content auto;
+    grid-gap:5px;
+}
+.align-inputs label       { text-align:right; }
+.align-inputs label:after { content: ":"; }

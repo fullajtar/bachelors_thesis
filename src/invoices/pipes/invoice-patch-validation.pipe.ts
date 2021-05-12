@@ -7,6 +7,7 @@ export class InvoicePatchValidationPipe implements PipeTransform {
         InvoicePaymentEnum.POST_COUPON,
         InvoicePaymentEnum.PROMISSORY_NOTE,
         InvoicePaymentEnum.TRANSFER,
+        InvoicePaymentEnum.CARD,
     ];
 
 

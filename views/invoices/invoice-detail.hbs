@@ -4,16 +4,16 @@
 
 <script src="/tooltipInput.js" ></script>
 
-<body  >
-<h1>Detail faktúry</h1>
-<div class="a4 relative h-screen border-black border-4 text-sm font-sans bg-white ">
-    <form class="" id="itemForm" action="/invoices/{{this.id}}" method="POST">
-        {{> invoiceInputs}}
-    </form>
-
-
+<div class="flex justify-center">
+    <h1>Detail faktúry</h1>
+    <div class="a4 relative h-screen border-black border-4 text-sm font-sans bg-white ">
+        <form class="" id="itemForm" action="/invoices/{{this.id}}" method="POST">
+            {{> invoiceInputs}}
+        </form>
+    </div>
 </div>
-<script src="/script.js"></script>
+
+<script src="/invoice.js"></script>
 
 <script>
 

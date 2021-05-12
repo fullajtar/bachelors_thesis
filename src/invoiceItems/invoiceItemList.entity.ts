@@ -1,6 +1,7 @@
 import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn,} from 'typeorm';
 import {Invoice} from '../invoices/invoice.entity';
 import {Item} from '../Items/item.entity';
+import {Order} from "../order/oder.entity";
 
 @Entity()
 export class InvoiceItemList extends BaseEntity {
@@ -11,6 +12,11 @@ export class InvoiceItemList extends BaseEntity {
     eager: false,
   })
   invoice: Invoice;
+
+  @ManyToOne((type) => Order, (order) => order.invoiceItemLists, {
+    eager: false,
+  })
+  order: Order;
 
   // @ManyToOne((type) => Order, (order) => order.invoiceItemLists, {
   //   eager: false,

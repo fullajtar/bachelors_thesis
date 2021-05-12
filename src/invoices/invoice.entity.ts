@@ -17,7 +17,9 @@ export class Invoice extends BaseEntity {
     @Column()
     dueDate: Date;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     deliveryDate: Date;
 
     @Column()
@@ -48,7 +50,7 @@ export class Invoice extends BaseEntity {
     constantSymbol: string;
 
     @Column()
-    body: string;
+    tag: string;
 
     @Column()
     note: string;

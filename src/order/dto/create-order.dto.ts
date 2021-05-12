@@ -1,4 +1,4 @@
-import {IsIBAN, IsNotEmpty, IsOptional, MaxLength} from "class-validator";
+import {IsIBAN, IsNotEmpty, IsOptional} from "class-validator";
 import {Column} from "typeorm";
 
 export class CreateOrderDto {
@@ -50,6 +50,15 @@ export class CreateOrderDto {
 
     @IsNotEmpty()
     deliveryMethod: string;
+
+    @Column()
+    paymentMethod: string;
+
+    @IsNotEmpty()
+    stamp: string;
+
+    @IsNotEmpty()
+    signature: string;
 
 
 

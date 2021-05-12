@@ -19,8 +19,9 @@
                 <th>Dátum vystavenia</th>
                 <th>Zákazník</th>
                 <th>Zákazka</th>
-                <th>Suma</th>
+                <th>Suma <p class="font-light text-xs inline">bez DPH</p></th>
                 <th>Vystavil</th>
+                <th>Tag</th>
             </tr>
         </thead>
         <tbody>
@@ -33,6 +34,7 @@
                     <td>{{this.invoiceName}}</td>
                     <td>{{priceWithoutTax this}}</td>
                     <td>{{this.issuedBy.name}}</td>
+                    <td>{{this.tag}}</td>
                 </tr>
                 {{/if}}
             {{/each}}

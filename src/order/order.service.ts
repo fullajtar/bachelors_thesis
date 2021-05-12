@@ -8,6 +8,7 @@ import {Order} from "./oder.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
+import {Customer} from "../customer/customer.entity";
 
 
 @Injectable()
@@ -42,34 +43,35 @@ export class OrderService {
         createInvoiceDto: CreateOrderDto,
         createItemDto: CreateItemDto,
         createInvoiceItemListDto: CreateInvoiceItemListDto,
+        customer: Customer,
     ): Promise<Order> {
-        let addedItemsCount = createItemDto.itemName.length;
         let itemLists = [];
-        for (let i =0; i<addedItemsCount; i++){
-            let newItemDto = new CreateItemDto();
-            newItemDto.itemName = createItemDto.itemName[i];
-            newItemDto.itemTax = createItemDto.itemTax[i];
-            newItemDto.itemPriceWithoutTax = createItemDto.itemPriceWithoutTax[i];
-            newItemDto.itemUnit = createItemDto.itemUnit[i];
-            newItemDto.itemNote = createItemDto.itemNote[i];
-            newItemDto.itemBody =createItemDto.itemBody[i];
-            newItemDto.itemBarcode = createItemDto.itemBarcode[i];
+        if (createItemDto.itemName != null){
+            let addedItemsCount = createItemDto.itemName.length;
+            for (let i =0; i<addedItemsCount; i++){
+                let newItemDto = new CreateItemDto();
+                newItemDto.itemName = createItemDto.itemName[i];
+                newItemDto.itemTax = createItemDto.itemTax[i];
+                newItemDto.itemPriceWithoutTax = createItemDto.itemPriceWithoutTax[i];
+                newItemDto.itemUnit = createItemDto.itemUnit[i];
+                newItemDto.itemNote = createItemDto.itemNote[i];
+                newItemDto.itemBody =createItemDto.itemBody[i];
+                newItemDto.itemBarcode = createItemDto.itemBarcode[i];
 
-            let newInvoiceItemListDto = new CreateInvoiceItemListDto();
-            newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
-            newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
+                let newInvoiceItemListDto = new CreateInvoiceItemListDto();
+                newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
+                newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
 
-            if (! Array.isArray(createItemDto.itemName)) {
-                newItemDto = createItemDto;
-                newInvoiceItemListDto = createInvoiceItemListDto;
-                i = addedItemsCount; //prevent saving multiple items if there is only 1 (if saving only one item 'i' represents length of string, not array)
+                if (! Array.isArray(createItemDto.itemName)) {
+                    newItemDto = createItemDto;
+                    newInvoiceItemListDto = createInvoiceItemListDto;
+                    i = addedItemsCount; //prevent saving multiple items if there is only 1 (if saving only one item 'i' represents length of string, not array)
+                }
+                const item = await this.invoiceItemListsService.createInvoiceItemList( company, newInvoiceItemListDto, newItemDto );
+                itemLists.push(item);
             }
-            const item = await this.invoiceItemListsService.createInvoiceItemList( company, newInvoiceItemListDto, newItemDto );
-            itemLists.push(item);
         }
-
-
-        return this.orderRepository.createOrder(company, createInvoiceDto, itemLists); //add item lists
+        return this.orderRepository.createOrder(company, createInvoiceDto, itemLists, customer); //add item lists
     }
 
     async deleteOrder(
@@ -90,30 +92,34 @@ export class OrderService {
         createItemDto: CreateItemDto,
         createInvoiceItemListDto: CreateInvoiceItemListDto,
     ): Promise<Order> {
-        let addedItemsCount = createItemDto.itemName.length;
         let itemLists = [];
-        for (let i =0; i<addedItemsCount; i++){
-            let newItemDto = new CreateItemDto();
-            newItemDto.itemName = createItemDto.itemName[i];
-            newItemDto.itemTax = createItemDto.itemTax[i];
-            newItemDto.itemPriceWithoutTax = createItemDto.itemPriceWithoutTax[i];
-            newItemDto.itemUnit = createItemDto.itemUnit[i];
-            newItemDto.itemNote = createItemDto.itemNote[i];
-            newItemDto.itemBody =createItemDto.itemBody[i];
-            newItemDto.itemBarcode = createItemDto.itemBarcode[i];
 
-            let newInvoiceItemListDto = new CreateInvoiceItemListDto();
-            newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
-            newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
+        if (createItemDto.itemName != null){
+            let addedItemsCount = createItemDto.itemName.length;
+            for (let i =0; i<addedItemsCount; i++){
+                let newItemDto = new CreateItemDto();
+                newItemDto.itemName = createItemDto.itemName[i];
+                newItemDto.itemTax = createItemDto.itemTax[i];
+                newItemDto.itemPriceWithoutTax = createItemDto.itemPriceWithoutTax[i];
+                newItemDto.itemUnit = createItemDto.itemUnit[i];
+                newItemDto.itemNote = createItemDto.itemNote[i];
+                newItemDto.itemBody =createItemDto.itemBody[i];
+                newItemDto.itemBarcode = createItemDto.itemBarcode[i];
 
-            if (! Array.isArray(createItemDto.itemName)) {
-                newItemDto = createItemDto;
-                newInvoiceItemListDto = createInvoiceItemListDto;
-                i = addedItemsCount; //prevent saving multiple items if there is only 1 (if saving only one item 'i' represents length of string, not array)
+                let newInvoiceItemListDto = new CreateInvoiceItemListDto();
+                newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
+                newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
+
+                if (! Array.isArray(createItemDto.itemName)) {
+                    newItemDto = createItemDto;
+                    newInvoiceItemListDto = createInvoiceItemListDto;
+                    i = addedItemsCount; //prevent saving multiple items if there is only 1 (if saving only one item 'i' represents length of string, not array)
+                }
+                const item = await this.invoiceItemListsService.createInvoiceItemList( company, newInvoiceItemListDto, newItemDto );
+                itemLists.push(item);
             }
-            const item = await this.invoiceItemListsService.createInvoiceItemList( company, newInvoiceItemListDto, newItemDto );
-            itemLists.push(item);
         }
+
 
 
         const order= await this.getOrderById(company, id);
@@ -127,12 +133,12 @@ export class OrderService {
             note,
             tag,
             dateOfIssue,
-            deposit,
             deliveryMethod,
             customerTitleBefore,
             customerName,
             customerSurname,
             customerTitleAfter,
+            paymentMethod,
         } = createOrderDto;
 
         //properties
@@ -148,6 +154,7 @@ export class OrderService {
         order.customerName = customerName;
         order.customerSurname = customerSurname;
         order.customerTitleAfter = customerTitleAfter;
+        order.paymentMethod;
 
 
         //relations

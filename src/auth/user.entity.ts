@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, Unique} from "typeorm";
+import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique} from "typeorm";
 import * as bcrypt from "bcrypt";
 import {Company} from "../company/company.entity";
 

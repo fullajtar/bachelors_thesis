@@ -22,7 +22,7 @@ export class AuthController {
 
 
     @Post('/signup')
-    @Redirect('/invoices/company/create')
+    @Redirect('/company/create')
     signUp(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<void> {
 
         return this.authService.signUp(authCredentialsDto);

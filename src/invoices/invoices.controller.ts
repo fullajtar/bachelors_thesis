@@ -1,16 +1,4 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    ParseIntPipe,
-    Post,
-    Query, Redirect,
-    Render,
-    UsePipes,
-    ValidationPipe
-} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query, Render, ValidationPipe} from "@nestjs/common";
 import {InvoicesService} from "./invoices.service";
 import {CreateInvoiceDto} from "./dto/create-invoice.dto";
 import {InvoicePatchValidationPipe} from "./pipes/invoice-patch-validation.pipe";
@@ -22,19 +10,13 @@ import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service"
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
 import {ItemService} from "../Items/item.service";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
-import {Item} from "../Items/item.entity";
-import {GetItemsFilterDto} from "../Items/dto/get-items-filter.dto";
 import {CreateEmployeeDto} from "../employee/dto/create-employee.dto";
 import {EmployeeService} from "../employee/employee.service";
-import {Employee} from "../employee/employee.entity";
-import {GetEmployeeFilterDto} from "../employee/dto/get-employee-filter.dto";
 import {Company} from "../company/company.entity";
-import {CreateCompanyDto} from "../company/dto/create-company.dto";
 import {CompanyService} from "../company/company.service";
-import {User} from "../auth/user.entity";
 import {CustomerService} from "../customer/customer.service";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
-
+import {User} from "../auth/user.entity";
 
 @Controller('invoices')
 //@UseGuards(AuthGuard())
@@ -48,7 +30,6 @@ export class InvoicesController {
         private customerService: CustomerService,
     ) {}
 
-
     @Get()
     @Render('invoices/invoices.hbs')
     getInvoices(
@@ -58,7 +39,19 @@ export class InvoicesController {
         company.id = 1;
         return this.invoicesService.getInvoices(company, filterDto); //.then((result) => result ? { invoices: result } : { invoices: [] } );
     }
-
+    @Get('/create')
+    @Render('invoices/create-invoice.hbs')
+    async createInvoiceForm(){ //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+        const user = new User();
+        user.id = 1;
+        const company = new Company();
+        company.id = 1;
+        user.company = company;
+        const invoice = new Invoice();
+        invoice.company = await this.companyService.getMyCompany(user);
+        console.log(invoice)
+        return invoice;
+    }
 
     @Post('/create')
     //@UsePipes(ValidationPipe)
@@ -81,14 +74,6 @@ export class InvoicesController {
         }
         return this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, employee, customer);
     }
-
-
-    @Get('/create')
-    @Render('invoices/create-invoice.hbs')
-    createInvoiceForm(){ //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
-        return;
-    }
-
 
     @Post('/:invoiceId')
     @Render('invoices/invoice-detail.hbs')
@@ -116,36 +101,10 @@ export class InvoicesController {
     @Render('invoices/invoice-detail.hbs')
     getInvoiceById(
         @Param('id', ParseIntPipe) id: number,
-    ): Promise<Invoice> {
+    ): Promise<Invoice> { //TODO: vracat aj entitu company aby sa zobrazovali zakladne udaje
         const company = new Company();
         company.id = 1;
         return this.invoicesService.getInvoiceById(company, id);
-    }
-
-
-
-
-
-    @Get('/items/get')
-    @Render('items/items.hbs')
-    getItems(
-        @Query(ValidationPipe) filterDto: GetItemsFilterDto,
-    ): Promise<Item[]> {
-        const company = new Company();
-        company.id = 1;
-        return this.itemService.getItems(company, filterDto);
-    }
-
-
-
-    @Post('/item/create')
-    @UsePipes(ValidationPipe)
-    CreateItem(
-        @Body() createItemDto: CreateItemDto,
-    ): Promise<Item> {
-        const company = new Company();
-        company.id = 1;
-        return this.itemService.createItem(company, createItemDto);
     }
 
     @Delete('/:id')
@@ -156,72 +115,4 @@ export class InvoicesController {
         company.id = 1;
         return this.invoicesService.deleteInvoice(company, id);
     }
-
-    @Get('/company/create')
-    @Render('company/myCompany.hbs')
-    createMyCompanyForm(){
-        return;
-    }
-
-    @Post('/company/create')
-    @Redirect('/invoices')
-    @UsePipes(ValidationPipe)
-    createMyCompany(
-        @Body(ValidationPipe) createCompanyDto: CreateCompanyDto,
-    ): Promise<Company>{
-        const user = new User();
-        user.id = 1;
-        return this.companyService.createMyCompany(user, createCompanyDto);
-    }
-
-    @Get('/company/info')
-    @Render('company/editMyCompany.hbs')
-    getMyCompany(
-        //get user
-    ): Promise<Company>{
-        const user = new User();
-        user.id = 1;
-        const company = new Company();
-        company.id = 1;
-        user.company = company;
-        return this.companyService.getMyCompany(user);
-    }
-
-    @Post('/company/edit')
-    @Render('company/editMyCompany.hbs')
-    editMyCompany(
-        @Body() createCompanyDto: CreateCompanyDto,
-        //get company
-    ): Promise<Company> {
-        const user = new User();
-        user.id = 1;
-        const company = new Company();
-        company.id = 1;
-        user.company = company;
-        return this.companyService.editMyCompany(user, createCompanyDto);
-    }
-// WITHOUT RENDER PAGES--------------------------
-
-    // EMPLOYEE---------------------------------------------------------------------------------------------
-    @Post('/employee/post')
-    @UsePipes(ValidationPipe)
-    createEmployee(
-        @Body() createEmployeeDto: CreateEmployeeDto,
-    ): Promise<Employee> {
-        const company = new Company();
-        company.id = 1;
-        return this.employeeService.createEmployee(company, createEmployeeDto);
-    }
-
-
-    @Get('/employee/get')
-    @Render('employee/employees.hbs')
-    getEmployees(
-        @Query(ValidationPipe) filterDto: GetEmployeeFilterDto,
-    ): Promise<Employee[]> {
-        const company = new Company();
-        company.id = 1;
-        return this.employeeService.getEmployees(company, filterDto);
-    }
-
 }

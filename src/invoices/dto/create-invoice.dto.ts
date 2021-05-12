@@ -1,9 +1,6 @@
 import {IsIBAN, IsNotEmpty, IsOptional, MaxLength} from "class-validator";
-import {Column} from "typeorm";
 
 export class CreateInvoiceDto {
-
-
 
     @IsNotEmpty()
     dateOfIssue: Date; //datum vystavenia
@@ -54,7 +51,7 @@ export class CreateInvoiceDto {
 
     @IsOptional()
     @IsNotEmpty()
-    body: string;
+    tag: string;
 
     @IsOptional()
     @IsNotEmpty()

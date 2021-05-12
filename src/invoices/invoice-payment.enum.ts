@@ -3,4 +3,5 @@ export enum InvoicePaymentEnum {
     TRANSFER = 'PREVOD',
     CASH = 'HOTOVOST',
     PROMISSORY_NOTE = 'ZMENKA',
+    CARD = 'KARTA',
 }

@@ -1,3 +1,5 @@
+
+<div class="a4 relative h-screen border-black border-4 text-sm font-sans bg-white">
 <p class="pl-4">Faktúra číslo: {{this.id}}</p>
 <div class="grid grid-cols-2">
     <div class="border-black border-t-2 border-r-2 p-4">
@@ -18,14 +20,16 @@
     <div class="border-black border-t-2 ">
         <div class="grid grid-cols-2" >
             <div class="border-black border-r-2 pl-4">
-                <label for="paymentMethod">Forma úhrady:</label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="paymentMethod" id="paymentMethod" type="text" value="{{this.paymentMethod}}">
-                <!--
-                <select name="paymentMethod" id="paymentMethod" >
+                <label for="paymentMethod">Forma úhrady:</label>
+<!--                <input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="paymentMethod" id="paymentMethod" type="text" value="{{this.paymentMethod}}">-->
+                <select class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="paymentMethod" id="paymentMethod" >
                     <option value="POSTOVA POUKAZKA">Poštová poukážka</option>
                     <option value="PREVOD">Bankový Prevod</option>
                     <option value="HOTOVOST">Hotovosť</option>
                     <option value="ZMENKA">Zmenka</option>
-                </select>--><br>
+                    <option value="KARTA">Karta</option>
+                </select>
+                <br>
                 <label for="deliveryMethod">Spôsob Dopravy:</label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="deliveryMethod" id="deliveryMethod" type="text" placeholder="Spôsob Dopravy" value="{{this.deliveryMethod}}" required><br>
                 <label for="currency">Mena:</label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="currency" id="currency" type="text" placeholder="Mena" value="{{this.currency}}" required>
             </div>
@@ -148,13 +152,22 @@
 </div>
 
 
-<input  name="invoiceName" id="invoiceName" type="hidden" placeholder="" value="-">
-<input  name="body" id="body" type="hidden" placeholder="" value="-">
-<input  name="note" id="note" type="hidden" placeholder="" value="-">
+
 <input  name="bankAccountNumber" id="bankAccountNumber" type="hidden" placeholder="Číslo účtu" value="-" required><br>
 <input  name="clientBank" id="clientBank" type="hidden" placeholder="" value="-">
 <input  name="clientSwift" id="clientSwift" type="hidden" placeholder="" value="-">
 <input  name="clientRegister" id="clientRegister" type="hidden" placeholder="" value="-">
 <input  name="clientPayingTax" id="clientPayingTax" type="hidden" placeholder="" value="-">
 
+
+
+
+</div>
+<div class="align-inputs mt-2">
+    <label for="invoiceName">Zákazka</label><input class="w-1/3 border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="invoiceName" id="invoiceName" type="text" value="{{this.invoiceName}}">
+    <label for="tag">Tag</label><input class="w-1/3 border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="tag" id="tag" type="text" value="{{this.tag}}">
+    <label for="note">Poznámka</label><textarea class="border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="note" id="note" cols="" rows="5">{{this.note}}</textarea>
+
+</div>
 {{> button}}
+
