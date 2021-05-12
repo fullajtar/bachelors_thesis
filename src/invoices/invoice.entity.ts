@@ -55,7 +55,9 @@ export class Invoice extends BaseEntity {
     @Column()
     note: string;
 
-    @Column()
+    @Column(
+        "decimal", {scale: 2}
+    )
     deposit: number;
 
     @Column()

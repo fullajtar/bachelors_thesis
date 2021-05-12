@@ -28,7 +28,9 @@ export class InvoiceItemList extends BaseEntity {
   )
   quantity: number;
 
-  @Column()
+  @Column(
+      "decimal", {scale: 2}
+  )
   discount: number;
 
   @ManyToOne((type) => Item, (item) => item.invoiceItemList, {

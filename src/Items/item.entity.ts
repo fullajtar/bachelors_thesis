@@ -23,13 +23,17 @@ export class Item extends BaseEntity {
   @Column()
   itemBarcode: string;
 
-  @Column()
+  @Column(
+      "decimal", {scale: 2}
+  )
   itemPriceWithoutTax: number;
 
   @Column()
   itemUnit: string;
 
-  @Column()
+  @Column(
+      "decimal", {scale: 2}
+  )
   itemTax: number;
 
   /* //TODO
