@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="utf-8">
+    <title>Auth</title>
+    <!-- <script src="my-helper.js"></script> -->
+</head>
+
+<body>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<table id="fancyTable">
+    <thead>
+    <tr>
+        <th>Číslo</th>
+        <th>Dátum vystavenia</th>
+        <th>Zákazník</th>
+        <th>Zákazka</th>
+        <th>Suma <p class="font-light text-xs inline">bez DPH</p></th>
+        <th>Tag</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each this}}
+        {{#if this.id}}
+            <tr onclick="redirect('/order/{{this.id}}')" class="hover:bg-gray-300 cursor-pointer text-center">
+                <td>{{this.id}}</td>
+                <td> {{dateParse this.dateOfIssue}} </td>
+                <td>{{this.customerTitleBefore}} {{this.customerName}} {{this.customerSurname}} {{this.customerTitleAfter}}</td>
+                <td>{{this.orderName}}</td>
+                <td>{{priceWithoutTax this}}</td>
+                <td>{{this.tag}}</td>
+            </tr>
+        {{/if}}
+    {{/each}}
+    </tbody>
+
+</table>
+<a class="myButtonStyle" href="/order/create">Vytvor Objednávku</a>
+</body>
+<script>$(document).ready(function() {
+    $('#fancyTable').DataTable({
+        "language":{
+            url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Slovak.json"
+        }
+    });
+});
+
+function redirect(path){
+    console.log(path)
+    window.location.href = path;
+}
+
+
+</script>
+
+</html>
