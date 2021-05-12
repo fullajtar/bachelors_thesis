@@ -76,6 +76,9 @@ async function bootstrap() {
                   }
 
                 })
+                if (invoiceEntity.deposit == undefined){
+                  return cost.toFixed(2);
+                }
                 return (cost - invoiceEntity.deposit).toFixed(2);
               }
             }
@@ -138,7 +141,7 @@ async function bootstrap() {
           },
 
           singleItemWithTax(vat, priceForUnit){
-            const result = priceForUnit * (vat/100) + priceForUnit;
+            const result = priceForUnit * (vat/100) + parseInt(priceForUnit);
             return result.toFixed(2);
           },
 

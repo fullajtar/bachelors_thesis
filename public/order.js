@@ -163,11 +163,14 @@ function updateSummary(){
 //
 
 
-
+    console.log("1")
     const totalWithVat = document.getElementById('totalSumPrice').innerHTML;
     document.getElementById('summaryWithVat').innerHTML = totalWithVat
-    const tmp = parseFloat(totalWithVat)// - document.getElementById('deposit').value  ;
-    document.getElementById('summaryToPay').innerText = ''+tmp.toFixed(2);
+    console.log("2")
+    // const tmp = parseFloat(totalWithVat)// - document.getElementById('deposit').value  ;
+    // console.log(typeof tmp)
+    document.getElementById('summaryToPay').innerHTML = totalWithVat;
+    console.log("3")
 }
 
 function updatePriceWIthoutVat(){

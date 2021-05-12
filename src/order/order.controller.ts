@@ -77,7 +77,7 @@ export class OrderController{
     @Render('orders/order-detail.hbs')
     async getOrderById(
         @Param('id', ParseIntPipe) id: number,
-    ): Promise<Order> { //TODO: vracat aj entitu company aby sa zobrazovali zakladne udaje
+    ): Promise<Order> {
         const company = new Company();
         company.id = 1;
         console.log(await this.orderService.getOrderById(company, id));

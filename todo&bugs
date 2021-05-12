@@ -1,0 +1,13 @@
+TODO:
+prehlad prijmov
+setnut si aspon 3 bakove ucty kt mozno prepinat
+vymazat obsah kolonky dodavatel
+set nullable na zakazku, tag, poznamku
+lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts
+nastylovat tabulky faktur/objednavok
+vytvorenie faktury z objednavky
+spravit IBA PREHLAD zamestnancov
+export do pdf: cez printcss/server-side
+
+BUGS:
+neda sa zmenit zakazku, tag, poznamku
