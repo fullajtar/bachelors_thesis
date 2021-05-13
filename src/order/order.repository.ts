@@ -44,6 +44,7 @@ export class OrderRepository extends Repository<Order> {
             customerSurname,
             customerTitleAfter,
             paymentMethod,
+            orderNumber,
         } = createOrderDto;
 
         const order = new Order();
@@ -63,6 +64,8 @@ export class OrderRepository extends Repository<Order> {
         order.customerSurname = customerSurname;
         order.customerTitleAfter = customerTitleAfter;
         order.paymentMethod = paymentMethod;
+        order.orderNumber = orderNumber;
+
 
         //relations
         order.company = company;

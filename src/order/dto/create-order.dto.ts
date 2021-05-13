@@ -57,4 +57,7 @@ export class CreateOrderDto {
     @Column()
     paymentMethod: string;
 
+    @IsNotEmpty()
+    orderNumber: string
+
 }

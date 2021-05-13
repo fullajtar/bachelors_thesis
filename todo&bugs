@@ -1,19 +1,17 @@
 TODO:
 prehlad prijmov                                                                                                         4-6 dni
-nastylovat tabulky faktur/objednavok                                                                                    ?
-vytvorenie faktury z objednavky                                                                                         2-3 hodiny
+nastylovat tabulky faktur/objednavok                                                                                    4 hodiny
 spravit IBA PREHLAD zamestnancov                                                                                        1 den
 export do pdf: cez printcss/server-side                                                                                 1 den
-autorizacia pouzivatela                                                                                                 ? dni
+autorizacia pouzivatela                                                                                                 2-4 dni
 paddingy na inputy
 vymazat stlpce ktore su nepouzivane
-generovanie cisla faktury a objednavky
 
 BUGS:
 zobrazenie deailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje)                          1 hodina
-neda sa savnut faktura generovana z objednavky - sql error
+neda sa savnut faktura generovana z objednavky - sql error                                                              ???
 
-                                                                                                                        2-9 dni
+                                                                                                                        9-13 dni
 
 DONE:
 setnut si aspon 3 bakove ucty kt mozno prepinat                                                                         dnes
@@ -26,6 +24,8 @@ neda sa zmenit zakazku, tag, poznamku                                           
 niektore tabulky nemaju vsetky potrebne stlpce (kvoli bugu v DB)                                                        1-2 hodiny
 https://ctrlv.sk/0DBZ
 platitel dbph checkbox nefunguje
+vytvorenie faktury z objednavky                                                                                         2-3 hodiny
+generovanie cisla faktury a objednavky
 
 
 

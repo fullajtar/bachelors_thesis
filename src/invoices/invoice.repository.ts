@@ -84,6 +84,7 @@ export class InvoiceRepository extends Repository<Invoice> {
             pickedUpByName,
             pickedUpBySurname,
             pickedUpByTitleAfter,
+            invoiceNumber,
         } = createInvoiceDto;
 
         const invoice = new Invoice();
@@ -109,7 +110,7 @@ export class InvoiceRepository extends Repository<Invoice> {
         invoice.pickedUpByName = pickedUpByName;
         invoice.pickedUpBySurname = pickedUpBySurname;
         invoice.pickedUpByTitleAfter = pickedUpByTitleAfter;
-
+        invoice.invoiceNumber = invoiceNumber;
 
         //relations
         invoice.company = company;
@@ -136,20 +137,10 @@ export class InvoiceRepository extends Repository<Invoice> {
             bank,
             bankAccountNumber,
             iban,
-            // variableSymbol,
-            // specificSymbol,
-            // constantSymbol,
             tag,
             note,
             dateOfIssue,
-            // deliveryDate,
-            // dueDate,
-            //deposit,
             deliveryMethod,
-            // pickedUpByTitleBefore,
-            // pickedUpByName,
-            // pickedUpBySurname,
-            // pickedUpByTitleAfter,
         } = generateInvoiceFromOrderDto;
 
         const invoice = new Invoice();

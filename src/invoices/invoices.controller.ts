@@ -44,7 +44,7 @@ export class InvoicesController {
     }
     @Get('/create')
     @Render('invoices/create-invoice.hbs')
-    async createInvoiceForm(){ //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+    async createInvoiceForm():Promise<Invoice>{ //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
         const user = new User();
         user.id = 1;
         const company = new Company();
@@ -52,7 +52,7 @@ export class InvoicesController {
         user.company = company;
         const invoice = new Invoice();
         invoice.company = await this.companyService.getMyCompany(user);
-        console.log(invoice)
+        invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
         return invoice;
     }
 

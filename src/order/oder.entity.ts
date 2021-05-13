@@ -58,6 +58,11 @@ export class Order extends BaseEntity {
     @Column()
     deliveryMethod: string;
 
+    @Column({
+        nullable: true,
+    })
+    orderNumber: string;
+
     @OneToMany( //TODO edit services of itemLists
         (type) => InvoiceItemList,
         (invoiceItemList) => invoiceItemList.order,

@@ -9,6 +9,7 @@ import {CreateOrderDto} from "./dto/create-order.dto";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
 import {Customer} from "../customer/customer.entity";
+import {Between} from "typeorm";
 
 
 @Injectable()
@@ -140,6 +141,7 @@ export class OrderService {
             customerSurname,
             customerTitleAfter,
             paymentMethod,
+            orderNumber,
         } = createOrderDto;
 
         //properties
@@ -157,6 +159,7 @@ export class OrderService {
         order.customerSurname = customerSurname;
         order.customerTitleAfter = customerTitleAfter;
         order.paymentMethod = paymentMethod;
+        order.orderNumber = orderNumber;
 
 
         //relations
@@ -167,5 +170,15 @@ export class OrderService {
 
         await order.save();
         return order;
+    }
+
+    async getNewOrderNumber():Promise<string>{
+        const n = new Date().getFullYear();
+        const thisYear = await this.orderRepository.count({
+            where: {
+                dateOfIssue: Between(n+'-01-01  00:00:00.000000', n+'-12-31  23:59:59.000000')
+            }
+        })
+        return thisYear+1+'/'+n;
     }
 }

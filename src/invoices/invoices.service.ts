@@ -13,6 +13,7 @@ import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemLi
 import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
 import {ItemService} from "../Items/item.service";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
+import {Between, getConnection, MoreThan} from "typeorm";
 
 @Injectable()
 export class InvoicesService {
@@ -111,6 +112,7 @@ export class InvoicesService {
             pickedUpByName,
             pickedUpBySurname,
             pickedUpByTitleAfter,
+            invoiceNumber,
 
         } = createInvoiceDto;
 
@@ -135,6 +137,7 @@ export class InvoicesService {
         invoice.pickedUpByName = pickedUpByName;
         invoice.pickedUpBySurname = pickedUpBySurname;
         invoice.pickedUpByTitleAfter = pickedUpByTitleAfter;
+        invoice.invoiceNumber = invoiceNumber;
 
         //relations
         invoice.issuedBy = issuedBy;
@@ -148,7 +151,6 @@ export class InvoicesService {
         await invoice.save();
         return invoice;
     }
-
 
     private async processInvoiceItemList(
         createInvoiceItemListDto,
@@ -182,5 +184,15 @@ export class InvoicesService {
             }
         }
         return itemLists;
+    }
+
+    async getNewInvoiceNumber():Promise<string>{
+        const n = new Date().getFullYear();
+        const thisYear = await this.invoiceRepository.count({
+            where: {
+                dateOfIssue: Between(n+'-01-01  00:00:00.000000', n+'-12-31  23:59:59.000000')
+            }
+        })
+        return thisYear+1+'/'+n;
     }
 }

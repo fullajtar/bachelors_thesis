@@ -100,6 +100,11 @@ export class Invoice extends BaseEntity {
     @Column()
     deliveryMethod: string;
 
+    @Column({
+        nullable: true,
+    })
+    invoiceNumber: string;
+
     @OneToMany(
         (type) => InvoiceItemList,
         (invoiceItemList) => invoiceItemList.invoice,

@@ -44,15 +44,16 @@ export class OrderController{
 
     @Get('/create')
     @Render('orders/create-order.hbs')
-    async createOrderForm(){ //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+    async createOrderForm():Promise<Order>{ //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
         const user = new User();
         user.id = 1;
         const company = new Company();
         company.id = 1;
         user.company = company;
-        const invoice = new Invoice();
-        invoice.company = await this.companyService.getMyCompany(user);
-        return invoice;
+        const order = new Order();
+        order.company = await this.companyService.getMyCompany(user);
+        order.orderNumber = await this.orderService.getNewOrderNumber();
+        return order;
     }
     @Post('/create')
     //@UsePipes(ValidationPipe)
@@ -104,4 +105,5 @@ export class OrderController{
         }
 
     }
+
 }

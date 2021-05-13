@@ -81,6 +81,9 @@ export class CreateInvoiceDto {
     @IsNotEmpty()
     deliveryMethod: string;
 
+    @IsNotEmpty()
+    invoiceNumber: string
+
 
 
 
