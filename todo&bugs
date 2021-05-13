@@ -4,12 +4,14 @@ nastylovat tabulky faktur/objednavok                                            
 spravit IBA PREHLAD zamestnancov                                                                                        1 den
 export do pdf: cez printcss/server-side                                                                                 1 den
 autorizacia pouzivatela                                                                                                 2-4 dni
-paddingy na inputy
-vymazat stlpce ktore su nepouzivane
 
 BUGS:
 zobrazenie deailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje)                          1 hodina
 neda sa savnut faktura generovana z objednavky - sql error                                                              ???
+
+IMPROVE:
+zobrazenie faktury/objednavky lepsie nastylovat checkbox "platitel DPH"
+doplnanie poloziek z DB
 
                                                                                                                         9-13 dni
 
@@ -26,6 +28,8 @@ https://ctrlv.sk/0DBZ
 platitel dbph checkbox nefunguje
 vytvorenie faktury z objednavky                                                                                         2-3 hodiny
 generovanie cisla faktury a objednavky
+paddingy na inputy
+vymazat stlpce ktore su nepouzivane
 
 
 

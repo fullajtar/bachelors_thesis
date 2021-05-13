@@ -9,7 +9,9 @@
         <p>{{this.company.supplierResidence}}</p>
         <p>IČO: {{this.company.supplierIco}}</p>
         <p>DIČ: {{this.company.supplierDic}}</p>
-        <p>Platiteľ DPH: {{this.company.supplierPayingTax}}</p>
+        <label>Platiteľ DPH:
+            <input disabled type="checkbox" {{#if this.company.supplierPayingTax}} checked {{/if}}>
+        </label>
         <p>IČDPH: {{this.company.supplierIcDph}}</p>
         <p>Register: {{this.company.supplierRegister}}</p>
         <a class="text-xs logoColourText underline hover:text-green-700" href="/company">Zmeniť údaje</a><br>
