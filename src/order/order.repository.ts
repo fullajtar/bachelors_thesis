@@ -43,8 +43,6 @@ export class OrderRepository extends Repository<Order> {
             customerName,
             customerSurname,
             customerTitleAfter,
-            stamp,
-            signature,
             paymentMethod,
         } = createOrderDto;
 
@@ -65,9 +63,6 @@ export class OrderRepository extends Repository<Order> {
         order.customerSurname = customerSurname;
         order.customerTitleAfter = customerTitleAfter;
         order.paymentMethod = paymentMethod;
-        order.stamp = stamp;
-        order.signature = signature;
-
 
         //relations
         order.company = company;

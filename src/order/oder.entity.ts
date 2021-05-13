@@ -16,8 +16,9 @@ export class Order extends BaseEntity {
     @Column()
     currency: string;
 
-    //optional
-    @Column()
+    @Column({
+        nullable: true,
+    })
     orderName: string;
 
     @Column()
@@ -29,10 +30,14 @@ export class Order extends BaseEntity {
     @Column()
     iban: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     note: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     tag: string;
 
     @Column()
@@ -52,12 +57,6 @@ export class Order extends BaseEntity {
 
     @Column()
     deliveryMethod: string;
-
-    @Column()
-    stamp: string;
-
-    @Column()
-    signature: string;
 
     @OneToMany( //TODO edit services of itemLists
         (type) => InvoiceItemList,

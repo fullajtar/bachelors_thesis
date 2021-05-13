@@ -156,7 +156,7 @@ export class OrderService {
         order.customerName = customerName;
         order.customerSurname = customerSurname;
         order.customerTitleAfter = customerTitleAfter;
-        order.paymentMethod;
+        order.paymentMethod = paymentMethod;
 
 
         //relations

@@ -12,7 +12,7 @@
         <p>IČDPH: {{this.company.supplierIcDph}}</p>
         <p>Register: {{this.company.supplierRegister}}</p>
         <a class="text-xs logoColourText underline hover:text-green-700" href="/company">Zmeniť údaje</a><br>
-        <label for="supplierSwift">ÚČET:</label><input list="bank-accounts" class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="bankAccountNumber" id="bankAccountNumber" type="text" placeholder="Číslo Účtu" value="{{this.bankAccountNumber}}"  required minlength="8" maxlength="11"><br>
+        <label for="supplierSwift">ÚČET:</label><input list="bank-accounts" class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="bankAccountNumber" id="bankAccountNumber" type="text" placeholder="Číslo Účtu" value="{{this.bankAccountNumber}}"><br>
         <datalist id="bank-accounts">
             <option value="{{this.company.bankAccountNumber1}}">{{this.company.bankAccountNumber1}}</option>
             <option value="{{this.company.bankAccountNumber2}}">{{this.company.bankAccountNumber2}}</option>
@@ -131,8 +131,6 @@
 <div class="grid grid-cols-3 absolute bottom-0 w-full">
     <div class="border-black border-t-2 border-r-2 pl-4">
         <p>Dodávateľ:  </p>
-        <label for="stamp">Pečiatka</label><input type="text" name="stamp" id="stamp" placeholder="Pečiatka" value="{{this.stamp}}" required>
-        <label for="signature">Podpis</label><input type="text" name="signature" id="signature" placeholder="Podpis" value="{{this.signature}}" required>
     </div>
     <div class="border-black border-t-2 border-r-2 pl-4">
         <p>Odberateľ: </p>
@@ -142,21 +140,11 @@
         <label for="customerTitleAfter"></label><input  class="w-8 border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="customerTitleAfter" id="customerTitleAfter" type="text" placeholder="Titul" value="{{this.customerTitleAfter}}" required>
 
     </div>
-    <div >
+    <div>
         <p  class="border-black border-t-2 border-b-2 pl-4">Celková suma: <text id="summaryWithVat">{{priceWithTax this}}</text> {{this.currency}}</p>
-<p class="border-black h-16 pl-4"> K úhrade: <text id="summaryToPay">{{toPay this}}</text> {{this.currency}}</p>
+        <p class="border-black h-16 pl-4"> K úhrade: <text id="summaryToPay">{{toPay this}}</text> {{this.currency}}</p>
     </div>
-
 </div>
-
-
-
-<input  name="bankAccountNumber" id="bankAccountNumber" type="hidden" placeholder="Číslo účtu" value="-" required><br>
-<input  name="clientBank" id="clientBank" type="hidden" placeholder="" value="-">
-<input  name="clientSwift" id="clientSwift" type="hidden" placeholder="" value="-">
-<input  name="clientRegister" id="clientRegister" type="hidden" placeholder="" value="-">
-<input  name="clientPayingTax" id="clientPayingTax" type="hidden" placeholder="" value="-">
-
 
 </div>
 <div class="align-inputs mt-2">

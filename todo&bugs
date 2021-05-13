@@ -1,7 +1,5 @@
 TODO:
-
 prehlad prijmov                                                                                                         4-6 dni
-
 vymazat obsah kolonky dodavatel                                                                                         30 minut
 set nullable na zakazku, tag, poznamku                                                                                  30 minut
 nastylovat tabulky faktur/objednavok                                                                                    ?
@@ -11,6 +9,7 @@ export do pdf: cez printcss/server-side                                         
 company.swift - pravdepodobne zbytocne, asi sa moze zmazat
 autorizacia pouzivatela                                                                                                 ? dni
 paddingy na inputy
+vymazat stlpce ktore su nepouzivane
 
 BUGS:
 neda sa zmenit zakazku, tag, poznamku                                                                                   30 minut

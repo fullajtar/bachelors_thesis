@@ -57,15 +57,4 @@ export class CreateOrderDto {
     @Column()
     paymentMethod: string;
 
-    @IsNotEmpty()
-    stamp: string;
-
-    @IsNotEmpty()
-    signature: string;
-
-
-
-
-
-
 }
