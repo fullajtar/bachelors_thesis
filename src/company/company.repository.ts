@@ -27,7 +27,6 @@ export class CompanyRepository extends  Repository<Company> {
             supplierDic,
             supplierIcDph,
             supplierRegister,
-            supplierPayingTax,
             supplierBank1,
             bankAccountNumber1,
             iban1,
@@ -39,7 +38,10 @@ export class CompanyRepository extends  Repository<Company> {
             iban3,
         } = createCompanyDto;
         const company = new Company();
-
+        let {supplierPayingTax} = createCompanyDto;
+        if  (supplierPayingTax == undefined){
+            supplierPayingTax = false;
+        }
         company.supplierName = supplierName;
         company.street = street;
         company.postCode = postCode;

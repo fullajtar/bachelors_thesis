@@ -41,7 +41,6 @@ export class CompanyService {
             supplierDic,
             supplierIcDph,
             supplierRegister,
-            supplierPayingTax,
             supplierBank1,
             bankAccountNumber1,
             iban1,
@@ -52,6 +51,10 @@ export class CompanyService {
             bankAccountNumber3,
             iban3,
         } = createCompanyDto;
+        let {supplierPayingTax} = createCompanyDto;
+        if  (supplierPayingTax == undefined){
+            supplierPayingTax = false;
+        }
         const company = await this.getMyCompany(user);
         company.supplierName = supplierName;
         company.street = street;

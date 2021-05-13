@@ -115,7 +115,7 @@
 
             <div class="col-span-6">
                 <label for="supplierPayingTax" class="text-sm font-medium text-gray-700">Platiteľ Dph</label>
-                <input type="checkbox" name="supplierPayingTax" id="supplierPayingTax" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="checkbox" name="supplierPayingTax" id="supplierPayingTax" {{#if this.supplierPayingTax}} checked {{/if}} class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md" value="true">
             </div>
         </div>
         <h1 class="block text-lg font-medium text-gray-700">Bankovy ucet 1</h1>

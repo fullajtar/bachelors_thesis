@@ -44,7 +44,7 @@ export class Company extends BaseEntity {
     @Column()
     supplierRegister: string;
 
-    @Column()
+    @Column("bool")
     supplierPayingTax: boolean;
 
     @Column()

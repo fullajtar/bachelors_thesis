@@ -34,6 +34,7 @@ export class CompanyController{
         const company = new Company();
         company.id = 1;
         user.company = company;
+        console.log("company Dto: ",createCompanyDto)
         return this.companyService.editMyCompany(user, createCompanyDto);
     }
 

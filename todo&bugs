@@ -1,7 +1,6 @@
 TODO:
-setnut si aspon 3 bakove ucty kt mozno prepinat                                                                         dnes
-lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts       dnes
-prehlad prijmov                                                                                                         2-3 dni
+
+prehlad prijmov                                                                                                         4-6 dni
 
 vymazat obsah kolonky dodavatel                                                                                         30 minut
 set nullable na zakazku, tag, poznamku                                                                                  30 minut
@@ -21,4 +20,8 @@ niektore tabulky nemaju vsetky potrebne stlpce (kvoli bugu v DB)                
 https://ctrlv.sk/0DBZ
 platitel dbph checkbox nefunguje
 
-                                                                                                                        5-7 dni
+                                                                                                                        2-9 dni
+
+DONE:
+setnut si aspon 3 bakove ucty kt mozno prepinat                                                                         dnes
+lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts       dnes
