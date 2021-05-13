@@ -17,6 +17,9 @@ import {CompanyService} from "../company/company.service";
 import {CustomerService} from "../customer/customer.service";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 import {User} from "../auth/user.entity";
+import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
+import {Employee} from "../employee/employee.entity";
+import {Customer} from "../customer/customer.entity";
 
 @Controller('invoices')
 //@UseGuards(AuthGuard())
@@ -75,6 +78,32 @@ export class InvoicesController {
         return this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, employee, customer);
     }
 
+    @Post('/generate')
+    //@UsePipes(ValidationPipe)
+    @Render('invoices/create-invoice.hbs')
+    async generateInvoiceFromOrder( //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+        @Body() generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
+        // @Body() createInvoiceDto: CreateInvoiceDto,
+        @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
+        @Body() createItemDto: CreateItemDto,
+        @Body() createCustomerDto: CreateCustomerDto,
+        @Body() createEmployeeDto: CreateEmployeeDto,
+        // @GetUser() user: Company,
+        @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
+    ): Promise<Invoice> {
+        console.log("generateDTO: ", generateInvoiceFromOrderDto)
+
+        const company = new Company();
+        company.id = 1;
+        const customer = await this.customerService.createCustomer(company, createCustomerDto);
+        let employee = await this.employeeService.findDuplicity(company, createEmployeeDto);
+        if (employee == null){
+            employee = new Employee();
+        }
+        return this.invoicesService.generateInvoiceFromOrder(company, paymentMethod ,generateInvoiceFromOrderDto, createItemDto, createInvoiceItemListDto, employee, customer);
+        return new Invoice();
+    }
+
     @Post('/:invoiceId')
     @Render('invoices/invoice-detail.hbs')
     async addItemToInvoice(
@@ -88,7 +117,7 @@ export class InvoicesController {
     ): Promise<Invoice> {
         const company = new Company();
         company.id = 1;
-        console.log('DTO: ', createEmployeeDto)
+        console.log("createInvoiceDTO: ", createInvoiceDto)
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
         let employee = await this.employeeService.findDuplicity(company, createEmployeeDto);
         if (employee == null){
@@ -115,4 +144,6 @@ export class InvoicesController {
         company.id = 1;
         return this.invoicesService.deleteInvoice(company, id);
     }
+
+
 }

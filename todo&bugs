@@ -1,26 +1,34 @@
 TODO:
 prehlad prijmov                                                                                                         4-6 dni
-vymazat obsah kolonky dodavatel                                                                                         30 minut
-set nullable na zakazku, tag, poznamku                                                                                  30 minut
 nastylovat tabulky faktur/objednavok                                                                                    ?
 vytvorenie faktury z objednavky                                                                                         2-3 hodiny
 spravit IBA PREHLAD zamestnancov                                                                                        1 den
 export do pdf: cez printcss/server-side                                                                                 1 den
-company.swift - pravdepodobne zbytocne, asi sa moze zmazat
 autorizacia pouzivatela                                                                                                 ? dni
 paddingy na inputy
 vymazat stlpce ktore su nepouzivane
+generovanie cisla faktury a objednavky
 
 BUGS:
-neda sa zmenit zakazku, tag, poznamku                                                                                   30 minut
-"zmenit udaje" odkazuje na neexistujucu uri
-zobrazenie deailu faktury nevypisuje zakladne info o company                                                            1 hodina
-niektore tabulky nemaju vsetky potrebne stlpce (kvoli bugu v DB)                                                        1-2 hodiny
-https://ctrlv.sk/0DBZ
-platitel dbph checkbox nefunguje
+zobrazenie deailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje)                          1 hodina
+neda sa savnut faktura generovana z objednavky - sql error
 
                                                                                                                         2-9 dni
 
 DONE:
 setnut si aspon 3 bakove ucty kt mozno prepinat                                                                         dnes
 lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts       dnes
+vymazat obsah kolonky dodavatel                                                                                         30 minut
+set nullable na zakazku, tag, poznamku                                                                                  30 minut
+company.swift - pravdepodobne zbytocne, asi sa moze zmazat
+neda sa zmenit zakazku, tag, poznamku                                                                                   30 minut
+"zmenit udaje" odkazuje na neexistujucu uri
+niektore tabulky nemaju vsetky potrebne stlpce (kvoli bugu v DB)                                                        1-2 hodiny
+https://ctrlv.sk/0DBZ
+platitel dbph checkbox nefunguje
+
+
+
+
+
+

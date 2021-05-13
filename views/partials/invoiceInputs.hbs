@@ -12,7 +12,7 @@
         <p>Platiteľ DPH: {{this.company.supplierPayingTax}}</p>
         <p>IČDPH: {{this.company.supplierIcDph}}</p>
         <p>Register: {{this.company.supplierRegister}}</p>
-        <a class="text-xs logoColourText underline hover:text-green-700" href="/invoices/company/info">Zmeniť údaje</a><br>
+        <a class="text-xs logoColourText underline hover:text-green-700" href="/company">Zmeniť údaje</a><br>
         <label for="supplierSwift">ÚČET:</label><input list="bank-accounts" class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="bankAccountNumber" id="bankAccountNumber" type="text" placeholder="Číslo Účtu" value="{{this.bankAccountNumber}}"  required minlength="8" maxlength="11"><br>
         <datalist id="bank-accounts">
             <option value="{{this.company.bankAccountNumber1}}">{{this.company.bankAccountNumber1}}</option>

@@ -14,7 +14,9 @@ export class Invoice extends BaseEntity {
     @Column()
     dateOfIssue: Date; //datum vystavenia
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     dueDate: Date;
 
     @Column({
@@ -43,15 +45,19 @@ export class Invoice extends BaseEntity {
     @Column()
     iban: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     variableSymbol: string;
 
-    @Column()
-        //specificSymbol: number;
+    @Column({
+        nullable: true,
+    })
     specificSymbol: string;
 
-    @Column()
-        //constantSymbol: number;
+    @Column({
+        nullable: true,
+    })
     constantSymbol: string;
 
     @Column({
@@ -64,21 +70,31 @@ export class Invoice extends BaseEntity {
     })
     note: string;
 
-    @Column(
-        "decimal", {scale: 2}
-    )
+    @Column({
+        nullable: true,
+        type: "decimal",
+        scale: 2,
+    })
     deposit: number;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     pickedUpByTitleBefore: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     pickedUpByName: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     pickedUpBySurname: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     pickedUpByTitleAfter: string;
 
     @Column()

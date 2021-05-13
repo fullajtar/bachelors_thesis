@@ -12,6 +12,7 @@ import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
 import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
 import {ItemService} from "../Items/item.service";
+import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
 
 @Injectable()
 export class InvoicesService {
@@ -50,33 +51,21 @@ export class InvoicesService {
         issuedBy: Employee,
         customer: Customer,
     ): Promise<Invoice> {
-        let itemLists = [];
-        if (createItemDto.itemName != null){
-            let addedItemsCount = createItemDto.itemName.length;
-            for (let i =0; i<addedItemsCount; i++){
-                let newItemDto = new CreateItemDto();
-                newItemDto.itemName = createItemDto.itemName[i];
-                newItemDto.itemTax = createItemDto.itemTax[i];
-                newItemDto.itemPriceWithoutTax = createItemDto.itemPriceWithoutTax[i];
-                newItemDto.itemUnit = createItemDto.itemUnit[i];
-                newItemDto.itemNote = createItemDto.itemNote[i];
-                newItemDto.itemBody =createItemDto.itemBody[i];
-                newItemDto.itemBarcode = createItemDto.itemBarcode[i];
-
-                let newInvoiceItemListDto = new CreateInvoiceItemListDto();
-                newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
-                newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
-
-                if (! Array.isArray(createItemDto.itemName)) {
-                    newItemDto = createItemDto;
-                    newInvoiceItemListDto = createInvoiceItemListDto;
-                    i = addedItemsCount; //prevent saving multiple items if there is only 1 (if saving only one item 'i' represents length of string, not array)
-                }
-                const item = await this.invoiceItemListsService.createInvoiceItemList( company, newInvoiceItemListDto, newItemDto );
-                itemLists.push(item);
-            }
-        }
+        const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
         return this.invoiceRepository.createInvoice(company, paymentMethod, createInvoiceDto, issuedBy, customer, itemLists); //add item lists
+    }
+
+    async generateInvoiceFromOrder(
+        company: Company,
+        paymentMethod: InvoicePaymentEnum,
+        generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
+        createItemDto: CreateItemDto,
+        createInvoiceItemListDto: CreateInvoiceItemListDto,
+        issuedBy: Employee,
+        customer: Customer,
+    ): Promise<Invoice> {
+        const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
+        return this.invoiceRepository.generateInvoiceFromOrder(company, paymentMethod, generateInvoiceFromOrderDto, issuedBy, customer, itemLists); //add item lists
     }
 
     async deleteInvoice(
@@ -100,40 +89,8 @@ export class InvoicesService {
         issuedBy: Employee,
         customer: Customer,
     ): Promise<Invoice> {
-
-        let itemLists = [];
-        if (createItemDto.itemName != null){
-            let addedItemsCount = createItemDto.itemName.length;
-            for (let i =0; i<addedItemsCount; i++){
-                let newItemDto = new CreateItemDto();
-                newItemDto.itemName = createItemDto.itemName[i];
-                newItemDto.itemTax = createItemDto.itemTax[i];
-                newItemDto.itemPriceWithoutTax = createItemDto.itemPriceWithoutTax[i];
-                newItemDto.itemUnit = createItemDto.itemUnit[i];
-                newItemDto.itemNote = createItemDto.itemNote[i];
-                newItemDto.itemBody =createItemDto.itemBody[i];
-                newItemDto.itemBarcode = createItemDto.itemBarcode[i];
-
-                let newInvoiceItemListDto = new CreateInvoiceItemListDto();
-                newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
-                newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
-
-                if (! Array.isArray(createItemDto.itemName)) {
-                    newItemDto = createItemDto;
-                    newInvoiceItemListDto = createInvoiceItemListDto;
-                    i = addedItemsCount; //prevent saving multiple items if there is only 1 (if saving only one item 'i' represents length of string, not array)
-                }
-                const item = await this.invoiceItemListsService.createInvoiceItemList( company, newInvoiceItemListDto, newItemDto );
-                itemLists.push(item);
-            }
-        }
-
-
-
-
+        const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
         const invoice = await this.getInvoiceById(company, id);
-
-
         const {
             currency,
             invoiceName,
@@ -190,5 +147,40 @@ export class InvoicesService {
 
         await invoice.save();
         return invoice;
+    }
+
+
+    private async processInvoiceItemList(
+        createInvoiceItemListDto,
+        createItemDto,
+        company
+    ){
+        let itemLists = [];
+        if (createItemDto.itemName != null){
+            let addedItemsCount = createItemDto.itemName.length;
+            for (let i =0; i<addedItemsCount; i++){
+                let newItemDto = new CreateItemDto();
+                newItemDto.itemName = createItemDto.itemName[i];
+                newItemDto.itemTax = createItemDto.itemTax[i];
+                newItemDto.itemPriceWithoutTax = createItemDto.itemPriceWithoutTax[i];
+                newItemDto.itemUnit = createItemDto.itemUnit[i];
+                newItemDto.itemNote = createItemDto.itemNote[i];
+                newItemDto.itemBody =createItemDto.itemBody[i];
+                newItemDto.itemBarcode = createItemDto.itemBarcode[i];
+
+                let newInvoiceItemListDto = new CreateInvoiceItemListDto();
+                newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
+                newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
+
+                if (! Array.isArray(createItemDto.itemName)) {
+                    newItemDto = createItemDto;
+                    newInvoiceItemListDto = createInvoiceItemListDto;
+                    i = addedItemsCount; //prevent saving multiple items if there is only 1 (if saving only one item 'i' represents length of string, not array)
+                }
+                const item = await this.invoiceItemListsService.createInvoiceItemList( company, newInvoiceItemListDto, newItemDto );
+                itemLists.push(item);
+            }
+        }
+        return itemLists;
     }
 }

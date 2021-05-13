@@ -7,6 +7,7 @@ import {Employee} from "../employee/employee.entity";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 import {InvoiceItemList} from "../invoiceItems/invoiceItemList.entity";
+import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
 
 @EntityRepository(Invoice)
 export class InvoiceRepository extends Repository<Invoice> {
@@ -120,4 +121,69 @@ export class InvoiceRepository extends Repository<Invoice> {
         return invoice;
     }
 
+    async generateInvoiceFromOrder(
+        company: Company,
+        paymentMethod: InvoicePaymentEnum,
+        generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
+        issuedBy: Employee,
+        customer: Customer,
+        itemLists: InvoiceItemList[],
+    ): Promise<Invoice> {
+
+        const {
+            currency,
+            orderName,
+            bank,
+            bankAccountNumber,
+            iban,
+            // variableSymbol,
+            // specificSymbol,
+            // constantSymbol,
+            tag,
+            note,
+            dateOfIssue,
+            // deliveryDate,
+            // dueDate,
+            //deposit,
+            deliveryMethod,
+            // pickedUpByTitleBefore,
+            // pickedUpByName,
+            // pickedUpBySurname,
+            // pickedUpByTitleAfter,
+        } = generateInvoiceFromOrderDto;
+
+        const invoice = new Invoice();
+
+        //properties
+        invoice.dateOfIssue = dateOfIssue;
+        invoice.dueDate = null;
+        invoice.deliveryDate = null;
+        invoice.paymentMethod = paymentMethod;
+        invoice.currency = currency;
+        invoice.invoiceName = orderName;
+        invoice.bank = bank;
+        invoice.bankAccountNumber = bankAccountNumber;
+        invoice.iban = iban;
+        invoice.variableSymbol = null;
+        invoice.specificSymbol = null;
+        invoice.constantSymbol = null;
+        invoice.tag = tag;
+        invoice.note = note;
+        invoice.deposit = null;
+        invoice.deliveryMethod = deliveryMethod;
+        invoice.pickedUpByTitleBefore = null;
+        invoice.pickedUpByName = null;
+        invoice.pickedUpBySurname = null;
+        invoice.pickedUpByTitleAfter = null;
+
+
+        //relations
+        invoice.company = company;
+        invoice.issuedBy = issuedBy;
+        invoice.customer = customer;
+        invoice.invoiceItemLists = itemLists;
+
+        //await getConnection().manager.save(invoice);
+        return invoice;
+    }
 }

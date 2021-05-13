@@ -97,9 +97,11 @@ export class OrderController{
     ): Promise<Order> {
         const company = new Company();
         company.id = 1;
-        console.log('DTO: ', createEmployeeDto)
-        const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
-    }
+        console.log('DTO: ', createEmployeeDto["action"])
+        if (createEmployeeDto["action"] == "save"){
+            const customer = await this.customerService.createCustomer(company, createCustomerDto);
+            return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
+        }
 
+    }
 }
