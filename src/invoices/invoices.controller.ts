@@ -10,16 +10,12 @@ import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service"
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
 import {ItemService} from "../Items/item.service";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
-import {CreateEmployeeDto} from "../employee/dto/create-employee.dto";
-import {EmployeeService} from "../employee/employee.service";
 import {Company} from "../company/company.entity";
 import {CompanyService} from "../company/company.service";
 import {CustomerService} from "../customer/customer.service";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 import {User} from "../auth/user.entity";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
-import {Employee} from "../employee/employee.entity";
-import {Customer} from "../customer/customer.entity";
 
 @Controller('invoices')
 //@UseGuards(AuthGuard())
@@ -28,7 +24,6 @@ export class InvoicesController {
         private invoicesService: InvoicesService,
         private invoicesListService: InvoiceItemListsService,
         private itemService: ItemService,
-        private employeeService: EmployeeService,
         private companyService: CompanyService,
         private customerService: CustomerService,
     ) {}
@@ -64,18 +59,13 @@ export class InvoicesController {
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
-        @Body() createEmployeeDto: CreateEmployeeDto,
         @GetUser() user: Company,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Invoice> {
         const company = new Company();
         company.id = 1;
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        let employee = await this.employeeService.findDuplicity(company, createEmployeeDto);
-        if (employee == null){
-            employee = await this.employeeService.createEmployee(company, createEmployeeDto);
-        }
-        return this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, employee, customer);
+        return this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
     }
 
     @Post('/generate')
@@ -87,7 +77,6 @@ export class InvoicesController {
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
-        @Body() createEmployeeDto: CreateEmployeeDto,
         // @GetUser() user: Company,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Invoice> {
@@ -96,11 +85,7 @@ export class InvoicesController {
         const company = new Company();
         company.id = 1;
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        let employee = await this.employeeService.findDuplicity(company, createEmployeeDto);
-        if (employee == null){
-            employee = new Employee();
-        }
-        return this.invoicesService.generateInvoiceFromOrder(company, paymentMethod ,generateInvoiceFromOrderDto, createItemDto, createInvoiceItemListDto, employee, customer);
+        return this.invoicesService.generateInvoiceFromOrder(company, paymentMethod ,generateInvoiceFromOrderDto, createItemDto, createInvoiceItemListDto, customer);
         return new Invoice();
     }
 
@@ -110,7 +95,6 @@ export class InvoicesController {
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
-        @Body() createEmployeeDto: CreateEmployeeDto,
         @Body() createInvoiceDto: CreateInvoiceDto,
         @Param('invoiceId', ParseIntPipe) invoiceId: number,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
@@ -119,11 +103,7 @@ export class InvoicesController {
         company.id = 1;
         console.log("createInvoiceDTO: ", createInvoiceDto)
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        let employee = await this.employeeService.findDuplicity(company, createEmployeeDto);
-        if (employee == null){
-            employee = await this.employeeService.createEmployee(company, createEmployeeDto);
-        }
-        return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, employee, customer);
+        return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
     }
 
     @Get('/:id')

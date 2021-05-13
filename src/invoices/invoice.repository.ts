@@ -26,7 +26,6 @@ export class InvoiceRepository extends Repository<Invoice> {
         const { search } = filterDto;
 
         const query = this.createQueryBuilder('invoice')
-            .leftJoinAndSelect('invoice.issuedBy','employee')
             .leftJoinAndSelect('invoice.invoiceItemLists', 'invoiceItemList')
             .leftJoinAndSelect('invoiceItemList.item','item');
 
@@ -59,7 +58,6 @@ export class InvoiceRepository extends Repository<Invoice> {
         company: Company,
         paymentMethod: InvoicePaymentEnum,
         createInvoiceDto: CreateInvoiceDto,
-        issuedBy: Employee,
         customer: Customer,
         itemLists: InvoiceItemList[],
     ): Promise<Invoice> {
@@ -85,6 +83,12 @@ export class InvoiceRepository extends Repository<Invoice> {
             pickedUpBySurname,
             pickedUpByTitleAfter,
             invoiceNumber,
+            issuedByName,
+            issuedBySurname,
+            issuedByPhoneNumber,
+            issuedByEmail,
+            issuedByDegreeBeforeName,
+            issuedByDegreeAfterName,
         } = createInvoiceDto;
 
         const invoice = new Invoice();
@@ -111,10 +115,16 @@ export class InvoiceRepository extends Repository<Invoice> {
         invoice.pickedUpBySurname = pickedUpBySurname;
         invoice.pickedUpByTitleAfter = pickedUpByTitleAfter;
         invoice.invoiceNumber = invoiceNumber;
+        invoice.issuedByName =  issuedByName;
+        invoice.issuedBySurname = issuedBySurname;
+        invoice.issuedByPhoneNumber = issuedByPhoneNumber;
+        invoice.issuedByEmail = issuedByEmail;
+        invoice.issuedByDegreeBeforeName = issuedByDegreeBeforeName;
+        invoice.issuedByDegreeAfterName = issuedByDegreeAfterName;
 
         //relations
         invoice.company = company;
-        invoice.issuedBy = issuedBy;
+        // invoice.issuedBy = issuedBy;
         invoice.customer = customer;
         invoice.invoiceItemLists = itemLists;
 
@@ -126,7 +136,6 @@ export class InvoiceRepository extends Repository<Invoice> {
         company: Company,
         paymentMethod: InvoicePaymentEnum,
         generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
-        issuedBy: Employee,
         customer: Customer,
         itemLists: InvoiceItemList[],
     ): Promise<Invoice> {
@@ -170,7 +179,7 @@ export class InvoiceRepository extends Repository<Invoice> {
 
         //relations
         invoice.company = company;
-        invoice.issuedBy = issuedBy;
+        // invoice.issuedBy = issuedBy;
         invoice.customer = customer;
         invoice.invoiceItemLists = itemLists;
 

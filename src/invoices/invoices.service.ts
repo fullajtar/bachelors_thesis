@@ -49,11 +49,10 @@ export class InvoicesService {
         createInvoiceDto: CreateInvoiceDto,
         createItemDto: CreateItemDto,
         createInvoiceItemListDto: CreateInvoiceItemListDto,
-        issuedBy: Employee,
         customer: Customer,
     ): Promise<Invoice> {
         const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
-        return this.invoiceRepository.createInvoice(company, paymentMethod, createInvoiceDto, issuedBy, customer, itemLists); //add item lists
+        return this.invoiceRepository.createInvoice(company, paymentMethod, createInvoiceDto, customer, itemLists); //add item lists
     }
 
     async generateInvoiceFromOrder(
@@ -62,11 +61,10 @@ export class InvoicesService {
         generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
         createItemDto: CreateItemDto,
         createInvoiceItemListDto: CreateInvoiceItemListDto,
-        issuedBy: Employee,
         customer: Customer,
     ): Promise<Invoice> {
         const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
-        return this.invoiceRepository.generateInvoiceFromOrder(company, paymentMethod, generateInvoiceFromOrderDto, issuedBy, customer, itemLists); //add item lists
+        return this.invoiceRepository.generateInvoiceFromOrder(company, paymentMethod, generateInvoiceFromOrderDto, customer, itemLists); //add item lists
     }
 
     async deleteInvoice(
@@ -87,7 +85,6 @@ export class InvoicesService {
         createInvoiceDto: CreateInvoiceDto,
         createItemDto: CreateItemDto,
         createInvoiceItemListDto: CreateInvoiceItemListDto,
-        issuedBy: Employee,
         customer: Customer,
     ): Promise<Invoice> {
         const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
@@ -113,6 +110,12 @@ export class InvoicesService {
             pickedUpBySurname,
             pickedUpByTitleAfter,
             invoiceNumber,
+            issuedByName,
+            issuedBySurname,
+            issuedByPhoneNumber,
+            issuedByEmail,
+            issuedByDegreeBeforeName,
+            issuedByDegreeAfterName,
 
         } = createInvoiceDto;
 
@@ -138,11 +141,18 @@ export class InvoicesService {
         invoice.pickedUpBySurname = pickedUpBySurname;
         invoice.pickedUpByTitleAfter = pickedUpByTitleAfter;
         invoice.invoiceNumber = invoiceNumber;
+        invoice.issuedByName =  issuedByName;
+        invoice.issuedBySurname = issuedBySurname;
+        invoice.issuedByPhoneNumber = issuedByPhoneNumber;
+        invoice.issuedByEmail = issuedByEmail;
+        invoice.issuedByDegreeBeforeName = issuedByDegreeBeforeName;
+        invoice.issuedByDegreeAfterName = issuedByDegreeAfterName;
 
         //relations
-        invoice.issuedBy = issuedBy;
+        // invoice.issuedBy = issuedBy;
         invoice.customer = customer;
-        if  (invoice.invoiceItemLists[0].order === null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
+        if  (invoice.invoiceItemLists[0] === undefined || invoice.invoiceItemLists[0].order === null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
+            console.log("2")
             this.invoiceItemListsService.deleteArray(invoice.invoiceItemLists); //not necessary await imo
         }
 

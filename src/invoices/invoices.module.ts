@@ -8,8 +8,6 @@ import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service"
 import {InvoiceItemListRepository} from "../invoiceItems/invoiceItemList.repository";
 import {ItemRepository} from "../Items/item.repository";
 import {ItemService} from "../Items/item.service";
-import {EmployeeRepository} from "../employee/employee.repository";
-import {EmployeeService} from "../employee/employee.service";
 import {CompanyService} from "../company/company.service";
 import {CompanyRepository} from "../company/company.repository";
 import {CustomerRepository} from "../customer/customer.repository";
@@ -19,10 +17,10 @@ import {OrderService} from "../order/order.service";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([InvoiceRepository, InvoiceItemListRepository, ItemRepository, EmployeeRepository, CompanyRepository, CustomerRepository, OrderRepository]),
+        TypeOrmModule.forFeature([InvoiceRepository, InvoiceItemListRepository, ItemRepository, CompanyRepository, CustomerRepository, OrderRepository]),
         AuthModule,
     ],
     controllers: [InvoicesController],
-    providers: [InvoicesService, InvoiceItemListsService, ItemService, EmployeeService, CompanyService, CustomerService, OrderService],
+    providers: [InvoicesService, InvoiceItemListsService, ItemService, CompanyService, CustomerService, OrderService],
 })
 export class InvoicesModule {}

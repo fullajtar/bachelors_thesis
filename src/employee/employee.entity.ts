@@ -14,8 +14,8 @@ export class Employee extends BaseEntity {
   )
   company: Company;
   
-  @OneToMany((type) => Invoice, (invoice) => invoice.issuedBy, { eager: false })
-  invoicesIssued: Invoice[];
+  // @OneToMany((type) => Invoice, (invoice) => invoice.issuedBy, { eager: false })
+  // invoicesIssued: Invoice[];
 
   @Column()
   name: string;
@@ -33,9 +33,13 @@ export class Employee extends BaseEntity {
   })
   degreeAfterName: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   phoneNumber: string; //TODO number type
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   email: string;
 }

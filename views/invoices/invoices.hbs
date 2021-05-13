@@ -32,10 +32,10 @@
                 <tr onclick="redirect('/invoices/{{this.id}}')" class="hover:bg-gray-300 cursor-pointer text-center">
                     <td>{{this.id}}</td>
                     <td> {{dateParse this.dateOfIssue}} </td>
-                    <td>  </td>
+                    <td>{{this.pickedUpBySurname}}</td>
                     <td>{{this.invoiceName}}</td>
                     <td>{{priceWithoutTax this}}</td>
-                    <td>{{this.issuedBy.name}}</td>
+                    <td>{{this.issuedBySurname}}</td>
                     <td>{{this.tag}}</td>
                 </tr>
                 {{/if}}

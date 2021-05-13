@@ -125,6 +125,16 @@ export class Invoice extends BaseEntity {
     })
     issuedByDegreeAfterName: string;
 
+    @Column({
+        nullable: true,
+    })
+    issuedByPhoneNumber: string; //TODO number type
+
+    @Column({
+        nullable: true,
+    })
+    issuedByEmail: string;
+
     @OneToMany(
         (type) => InvoiceItemList,
         (invoiceItemList) => invoiceItemList.invoice,
@@ -139,10 +149,10 @@ export class Invoice extends BaseEntity {
     )
     company: Company;
 
-    @ManyToOne((type) => Employee, (employee) => employee.invoicesIssued, {
-        eager: true,
-    })
-    issuedBy: Employee;
+    // @ManyToOne((type) => Employee, (employee) => employee.invoicesIssued, {
+    //     eager: true,
+    // })
+    // issuedBy: Employee;
 
     @ManyToOne(
         (type) => Customer,
