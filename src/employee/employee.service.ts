@@ -26,6 +26,29 @@ export class EmployeeService {
     return this.employeeRepository.getEmployees(company, filterDto);
   }
 
+  async editEmployee(
+      id: number,
+      createEmployeeDto: CreateEmployeeDto,
+  ):Promise<Employee>{
+    const employee = await this.employeeRepository.findOne({ where: { id: id } } )
+    const {
+        name,
+        surname,
+        degreeBeforeName,
+        degreeAfterName,
+        phoneNumber,
+        email,
+    } = createEmployeeDto;
+    employee.name = name;
+    employee.surname = surname;
+    employee.degreeBeforeName = degreeBeforeName;
+    employee.degreeAfterName = degreeAfterName;
+    employee.phoneNumber = phoneNumber;
+    employee.email = email;
+    await employee.save();
+    return employee;
+  }
+
   async getEmployeeById(
       company: Company,
       id: number,

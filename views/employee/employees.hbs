@@ -16,7 +16,7 @@
     <tbody>
     {{#each this}}
     {{#if this.id}}
-        <tr class="hover:bg-gray-300 text-center">
+        <tr onclick="redirect('/employee/{{this.id}}')" class="hover:bg-gray-300 cursor-pointer text-center">
             <td>{{this.name}}</td>
             <td>{{this.surname}}</td>
             <td>{{this.phoneNumber}}</td>
@@ -26,10 +26,16 @@
     {{/each}}
     </tbody>
 </table>
+<a class="myButtonStyle" href="/employee/create">Pridaj Zamestnanca</a>
 
 
 
 <script>
+    function redirect(path){
+        console.log(path)
+        window.location.href = path;
+    }
+
     $(document).ready(function() {
         $('#fancyTable').DataTable({
             "language":{
