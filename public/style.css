@@ -55,3 +55,11 @@
 }
 .align-inputs label       { text-align:right; }
 .align-inputs label:after { content: ":"; }
+
+#fancyTable_wrapper input,
+#fancyTable_wrapper select{
+    @apply shadow-sm;
+    @apply sm:text-sm;
+    @apply border-gray-300;
+    @apply rounded-md;
+}

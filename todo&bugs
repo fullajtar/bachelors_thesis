@@ -1,6 +1,5 @@
 TODO:
 prehlad prijmov                                                                                                         4-6 dni
-nastylovat tabulky faktur/objednavok                                                                                    4 hodiny
 spravit IBA PREHLAD zamestnancov                                                                                        1 den
 export do pdf: cez printcss/server-side                                                                                 1 den
 autorizacia pouzivatela                                                                                                 2-4 dni
@@ -30,6 +29,7 @@ vytvorenie faktury z objednavky                                                 
 generovanie cisla faktury a objednavky
 paddingy na inputy
 vymazat stlpce ktore su nepouzivane
+nastylovat tabulky faktur/objednavok                                                                                    4 hodiny
 
 
 

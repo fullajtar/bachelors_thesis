@@ -105,6 +105,26 @@ export class Invoice extends BaseEntity {
     })
     invoiceNumber: string;
 
+    @Column({
+        nullable: true,
+    })
+    issuedByName: string;
+
+    @Column({
+        nullable: true,
+    })
+    issuedBySurname: string;
+
+    @Column({
+        nullable: true,
+    })
+    issuedByDegreeBeforeName: string;
+
+    @Column({
+        nullable: true,
+    })
+    issuedByDegreeAfterName: string;
+
     @OneToMany(
         (type) => InvoiceItemList,
         (invoiceItemList) => invoiceItemList.invoice,

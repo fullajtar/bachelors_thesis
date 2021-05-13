@@ -40,7 +40,9 @@ export class Order extends BaseEntity {
     })
     tag: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     customerTitleBefore: string;
 
     @Column()
@@ -49,7 +51,9 @@ export class Order extends BaseEntity {
     @Column()
     customerSurname: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     customerTitleAfter: string;
 
     @Column()

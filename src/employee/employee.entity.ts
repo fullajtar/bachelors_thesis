@@ -23,15 +23,19 @@ export class Employee extends BaseEntity {
   @Column()
   surname: string;
 
+  @Column({
+    nullable: true,
+  })
+  degreeBeforeName: string;
+
+  @Column({
+    nullable: true,
+  })
+  degreeAfterName: string;
+
   @Column()
   phoneNumber: string; //TODO number type
 
   @Column()
   email: string;
-
-  @Column()
-  degreeBeforeName: string;
-
-  @Column()
-  degreeAfterName: string;
 }
