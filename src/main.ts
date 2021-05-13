@@ -11,23 +11,11 @@ async function bootstrap() {
   const exphbs = require('express-handlebars');
 
   app.useStaticAssets(join(__dirname, '..', 'public')); //https://docs.nestjs.com/techniques/mvc
-  /*
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.setViewEngine('hbs');
-   */
 
   //method override
   let methodOverride = require('method-override');
 
-
   let helpers = require('handlebars-helpers')();
-
-  // var hbs = exphbs.create();
-  // hbs.getPartials().then(function (partials) {
-  //   console.log(partials);
-  //   // => { 'foo/bar': [Function],
-  //   // =>    title: [Function] }
-  // });
 
   //Now, we can configure express-handlebars as our view engine:
   app.engine('hbs', exphbs({
@@ -159,18 +147,10 @@ async function bootstrap() {
             return result.toFixed(2);
           }
 
-
-
-
-
-
-
         }
   }));
 
-
   app.set('view engine', 'hbs');
-
 
   //To extract it, you will need to use the express.urlencoded() middleware:
   app.use(express.urlencoded({
@@ -178,15 +158,12 @@ async function bootstrap() {
   }))
   app.use(methodOverride('X-HTTP-Method-Override'));
 
-
-
   await app.listen(3000);
   console.log(`Application is running on port: ${await app.getUrl()}`);
 }
 bootstrap();
 
 function totalWithVat(vat, quantity, priceForUnit){
-
   vat = vat/100
   const result = (quantity * priceForUnit) * (1 + vat);
   return result;

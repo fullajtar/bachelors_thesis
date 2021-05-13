@@ -6,14 +6,13 @@ autorizacia pouzivatela                                                         
 BUGS:
 zobrazenie deailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje)                          1 hodina
 neda sa savnut faktura generovana z objednavky - sql error                                                              ???
-pri vytvoreni faktury z objednavky sa prida 1 riadok itemov
 
 IMPROVE:
 zobrazenie faktury/objednavky lepsie nastylovat checkbox "platitel DPH"
 doplnanie poloziek z DB
 doplnanie zamestnancov z DB
 
-                                                                                                                        9-13 dni
+                                                                                                                        8-12 dni
 
 DONE:
 setnut si aspon 3 bakove ucty kt mozno prepinat                                                                         dnes
@@ -32,6 +31,7 @@ paddingy na inputy
 vymazat stlpce ktore su nepouzivane
 nastylovat tabulky faktur/objednavok                                                                                    4 hodiny
 spravit IBA PREHLAD zamestnancov                                                                                        1 den
+pri vytvoreni faktury z objednavky sa prida 1 riadok itemov
 
 
 

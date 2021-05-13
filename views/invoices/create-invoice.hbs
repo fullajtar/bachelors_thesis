@@ -20,6 +20,8 @@
 
 
     window.onload = () => {
-        addItem();
+        if (window.location.pathname === "/invoices/create"){
+            addItem();
+        }
     }
 </script>

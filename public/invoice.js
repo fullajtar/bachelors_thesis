@@ -1,7 +1,6 @@
 function removeItem(element){
     element.parentElement.remove()
     updateNumbering()
-    console.log(element)
     updateAll(null)
 }
 

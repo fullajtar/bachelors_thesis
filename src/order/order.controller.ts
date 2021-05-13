@@ -34,7 +34,6 @@ export class OrderController{
     @Render('orders/orders.hbs')
     getOrders(
     ): Promise<Order[]> {
-        console.log('controller')
         const company = new Company();
         company.id = 1;
         return this.orderService.getOrders(company); //.then((result) => result ? { invoices: result } : { invoices: [] } );
@@ -66,7 +65,6 @@ export class OrderController{
         @Body() createEmployeeDto: CreateEmployeeDto,
         @GetUser() user: Company,
     ): Promise<Order> {
-        console.log('controller1')
         const company = new Company();
         company.id = 1;
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
@@ -81,7 +79,6 @@ export class OrderController{
     ): Promise<Order> {
         const company = new Company();
         company.id = 1;
-        console.log(await this.orderService.getOrderById(company, id));
         return this.orderService.getOrderById(company, id);
     }
 
@@ -98,7 +95,6 @@ export class OrderController{
     ): Promise<Order> {
         const company = new Company();
         company.id = 1;
-        console.log('DTO: ', createEmployeeDto["action"])
         if (createEmployeeDto["action"] == "save"){
             const customer = await this.customerService.createCustomer(company, createCustomerDto);
             return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);

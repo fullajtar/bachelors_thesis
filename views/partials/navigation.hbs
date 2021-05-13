@@ -19,42 +19,11 @@
                 <a href="/company" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Moja Firma</a>
             </div>
         </div>
-
-
             <a href="#" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500 self-end">Logout</a>
-
-
     </header>
 
-
-
 <script>
-    // console.log('here')
-    // const elements = document.getElementById('myDIV').childNodes
-    // console.log(elements)
-    // for (const element of elements){
-    //     if (window.location.href == element.href){
-    //         element.className += " logoColourBackground";
-    //         console.log('equals')
-    //     }
-    //     console.log(element.href)
-    // }
-
-    // window.onload = function (){
-    //     console.log('here')
-    //     const elements = document.getElementById('myDIV').childNodes
-    //     console.log(elements)
-    //     for (const element of elements){
-    //         if (window.location.href == element.href){
-    //             element.className += " logoColourBackground";
-    //             console.log('equals')
-    //         }
-    //         console.log(element.href)
-    //     }
-    // }
-
     window.addEventListener('DOMContentLoaded', (event) => {
-        console.log('DOM fully loaded and parsed');
             const elements = document.getElementById('myDIV').childNodes
             for (const element of elements){
                 if (window.location.href.includes(element.href)){
@@ -63,24 +32,6 @@
                 }
             }
     });
-
-    console.log('js loaded') //faster than DOMContentLoaded
-
-    // window.DOMContentLoaded = function(){
-    //     console.log('here')
-    //     const elements = document.getElementById('myDIV').childNodes
-    //     console.log(elements)
-    //     for (const element of elements){
-    //         if (window.location.href == element.href){
-    //             element.className += " logoColourBackground";
-    //             console.log('equals')
-    //         }
-    //         console.log(element.href)
-    //     }
-    // }
-
-
-
     function myFunction1() {
         let elements = document.getElementsByClassName("buttonImg")
         for(let element of elements){

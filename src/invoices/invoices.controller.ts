@@ -77,16 +77,16 @@ export class InvoicesController {
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
-        // @GetUser() user: Company,
+        @GetUser() user: User, //TODO make it work and get company with this user
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Invoice> {
-        console.log("generateDTO: ", generateInvoiceFromOrderDto)
-
         const company = new Company();
         company.id = 1;
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        return this.invoicesService.generateInvoiceFromOrder(company, paymentMethod ,generateInvoiceFromOrderDto, createItemDto, createInvoiceItemListDto, customer);
-        return new Invoice();
+        const invoice = await this.invoicesService.generateInvoiceFromOrder(company, paymentMethod ,generateInvoiceFromOrderDto, createItemDto, createInvoiceItemListDto, customer);
+        invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
+        invoice.company = company; //TODO get this company
+        return invoice;
     }
 
     @Post('/:invoiceId')
@@ -101,14 +101,13 @@ export class InvoicesController {
     ): Promise<Invoice> {
         const company = new Company();
         company.id = 1;
-        console.log("createInvoiceDTO: ", createInvoiceDto)
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
         return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
     }
 
     @Get('/:id')
     @Render('invoices/invoice-detail.hbs')
-    getInvoiceById(
+    async getInvoiceById(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<Invoice> { //TODO: vracat aj entitu company aby sa zobrazovali zakladne udaje
         const company = new Company();

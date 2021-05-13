@@ -21,8 +21,6 @@ class myInput extends HTMLInputElement {
     }
 
     _showTooltip() {
-        console.log('show')
-        console.log(this._tooltipContainer)
         const el =  document.createElement('p')
         el.innerText = 'element'
         //.appendChild(el)
@@ -32,7 +30,6 @@ class myInput extends HTMLInputElement {
     }
 
     _hideTooltip(){
-        console.log('hide')
         this.shadowRoot.removeChild(this._tooltipContainer);
     }
 }

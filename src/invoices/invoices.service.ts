@@ -152,7 +152,6 @@ export class InvoicesService {
         // invoice.issuedBy = issuedBy;
         invoice.customer = customer;
         if  (invoice.invoiceItemLists[0] === undefined || invoice.invoiceItemLists[0].order === null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
-            console.log("2")
             this.invoiceItemListsService.deleteArray(invoice.invoiceItemLists); //not necessary await imo
         }
 

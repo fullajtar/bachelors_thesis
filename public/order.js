@@ -1,7 +1,6 @@
 function removeItem(element){
     element.parentElement.remove()
     updateNumbering()
-    console.log(element)
     updateAll(null)
 }
 
@@ -163,14 +162,10 @@ function updateSummary(){
 //
 
 
-    console.log("1")
     const totalWithVat = document.getElementById('totalSumPrice').innerHTML;
     document.getElementById('summaryWithVat').innerHTML = totalWithVat
-    console.log("2")
     // const tmp = parseFloat(totalWithVat)// - document.getElementById('deposit').value  ;
-    // console.log(typeof tmp)
     document.getElementById('summaryToPay').innerHTML = totalWithVat;
-    console.log("3")
 }
 
 function updatePriceWIthoutVat(){
