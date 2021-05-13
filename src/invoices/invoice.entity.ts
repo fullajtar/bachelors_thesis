@@ -29,7 +29,9 @@ export class Invoice extends BaseEntity {
     currency: string;
 
     //optional
-    @Column()
+    @Column({
+        nullable: true,
+    })
     invoiceName: string;
 
     @Column()
@@ -52,10 +54,14 @@ export class Invoice extends BaseEntity {
         //constantSymbol: number;
     constantSymbol: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     tag: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     note: string;
 
     @Column(
