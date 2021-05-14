@@ -1,23 +1,15 @@
 <!--borders are set to top & right only, except edging elements
 <input name="" id="" type="text" placeholder="" value="">
 -->
-<body class="flex justify-center">
-<h1>Detail objednávky</h1>
-<div class="flex justify-center">
-        <form id="orderForm" action="/order/create" method="POST">
-            {{> orderInputs}}
-        </form>
+<div class="print flex justify-center">
+    <form id="orderForm" action="/order/create" method="POST">
+        {{> orderInputs}}
+    </form>
 </div>
-
-
 <script src="/order.js"></script>
-
 <script>
     function removeItem(itemListId){
     }
-
-
-
     window.onload = () => {
         addItem();
     }

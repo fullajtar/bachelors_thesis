@@ -8,12 +8,10 @@
         <p>{{this.company.supplierResidence}}</p>
         <p>IČO: {{this.company.supplierIco}}</p>
         <p>DIČ: {{this.company.supplierDic}}</p>
-        <label>Platiteľ DPH:
-            <input disabled type="checkbox" {{#if this.company.supplierPayingTax}} checked {{/if}}>
-        </label>
+        <p>Platiteľ DPH: {{#if this.company.supplierPayingTax}}Áno{{else}}Nie{{/if}}</p>
         <p>IČDPH: {{this.company.supplierIcDph}}</p>
         <p>Register: {{this.company.supplierRegister}}</p>
-        <a class="text-xs logoColourText underline hover:text-green-700" href="/company">Zmeniť údaje</a><br>
+        <a class="remove-on-print text-xs logoColourText underline hover:text-green-700" href="/company">Zmeniť údaje</a><br>
         <label for="supplierSwift">ÚČET:</label><input list="bank-accounts" class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="bankAccountNumber" id="bankAccountNumber" type="text" placeholder="Číslo Účtu" value="{{this.bankAccountNumber}}"><br>
         <datalist id="bank-accounts">
             <option value="{{this.company.bankAccountNumber1}}">{{this.company.bankAccountNumber1}}</option>
@@ -118,7 +116,7 @@
                 <!--11--><td class="border-2 border-black itemSumWithVatAndDiscount">{{totalWithVat this.item.itemTax quantity item.itemPriceWithoutTax}}</td>
                 <input  name="itemNote" id="itemBarcode" type="hidden" placeholder="" value="-">
                 <input  name="itemBody" id="itemBody" type="hidden" placeholder="" value="-">
-                <!--12--><td class="cursor-pointer" onclick="removeItem(this)" > X</td>
+                <!--12--><td class="remove-on-print cursor-pointer" onclick="removeItem(this)" > X</td>
             </tr>
         {{/each}}
         <tr>
@@ -149,7 +147,7 @@
 </div>
 
 </div>
-<div class="align-inputs mt-2">
+<div class="remove-on-print align-inputs mt-2">
     <label for="orderName">Zákazka</label><input class="w-1/3 border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="orderName" id="orderName" type="text" value="{{this.orderName}}">
     <label for="tag">Tag</label><input class="w-1/3 border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="tag" id="tag" type="text" value="{{this.tag}}">
     <label for="note">Poznámka</label><textarea class="border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="note" id="note" cols="" rows="5" >{{this.note}}</textarea>

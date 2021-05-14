@@ -6,17 +6,20 @@ autorizacia pouzivatela                                                         
 BUGS:
 zobrazenie deailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje)                          1 hodina
 neda sa savnut faktura generovana z objednavky - sql error                                                              ???
+pri float numbers zena za j. s DPH ukazuje nizsiu cenu ako bez DPH (po loadnuti stranky, ked zbehne JS tak sa cena opravi) - helper "singleItemWithTax"
+forma uhrady nema defaultne selectnutu dobru option
 
 IMPROVE:
 zobrazenie faktury/objednavky lepsie nastylovat checkbox "platitel DPH"
 doplnanie poloziek z DB
 doplnanie zamestnancov z DB
+print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
 
                                                                                                                         8-12 dni
 
 DONE:
-setnut si aspon 3 bakove ucty kt mozno prepinat                                                                         dnes
-lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts       dnes
+setnut si aspon 3 bakove ucty kt mozno prepinat
+lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts
 vymazat obsah kolonky dodavatel                                                                                         30 minut
 set nullable na zakazku, tag, poznamku                                                                                  30 minut
 company.swift - pravdepodobne zbytocne, asi sa moze zmazat

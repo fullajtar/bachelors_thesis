@@ -31932,6 +31932,92 @@ video {
   border-radius: 0.375rem;
 }
 
+@page {
+  margin: 0;
+
+  padding: 0;
+}
+
+@media print {
+  body {
+    transform: scale(.9);
+  }
+
+  ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: transparent;
+  }
+
+  input::-moz-placeholder {
+    color: transparent;
+  }
+
+  input:-ms-input-placeholder {
+    color: transparent;
+  }
+
+  input::placeholder {
+    color: transparent;
+  }
+
+  textarea::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
+
+  textarea:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: transparent;
+  }
+
+  textarea::placeholder {
+    color: transparent;
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+  }
+
+  .print{
+    position: absolute;
+    top: -1cm;
+    left: 0.25cm;
+    page-break-inside: avoid;
+    margin: 0;
+    justify-self: right;
+    color: black;
+  }
+
+  aside{
+    display: none;
+  }
+
+  .name-tag-note{
+    display: none;
+  }
+
+  input,
+    select{
+    border: none;
+  }
+
+  .remove-on-print{
+    display: none;
+  }
+
+  button{
+    display: none;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

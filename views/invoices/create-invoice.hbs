@@ -1,24 +1,15 @@
 <!--borders are set to top & right only, except edging elements
 <input name="" id="" type="text" placeholder="" value="">
 -->
-<div class="flex justify-center">
-    <h1>Detail faktúry</h1>
-
-        <form id="itemForm" action="/invoices/create" method="POST">
-            {{>invoiceInputs}}
-        </form>
-
+<div class="print flex justify-center">
+    <form id="itemForm" action="/invoices/create" method="POST">
+        {{>invoiceInputs}}
+    </form>
 </div>
-
-
 <script src="/invoice.js"></script>
-
 <script>
     function removeItem(itemListId){
     }
-
-
-
     window.onload = () => {
         if (window.location.pathname === "/invoices/create"){
             addItem();

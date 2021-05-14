@@ -63,3 +63,88 @@
     @apply border-gray-300;
     @apply rounded-md;
 }
+
+@page {
+    margin: 0;
+    padding: 0;
+
+}
+
+@media print {
+    body {
+        transform: scale(.9);
+    }
+
+    ::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: transparent;
+    }
+    :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+    }
+    ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: transparent;
+    }
+    :-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: transparent;
+    }
+    input::placeholder {
+        color: transparent;
+    }
+    textarea::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: transparent;
+    }
+    textarea:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+    }
+    textarea::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: transparent;
+    }
+    textarea:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: transparent;
+    }
+    textarea::placeholder {
+        color: transparent;
+    }
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+    }
+
+    .print{
+        position: absolute;
+        top: -1cm;
+        left: 0.25cm;
+        page-break-inside: avoid;
+        margin: 0;
+        justify-self: right;
+        color: black;
+    }
+
+    aside{
+        display: none;
+    }
+    .name-tag-note{
+        display: none;
+    }
+    input,
+    select{
+        border: none;
+    }
+    .remove-on-print{
+        display: none;
+    }
+    button{
+        display: none;
+    }
+}

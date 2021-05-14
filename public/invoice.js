@@ -68,7 +68,7 @@ function addItem(){
     cellTotalWithVat.innerHTML = '-.--'
 
     const cellRemove = row.insertCell(12)
-    cellRemove.className = 'cursor-pointer';
+    cellRemove.className = 'remove-on-print cursor-pointer';
     cellRemove.addEventListener("click", function (){
         this.parentElement.remove();
         updateNumbering();

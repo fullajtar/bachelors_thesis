@@ -1,18 +1,10 @@
 <!--borders are set to top & right only, except edging elements
 <input  name="" id="" type="text" placeholder="" value="">
 -->
-
 <script src="/tooltipInput.js" ></script>
-
-<div class="flex justify-center">
-    <h1>Detail faktúry</h1>
-        <form class="" id="itemForm" action="/invoices/{{this.id}}" method="POST">
-            {{> invoiceInputs}}
-        </form>
+<div class="print flex justify-center">
+    <form class="" id="itemForm" action="/invoices/{{this.id}}" method="POST">
+        {{> invoiceInputs}}
+    </form>
 </div>
-
 <script src="/invoice.js"></script>
-
-<script>
-
-</script>
