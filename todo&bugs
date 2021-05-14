@@ -1,23 +1,23 @@
 TODO:
 prehlad prijmov                                                                                                         4-6 dni
-export do pdf: cez printcss/server-side                                                                                 1 den
 autorizacia pouzivatela                                                                                                 2-4 dni
 
 BUGS:
 zobrazenie deailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje)                          1 hodina
-neda sa savnut faktura generovana z objednavky - sql error                                                              ???
-pri float numbers zena za j. s DPH ukazuje nizsiu cenu ako bez DPH (po loadnuti stranky, ked zbehne JS tak sa cena opravi) - helper "singleItemWithTax"
-forma uhrady nema defaultne selectnutu dobru option
+pri float numbers cena za j. s DPH ukazuje nizsiu cenu ako bez DPH (po loadnuti stranky, ked zbehne JS tak sa cena opravi) - helper "singleItemWithTax"
 
 IMPROVE:
 zobrazenie faktury/objednavky lepsie nastylovat checkbox "platitel DPH"
 doplnanie poloziek z DB
 doplnanie zamestnancov z DB
 print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
+@notEmpty a tieto dekoratory optimalizovat pre DTO
+že keď ma firma ic dph tak je platiteľ a keď nie je platiteľ tak ic dph nema teda dufam že si to dobre pamätám
 
                                                                                                                         8-12 dni
 
 DONE:
+forma uhrady nema defaultne selectnutu dobru option
 setnut si aspon 3 bakove ucty kt mozno prepinat
 lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts
 vymazat obsah kolonky dodavatel                                                                                         30 minut
@@ -35,6 +35,7 @@ vymazat stlpce ktore su nepouzivane
 nastylovat tabulky faktur/objednavok                                                                                    4 hodiny
 spravit IBA PREHLAD zamestnancov                                                                                        1 den
 pri vytvoreni faktury z objednavky sa prida 1 riadok itemov
+export do pdf: cez printcss/server-side                                                                                 1 den
 
 
 

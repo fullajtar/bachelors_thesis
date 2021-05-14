@@ -145,6 +145,12 @@ async function bootstrap() {
             const total = totalWithoutVat * (1 + vat);
             const result = total - totalWithoutVat;
             return result.toFixed(2);
+          },
+          ifCond(v1, v2, options) {
+            if(v1 === v2) {
+              return options.fn(this);
+            }
+            return options.inverse(this);
           }
 
         }
