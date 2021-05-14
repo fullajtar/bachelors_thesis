@@ -3,8 +3,7 @@ prehlad prijmov                                                                 
 autorizacia pouzivatela                                                                                                 2-4 dni
 
 BUGS:
-zobrazenie deailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje)                          1 hodina
-pri float numbers cena za j. s DPH ukazuje nizsiu cenu ako bez DPH (po loadnuti stranky, ked zbehne JS tak sa cena opravi) - helper "singleItemWithTax"
+zobrazenie detailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje) po autorizacii by to mal byt ez fix                        1 hodina
 
 IMPROVE:
 zobrazenie faktury/objednavky lepsie nastylovat checkbox "platitel DPH"
@@ -17,6 +16,7 @@ print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
                                                                                                                         8-12 dni
 
 DONE:
+pri float numbers cena za j. s DPH ukazuje nizsiu cenu ako bez DPH (po loadnuti stranky, ked zbehne JS tak sa cena opravi) - helper "singleItemWithTax"
 forma uhrady nema defaultne selectnutu dobru option
 setnut si aspon 3 bakove ucty kt mozno prepinat
 lepsie spracovat formular pri vytvarani firmy https://tailwindui.com/components/application-ui/forms/form-layouts

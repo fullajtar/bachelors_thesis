@@ -26,6 +26,8 @@ async function bootstrap() {
     // To do that, in the Handlebars configuration, we can define our helper functions. In our case, we'll clip comments to 64 characters:
     helpers: //helpers
         {
+
+
           priceWithoutTax(comment) {
             if (comment) {
               if (comment.invoiceItemLists) {
@@ -128,8 +130,10 @@ async function bootstrap() {
             return (Number(a) * Number(b) * (1 - discount/100)).toFixed(2);
           },
 
+
+
           singleItemWithTax(vat, priceForUnit){
-            const result = priceForUnit * (vat/100) + parseInt(priceForUnit);
+            const result = priceForUnit * (vat/100) + parseFloat(priceForUnit);
             return result.toFixed(2);
           },
 
