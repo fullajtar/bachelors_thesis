@@ -8,6 +8,8 @@ import {ItemModule} from "./Items/item.module";
 import {EmployeeModule} from "./employee/employee.module";
 import {CompanyModule} from "./company/company.module";
 import {ExpenseModule} from "./expense/expense.module";
+import {AppController} from "./app.controller";
+import {AppService} from "./app.service";
 
 @Module({
   imports: [
@@ -19,10 +21,9 @@ import {ExpenseModule} from "./expense/expense.module";
       EmployeeModule,
       CompanyModule,
       ExpenseModule,
-
   ],
 
-  //controllers: [AppController],
-  //providers: [AppService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

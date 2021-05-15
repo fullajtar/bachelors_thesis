@@ -1,0 +1,107 @@
+<h1>Hello to DashBoard !</h1>
+<canvas id="myChart"></canvas>
+<h2>Predaje Spolu: </h2>
+<h2>Výdavky Spolu: </h2>
+<script src="/libs/chart.js/dist/chart.js"></script>
+<script>
+
+    var barChartData = {
+        labels: [
+
+            "Február",
+            "Marec",
+            "Apríl",
+            "Máj",
+            "Jún",
+            "Júl",
+            "August",
+            "September",
+            "Október",
+            "November",
+            "December",
+            "Január",
+            "Február"
+        ],
+        datasets: [
+            {
+                label: "Príjmy",
+                backgroundColor: 'rgba(23,207,151,0.2)',
+                borderColor: '#17CF97',
+                borderWidth: 1,
+                data: [3, 5, 6, 7, 3, 5, 6, 7]
+            },
+            {
+                label: "Výdavky",
+                backgroundColor: 'rgba(255,86,86,0.2)',
+                borderColor: 'rgb(255,86,86)',
+                borderWidth: 1,
+                data: [4, 7, 3, 6, 10,7,4,6]
+            }
+        ]
+    };
+
+    var chartOptions = {
+        responsive: true,
+        legend: {
+            position: "top"
+        },
+        title: {
+            display: true,
+            text: "Chart.js Bar Chart"
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+
+    window.onload = function() {
+        var ctx = document.getElementById("myChart").getContext("2d");
+        window.myBar = new Chart(ctx, {
+            type: "bar",
+            data: barChartData,
+            options: chartOptions
+        });
+    };
+
+
+
+    //var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Red', 'Blue', 'Yellow'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

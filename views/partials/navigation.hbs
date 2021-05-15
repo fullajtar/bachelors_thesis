@@ -11,7 +11,7 @@
             </div>
 
             <div id="myDIV" class="px-2 pt-2 pb-4">
-                <a href="#" class="block px-2 py-1 text-white font-semibold rounded hover:bg-gray-500">Prehľad</a>
+                <a href="/" class="block px-2 py-1 text-white font-semibold rounded hover:bg-gray-500">Prehľad</a>
                 <a href="/invoices" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Faktúry</a>
                 <a href="/order" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Objednávky</a>
                 <a href="/expense" class="block px-2 py-1 mt-1 text-white font-semibold rounded hover:bg-gray-500">Výdavky</a>
@@ -26,9 +26,13 @@
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
             const elements = document.getElementById('myDIV').childNodes
-            for (const element of elements){
-                if (window.location.href.includes(element.href)){
-                    element.className += " logoColourBackground";
+            if (elements[1].href === window.location.href){
+                elements[1].className += " logoColourBackground";
+                return
+            }
+            for (let i = 2; i < elements.length; i++){
+                if (window.location.href.includes(elements[i].href)){
+                    elements[i].className += " logoColourBackground";
                     return
                 }
             }
