@@ -1,12 +1,13 @@
 TODO:
 prehlad prijmov                                                                                                         4-6 dni
 autorizacia pouzivatela                                                                                                 2-4 dni
+pridat datum vyplatenia faktury
+pridat simple tabulky vydavkov: datum, suma, nazov, popis
 
 BUGS:
 zobrazenie detailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje) po autorizacii by to mal byt ez fix                        1 hodina
 
 IMPROVE:
-zobrazenie faktury/objednavky lepsie nastylovat checkbox "platitel DPH"
 doplnanie poloziek z DB
 doplnanie zamestnancov z DB
 print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
@@ -16,6 +17,7 @@ print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
                                                                                                                         8-12 dni
 
 DONE:
+zobrazenie faktury/objednavky lepsie nastylovat checkbox "platitel DPH"
 pri float numbers cena za j. s DPH ukazuje nizsiu cenu ako bez DPH (po loadnuti stranky, ked zbehne JS tak sa cena opravi) - helper "singleItemWithTax"
 forma uhrady nema defaultne selectnutu dobru option
 setnut si aspon 3 bakove ucty kt mozno prepinat

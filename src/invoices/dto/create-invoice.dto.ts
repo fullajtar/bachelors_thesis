@@ -102,4 +102,7 @@ export class CreateInvoiceDto {
 
     @IsOptional()
     issuedByEmail: string;
+
+    @IsOptional()
+    paidDate: string;
 }

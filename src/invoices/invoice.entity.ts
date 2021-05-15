@@ -135,6 +135,12 @@ export class Invoice extends BaseEntity {
     })
     issuedByEmail: string;
 
+    @Column({
+        type: 'date',
+        nullable: true,
+    })
+    paidDate: string;
+
     @OneToMany(
         (type) => InvoiceItemList,
         (invoiceItemList) => invoiceItemList.invoice,

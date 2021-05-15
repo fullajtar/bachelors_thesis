@@ -17,8 +17,6 @@ import {Between, getConnection, MoreThan} from "typeorm";
 
 @Injectable()
 export class InvoicesService {
-    //private invoiceItemListsService: InvoiceItemListsService;
-    private itemService: ItemService;
     constructor(
         @InjectRepository(InvoiceRepository)
         private invoiceRepository: InvoiceRepository,
@@ -116,8 +114,11 @@ export class InvoicesService {
             issuedByEmail,
             issuedByDegreeBeforeName,
             issuedByDegreeAfterName,
-
         } = createInvoiceDto;
+        let {paidDate} = createInvoiceDto;
+        if (paidDate === ""){
+            paidDate = null;
+        }
 
         //properties
         invoice.paymentMethod = status;
@@ -147,6 +148,7 @@ export class InvoicesService {
         invoice.issuedByEmail = issuedByEmail;
         invoice.issuedByDegreeBeforeName = issuedByDegreeBeforeName;
         invoice.issuedByDegreeAfterName = issuedByDegreeAfterName;
+        invoice.paidDate = paidDate;
 
         //relations
         // invoice.issuedBy = issuedBy;

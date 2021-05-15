@@ -92,7 +92,10 @@ export class InvoiceRepository extends Repository<Invoice> {
         } = createInvoiceDto;
 
         const invoice = new Invoice();
-
+        let {paidDate} = createInvoiceDto;
+        if (paidDate === ""){
+            paidDate = null;
+        }
         //properties
         invoice.dateOfIssue = dateOfIssue;
         invoice.dueDate = dueDate;
@@ -121,6 +124,7 @@ export class InvoiceRepository extends Repository<Invoice> {
         invoice.issuedByEmail = issuedByEmail;
         invoice.issuedByDegreeBeforeName = issuedByDegreeBeforeName;
         invoice.issuedByDegreeAfterName = issuedByDegreeAfterName;
+        invoice.paidDate = paidDate;
 
         //relations
         invoice.company = company;

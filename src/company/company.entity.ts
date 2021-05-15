@@ -5,6 +5,7 @@ import {Item} from "../Items/item.entity";
 import {Employee} from "../employee/employee.entity";
 import {User} from "../auth/user.entity";
 import {Order} from "../order/oder.entity";
+import {Expense} from "../expense/expense.entity";
 
 @Entity()
 export class Company extends BaseEntity {
@@ -100,7 +101,6 @@ export class Company extends BaseEntity {
     )
     orders: Order[];
 
-
     @OneToMany(
         (type) => User,
         (user) => user.company,
@@ -126,5 +126,12 @@ export class Company extends BaseEntity {
         (employee) => employee.company,
         {eager: false})
     employees: Employee[];
+
+    @OneToMany(
+        (type) => Expense,
+        (expense) => expense.company,
+        {}
+    )
+    expenses: Expense[];
 
 }

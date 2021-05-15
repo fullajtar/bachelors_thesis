@@ -7,6 +7,7 @@ import {OrderModule} from "./order/order.module";
 import {ItemModule} from "./Items/item.module";
 import {EmployeeModule} from "./employee/employee.module";
 import {CompanyModule} from "./company/company.module";
+import {ExpenseModule} from "./expense/expense.module";
 
 @Module({
   imports: [
@@ -17,6 +18,8 @@ import {CompanyModule} from "./company/company.module";
       ItemModule,
       EmployeeModule,
       CompanyModule,
+      ExpenseModule,
+
   ],
 
   //controllers: [AppController],
