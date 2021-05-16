@@ -190,4 +190,11 @@ export class InvoiceRepository extends Repository<Invoice> {
         //await getConnection().manager.save(invoice);
         return invoice;
     }
+
+    // async getDataDashboard(
+    //     company: Company
+    // ) :Promise<any> {
+    //     let invoices = await this.createQueryBuilder('invoices')
+    //         .select('')
+    // }
 }
