@@ -93,9 +93,9 @@ export class InvoiceRepository extends Repository<Invoice> {
 
         const invoice = new Invoice();
         let {paidDate} = createInvoiceDto;
-        if (paidDate === ""){
-            paidDate = null;
-        }
+        // if (paidDate === nu){
+        //     paidDate = null;
+        // }
         //properties
         invoice.dateOfIssue = dateOfIssue;
         invoice.dueDate = dueDate;

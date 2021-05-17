@@ -155,7 +155,15 @@ async function bootstrap() {
               return options.fn(this);
             }
             return options.inverse(this);
-          }
+          },
+          beforeDueDate(dueDate :Date, options){
+            console.log("due date: ",dueDate)
+            console.log("typeof: ", typeof  dueDate)
+            if (dueDate==null || dueDate.getTime() >= new Date().getTime()){
+              return options.fn(this);
+            }
+            return options.inverse(this);
+          },
 
         }
   }));

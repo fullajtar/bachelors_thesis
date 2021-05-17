@@ -23,21 +23,21 @@ export class AppService {
       company: Company
   ) :Promise <string> {
       const n = new Date().getFullYear();
-      const invoices = await this.invoiceRepository.find(
+      const invoices = this.invoiceRepository.find(
         {
             where: {
                 company: company.id,
                 dueDate: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000')
             }
         });
-      const expenses = await this.expenseRepository.find(
+      const expenses = this.expenseRepository.find(
           {
               where: {
                   company: company.id,
                   expenseDate: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000')
               }
           });
-      return this.generateJSONstring(this.processDataForDashboardTable(invoices), this.processExpenses(expenses));
+      return this.generateJSONstring(this.processIncomes(await invoices), this.processExpenses(await expenses));
   }
 
   private generateJSONstring (
@@ -104,7 +104,7 @@ export class AppService {
       return data;
   }
 
-  private processDataForDashboardTable(
+  private processIncomes(
       invoices :Invoice[]
   ):Map<string, number>{
       let data = new Map([ ['jan',0], ['feb',0], ['mar',0], ['apr',0], ['may',0], ['jun',0], ['jul',0], ['aug',0], ['sep',0], ['oct',0], ['nov',0], ['dec',0] ]);

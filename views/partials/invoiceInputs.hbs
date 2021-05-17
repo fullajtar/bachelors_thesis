@@ -170,7 +170,7 @@
 <div class="name-tag-note align-inputs mt-2">
     <label for="invoiceName">Zákazka</label><input class="w-1/3 border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="invoiceName" id="invoiceName" type="text" value="{{this.invoiceName}}">
     <label for="tag">Tag</label><input class="w-1/3 border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="tag" id="tag" type="text" value="{{this.tag}}">
-    <label for="paidDate">Dátum vyplatenia</label><input class="w-1/3 border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="paidDate" id="paidDate" type="date" value="{{this.paidDate}}">
+    <label for="paidDate">Dátum vyplatenia</label><input class="w-1/3 border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="paidDate" id="paidDate" type="date" value="{{dateParse this.paidDate}}">
     <label for="note">Poznámka</label><textarea class="border-2 border-gray-400 bg-white rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="note" id="note" cols="" rows="5">{{this.note}}</textarea>
 
 </div>
