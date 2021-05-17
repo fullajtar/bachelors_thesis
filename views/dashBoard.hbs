@@ -113,8 +113,8 @@
         document.getElementById('expense-total').innerText = expenseTotal.toFixed(2)
         document.getElementById('income-avg').innerText = (incomeTotal/12).toFixed(2)
         document.getElementById('expense-avg').innerText = (expenseTotal/12).toFixed(2)
-        document.getElementById('expected-payments').innerText = data["invoiceState"]["expectedPayments"]
-        document.getElementById('overdue-payments').innerText = data["invoiceState"]["overduePayments"]
+        document.getElementById('expected-payments').innerText = data["invoiceState"]["expectedPayments"].toFixed(2)
+        document.getElementById('overdue-payments').innerText = data["invoiceState"]["overduePayments"].toFixed(2)
     }
 
     function drawChart(data){

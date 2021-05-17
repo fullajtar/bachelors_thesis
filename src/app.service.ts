@@ -80,19 +80,24 @@ export class AppService {
       invoiceStates :number[]
   ) :string {
       let data = '{ "income" : {' ;
-      incomes.forEach((value, key, map) => {
-          data+=' "'+key+'":"'+value+'" ,';
-      })
-      data = data.slice(0, data.lastIndexOf(",")) + data.slice(data.lastIndexOf(",")+1) + '}';
+      data+= this.mapStringifyJSON(incomes);
       data+= ', "expense" : {' ;
-      expenses.forEach((value, key, map) => {
-          data+=' "'+key+'":"'+value+'" ,';
-      })
-      data = data.slice(0, data.lastIndexOf(",")) + data.slice(data.lastIndexOf(",")+1) + '}';
+      data+= this.mapStringifyJSON(expenses);
       data+= ', "invoiceState" : { "paid":"'+invoiceStates[0]+'" , "waitingForPayment":"'+invoiceStates[1]+'" , "overdue":"'+invoiceStates[2]+'"';
       data+= ', "expectedPayments":"'+invoiceStates[3]+'" , "overduePayments":"'+invoiceStates[4]+'"}}';
       return data
   }
+
+  private mapStringifyJSON(
+      map: Map<string, number>
+  ) :string {
+      let outcome: string = "";
+      map.forEach((value, key, map) => {
+          outcome+=' "'+key+'":"'+value+'" ,';
+      })
+      return outcome.slice(0, outcome.lastIndexOf(",")) + outcome.slice(outcome.lastIndexOf(",")+1) + '}';
+  }
+
 
   private processExpenses (
       expenses: Expense[]

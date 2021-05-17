@@ -16,6 +16,7 @@ import {CustomerService} from "../customer/customer.service";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 import {User} from "../auth/user.entity";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
+import {GetItemsFilterDto} from "../Items/dto/get-items-filter.dto";
 
 @Controller('invoices')
 //@UseGuards(AuthGuard())
@@ -59,13 +60,18 @@ export class InvoicesController {
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
-        @GetUser() user: Company,
+        // @GetUser() user: User,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Invoice> {
+        const user = new User();
+        user.id = 1;
         const company = new Company();
         company.id = 1;
+        user.company = company;
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        return this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
+        const invoice :Invoice = await this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
+        invoice.company = await this.companyService.getMyCompany(user);
+        return
     }
 
     @Post('/generate')
@@ -77,15 +83,18 @@ export class InvoicesController {
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
-        @GetUser() user: User, //TODO make it work and get company with this user
+        // @GetUser() user: User, //TODO make it work and get company with this user
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Invoice> {
+        const user = new User();
+        user.id = 1;
         const company = new Company();
         company.id = 1;
+        user.company = company;
         const customer = await this.customerService.createCustomer(company, createCustomerDto);
         const invoice = await this.invoicesService.generateInvoiceFromOrder(company, paymentMethod ,generateInvoiceFromOrderDto, createItemDto, createInvoiceItemListDto, customer);
         invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
-        invoice.company = company; //TODO get this company
+        invoice.company = await this.companyService.getMyCompany(user);
         return invoice;
     }
 

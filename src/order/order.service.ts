@@ -163,7 +163,7 @@ export class OrderService {
 
 
         //relations
-        if (order.invoiceItemLists[0].invoice == null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
+        if (order.invoiceItemLists[0] != null && order.invoiceItemLists[0].invoice == null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
             this.invoiceItemListsService.deleteArray(order.invoiceItemLists); //not necessary await imo
         }
         order.invoiceItemLists = itemLists;

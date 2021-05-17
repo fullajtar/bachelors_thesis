@@ -52,6 +52,7 @@ export class OrderController{
         const order = new Order();
         order.company = await this.companyService.getMyCompany(user);
         order.orderNumber = await this.orderService.getNewOrderNumber();
+        order.company = await this.companyService.getMyCompany(user);
         return order;
     }
     @Post('/create')

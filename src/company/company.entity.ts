@@ -124,7 +124,7 @@ export class Company extends BaseEntity {
     @OneToMany(
         (type) => Employee,
         (employee) => employee.company,
-        {eager: false})
+        {eager: true})
     employees: Employee[];
 
     @OneToMany(
