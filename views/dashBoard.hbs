@@ -1,10 +1,57 @@
-<h1>Hello to DashBoard !</h1>
-<div class="w-full h-auto bg-white rounded-md border border-black" >
-    <canvas id="myChart"></canvas>
-</div>
+<style>
+    .testing-flex{
+        display: block;
+        width: 50px;
+        height: 50px;
+        color: red;
+        background-color: red;
+        margin: 10px;
+    }
+</style>
 
-<h2>Predaje Spolu: <p class="inline" id="income-total"></p></h2>
-<h2>Výdavky Spolu: <p class="inline" id="expense-total"></p></h2>
+<div class="overflow-hidden">
+    <div class="px-4 p1-5 bg-gray-200 sm:p-6">
+        <div class="grid grid-cols-12 gap-6">
+
+            <div class="col-span-12 lg:col-span-6 flex flex-wrap justify-center content-center">
+                <div class="block font-semibold md:text-xl xl:text-2xl 2xl:text-3xl grid grid-cols-3">
+                    <h2 class="col-span-2 text-right">Príjmy Spolu: </h2><p class="inline font-bold text-green-500 text-right" id="income-total"></p>
+                    <h2 class="col-span-2 text-right">Výdavky Spolu: </h2><p class="inline font-bold text-red-500 text-right" id="expense-total"></p>
+                    <h2 class="col-span-2 text-right">Príjmy Priemerne/Mesiac: </h2><p class="inline font-bold text-green-500 text-right" id="income-avg"></p>
+                    <h2 class="col-span-2 text-right mb-4">Výdavky Priemerne/Mesiac: </h2><p class="inline font-bold text-red-500 text-right" id="expense-avg"></p>
+                    <h2 class="col-span-2 text-right">Očakávané platby: </h2><p class="inline font-bold text-yellow-500 text-right" id="expected-payments">235.55</p>
+                    <h2 class="col-span-2 text-right">Po splatnosti: </h2><p class="inline font-bold text-red-500 text-right" id="overdue-payments">90.90</p>
+                </div>
+            </div>
+
+            <div class="col-span-12 lg:col-span-6 flex flex-wrap justify-center">
+
+                <div class="w-1/2 ">
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Stav faktúr</h3>
+                    <canvas id="doughnut-chart"></canvas>
+                </div>
+            </div>
+            <div class="col-span-2">
+            </div>
+            <div class="col-span-12 flex flex-wrap justify-center">
+                <h3 class="text-2xl font-semibold mb-4">Prehľad príjmov a výdavkov</h3>
+                <div class="w-full h-96 bg-white rounded-md border border-black" >
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <script src="/libs/chart.js/dist/chart.js"></script>
@@ -18,11 +65,37 @@
             url: "/data/dashboard" ,
             dataType: "json",
             success: function (data) {
+                console.log(data)
+                doughnut(data)
                 drawChart(data)
                 calcSum(data)
             },
         });
     };
+    function doughnut(datas){
+        const overdue = datas["invoiceState"]["overdue"]
+        const paid = datas["invoiceState"]["paid"]
+        const waitingForPayment = datas["invoiceState"]["waitingForPayment"]
+        let ctx = document.getElementById("doughnut-chart").getContext("2d");
+        const data = {
+            labels: [
+                'Po splatnosti',
+                'Vyplatená',
+                'Čaká sa na platbu'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [overdue, paid, waitingForPayment],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(23, 207, 151)',
+                    'rgb(255,207,129)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+        window.myBar = new Chart(ctx, {type: "doughnut", data: data});
+    }
 
     function calcSum(data){
         let income = data["income"]
@@ -38,6 +111,10 @@
             expenseTotal += parseFloat(expense[key])
         }
         document.getElementById('expense-total').innerText = expenseTotal.toFixed(2)
+        document.getElementById('income-avg').innerText = (incomeTotal/12).toFixed(2)
+        document.getElementById('expense-avg').innerText = (expenseTotal/12).toFixed(2)
+        document.getElementById('expected-payments').innerText = data["invoiceState"]["expectedPayments"]
+        document.getElementById('overdue-payments').innerText = data["invoiceState"]["overduePayments"]
     }
 
     function drawChart(data){
@@ -78,6 +155,7 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     position: "top"
                 },

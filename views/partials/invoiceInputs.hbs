@@ -124,7 +124,7 @@
                 <!--9--><td class="border-2 border-black"><input  class="w-14 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemTax" id="itemTax" type="number" placeholder=""  value="{{this.item.itemTax}}" required onchange="updateAll(this)"></td>
                 <!--10--><td class="border-2 border-black"><input  class="w-16 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="discount" id="discount"        type="number"   value="{{discount}}" min="0" max="100" onchange="updateAll(this)"></td>
 
-                <!--11--><td class="border-2 border-black itemSumWithVatAndDiscount">{{totalWithVat this.item.itemTax quantity item.itemPriceWithoutTax}}</td>
+                <!--11--><td class="border-2 border-black itemSumWithVatAndDiscount">{{totalWithVat this.item.itemTax quantity item.itemPriceWithoutTax this.discount}}</td>
                 <input  name="itemNote" id="itemBarcode" type="hidden" placeholder="" value="-">
                 <input  name="itemBody" id="itemBody" type="hidden" placeholder="" value="-">
                 <!--12--><td class="remove-on-print cursor-pointer" onclick="removeItem(this)" > X</td>

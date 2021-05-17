@@ -38,7 +38,7 @@
                     <td>{{priceWithoutTax this}}</td>
                     <td>{{this.issuedBySurname}}</td>
                     <td>{{this.tag}}</td>
-                    <td>{{#if this.paidDate}} <p class="font-semibold text-green-500" >Vyplatená</p> {{else}} {{#beforeDueDate this.dueDate}} Čaká sa na platbu {{else}} <p class="font-semibold text-red-500">Po splatnosti</p> {{/beforeDueDate}} {{/if}}</td>
+                    <td>{{#if this.paidDate}} <p class="font-semibold text-green-500" >Vyplatená</p> {{else}} {{#beforeDueDate this.dueDate}} <p>Čaká sa na platbu</p> {{else}} <p class="font-semibold text-red-500">Po splatnosti</p> {{/beforeDueDate}} {{/if}}</td>
                 </tr>
                 {{/if}}
             {{/each}}

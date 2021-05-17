@@ -1,30 +1,28 @@
 TODO:
 prehlad prijmov                                                                                                         4-6 dni
 autorizacia pouzivatela                                                                                                 2-4 dni
-pridat datum vyplatenia faktury
 fixnut uploadovanie fileov
-do dashboardu pridat:   priemerne mesacne vydaje/prijmy
-                        pomer vyplatenych/nevyplatenych faktur/ overdue
-                        pocet klientov
-
 
 BUGS:
 zobrazenie detailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje) po autorizacii by to mal byt ez fix                        1 hodina
-helper na vypocitanie celkovej ceny (riadok) namiesto zlavy pripocitava "prirazku" :D
-asi nemam ziadny helper prisposobeny na float cisla
-
 
 IMPROVE:
+suma faktur pri kt. sa caka na vyplatenie
 doplnanie poloziek z DB
 doplnanie zamestnancov z DB
 print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
 @notEmpty a tieto dekoratory optimalizovat pre DTO
 že keď ma firma ic dph tak je platiteľ a keď nie je platiteľ tak ic dph nema teda dufam že si to dobre pamätám
+legenda grafov pod grafy
                                                                                                                         8-12 dni
 
 DONE:
+helper na vypocitanie celkovej ceny (riadok) namiesto zlavy pripocitava "prirazku" :D
+asi nemam ziadny helper prisposobeny na float cisla
 pridat simple tabulky vydavkov: datum, suma, nazov, popis
-
+pridat datum vyplatenia faktury
+do dashboardu pridat:   priemerne mesacne vydaje/prijmy
+                        pomer vyplatenych/nevyplatenych faktur/ overdue
 zobrazenie faktury/objednavky lepsie nastylovat checkbox "platitel DPH"
 pri float numbers cena za j. s DPH ukazuje nizsiu cenu ako bez DPH (po loadnuti stranky, ked zbehne JS tak sa cena opravi) - helper "singleItemWithTax"
 forma uhrady nema defaultne selectnutu dobru option

@@ -4,7 +4,7 @@ import {InvoiceRepository} from "./invoices/invoice.repository";
 import {InvoiceItemListsService} from "./invoiceItems/invoiceItemLists.service";
 import {Company} from "./company/company.entity";
 import {Invoice} from "./invoices/invoice.entity";
-import {Between} from "typeorm";
+import {Between, Not} from "typeorm";
 import {type} from "os";
 import any = jasmine.any;
 import {ExpenseRepository} from "./expense/expense.repository";
@@ -27,7 +27,8 @@ export class AppService {
         {
             where: {
                 company: company.id,
-                dueDate: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000')
+                //dueDate: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000'),
+                paidDate: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000')
             }
         });
       const expenses = this.expenseRepository.find(
@@ -37,24 +38,60 @@ export class AppService {
                   expenseDate: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000')
               }
           });
-      return this.generateJSONstring(this.processIncomes(await invoices), this.processExpenses(await expenses));
+      const invoiceStates = this.invoiceRepository.find(
+          {
+              where: {
+                  company: company.id,
+                  dueDate: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000'),
+              }
+          });
+
+      return this.generateJSONstring(this.processIncomes(await invoices), this.processExpenses(await expenses), this.invoiceState(await invoiceStates));
+  }
+
+    private invoiceState(
+        invoices: Invoice[]
+    ) :number[]{
+
+      let paid: number = 0;
+      let waitingForPayment: number = 0;
+      let overdue: number = 0;
+      let overduePayments: number = 0;
+      let expectedPayments: number = 0;
+      invoices.forEach(invoice => {
+          if (invoice.paidDate != null){
+              paid += 1;
+          }
+          else if (invoice.dueDate.getTime() <= new Date().getTime()){
+              overdue += 1;
+              overduePayments += this.sumTotal(invoice);
+          }
+          else {
+              waitingForPayment += 1;
+              expectedPayments += this.sumTotal(invoice);
+          }
+      })
+        return [paid, waitingForPayment, overdue, expectedPayments, overduePayments];
   }
 
   private generateJSONstring (
       incomes: Map<string, number>,
-      expenses: Map<string, number>
+      expenses: Map<string, number>,
+      invoiceStates :number[]
   ) :string {
-      let test = '{ "income" : {' ;
+      let data = '{ "income" : {' ;
       incomes.forEach((value, key, map) => {
-          test+=' "'+key+'":"'+value+'" ,';
+          data+=' "'+key+'":"'+value+'" ,';
       })
-      test = test.slice(0, test.lastIndexOf(",")) + test.slice(test.lastIndexOf(",")+1) + '}';
-      test+= ', "expense" : {' ;
+      data = data.slice(0, data.lastIndexOf(",")) + data.slice(data.lastIndexOf(",")+1) + '}';
+      data+= ', "expense" : {' ;
       expenses.forEach((value, key, map) => {
-          test+=' "'+key+'":"'+value+'" ,';
+          data+=' "'+key+'":"'+value+'" ,';
       })
-      test = test.slice(0, test.lastIndexOf(",")) + test.slice(test.lastIndexOf(",")+1) + '}}';
-      return test
+      data = data.slice(0, data.lastIndexOf(",")) + data.slice(data.lastIndexOf(",")+1) + '}';
+      data+= ', "invoiceState" : { "paid":"'+invoiceStates[0]+'" , "waitingForPayment":"'+invoiceStates[1]+'" , "overdue":"'+invoiceStates[2]+'"';
+      data+= ', "expectedPayments":"'+invoiceStates[3]+'" , "overduePayments":"'+invoiceStates[4]+'"}}';
+      return data
   }
 
   private processExpenses (
@@ -109,41 +146,41 @@ export class AppService {
   ):Map<string, number>{
       let data = new Map([ ['jan',0], ['feb',0], ['mar',0], ['apr',0], ['may',0], ['jun',0], ['jul',0], ['aug',0], ['sep',0], ['oct',0], ['nov',0], ['dec',0] ]);
       invoices.forEach(invoice =>{
-          switch(invoice.dueDate.getMonth()) {
-              case 0:
+          switch(invoice.paidDate.slice(5,7)) {
+              case "01":
                   data.set('jan', data.get('jan') + this.sumTotal(invoice));
                   break;
-              case 1:
+              case "02":
                   data.set('feb', data.get('feb') + this.sumTotal(invoice));
                   break;
-              case 2:
+              case "03":
                   data.set('mar', data.get('mar') + this.sumTotal(invoice));
                   break;
-              case 3:
+              case "04":
                   data.set('apr', data.get('apr') + this.sumTotal(invoice));
                   break;
-              case 4:
+              case "05":
                   data.set('may', data.get('may') + this.sumTotal(invoice));
                   break;
-              case 5:
+              case "06":
                   data.set('jun', data.get('jun') + this.sumTotal(invoice));
                   break;
-              case 6:
+              case "07":
                   data.set('jul', data.get('jul') + this.sumTotal(invoice));
                   break;
-              case 7:
+              case "08":
                   data.set('aug', data.get('aug') + this.sumTotal(invoice));
                   break;
-              case 8:
+              case "09":
                   data.set('sep', data.get('sep') + this.sumTotal(invoice));
                   break;
-              case 9:
+              case "10":
                   data.set('oct', data.get('oct') + this.sumTotal(invoice));
                   break;
-              case 10:
+              case "11":
                   data.set('nov', data.get('nov') + this.sumTotal(invoice));
                   break;
-              case 11:
+              case "12":
                   data.set('dec', data.get('dec') + this.sumTotal(invoice));
                   break;
           }

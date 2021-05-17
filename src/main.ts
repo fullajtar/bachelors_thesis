@@ -24,7 +24,7 @@ async function bootstrap() {
     //As you can see on the page, we have a single comment which consumes two lines. Let's create a custom helper to summarize that text.
     //
     // To do that, in the Handlebars configuration, we can define our helper functions. In our case, we'll clip comments to 64 characters:
-    helpers: //helpers
+    helpers:
         {
 
 
@@ -48,7 +48,7 @@ async function bootstrap() {
                 let cost = 0;
                 comment.invoiceItemLists.forEach(element => {
                   if (element.item && element.item.itemPriceWithoutTax){
-                    cost = cost + totalWithVat(element.item.itemTax, element.quantity, element.item.itemPriceWithoutTax)
+                    cost = cost + totalWithVat(element.item.itemTax, element.quantity, element.item.itemPriceWithoutTax, element.discount)
                   }
 
                 })
@@ -62,7 +62,7 @@ async function bootstrap() {
                 let cost = 0;
                 invoiceEntity.invoiceItemLists.forEach(element => {
                   if (element.item && element.item.itemPriceWithoutTax){
-                    cost = cost + totalWithVat(element.item.itemTax, element.quantity, element.item.itemPriceWithoutTax)
+                    cost = cost + totalWithVat(element.item.itemTax, element.quantity, element.item.itemPriceWithoutTax, element.discount);
                   }
 
                 })
@@ -137,9 +137,10 @@ async function bootstrap() {
             return result.toFixed(2);
           },
 
-          totalWithVat(vat, quantity, priceForUnit){
-            vat = vat/100
-            const result = (quantity * priceForUnit) * (1 + vat);
+          totalWithVat(vat, quantity, priceForUnit, discount){
+            vat = vat/100;
+            discount = discount/100;
+            const result = (quantity * priceForUnit) * (1 + vat) * (1 - discount);
             return result.toFixed(2);
           },
 
@@ -157,8 +158,6 @@ async function bootstrap() {
             return options.inverse(this);
           },
           beforeDueDate(dueDate :Date, options){
-            console.log("due date: ",dueDate)
-            console.log("typeof: ", typeof  dueDate)
             if (dueDate==null || dueDate.getTime() >= new Date().getTime()){
               return options.fn(this);
             }
@@ -181,8 +180,9 @@ async function bootstrap() {
 }
 bootstrap();
 
-function totalWithVat(vat, quantity, priceForUnit){
-  vat = vat/100
-  const result = (quantity * priceForUnit) * (1 + vat);
+function totalWithVat(vat, quantity, priceForUnit, discount) :number{
+  vat = vat/100;
+  discount = discount/100;
+  const result = (quantity * priceForUnit) * (1 + vat) * (1 - discount);
   return result;
 }
