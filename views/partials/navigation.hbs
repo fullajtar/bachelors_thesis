@@ -29,6 +29,11 @@
 
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
+        console.log(window.location.href)
+        if (window.location.href.includes("/auth")){
+            document.getElementsByTagName('header')[0].style.display = 'none';
+        }
+
             const elements = document.getElementById('myDIV').childNodes
             if (elements[1].href === window.location.href){
                 elements[1].className += " logoColourBackground";

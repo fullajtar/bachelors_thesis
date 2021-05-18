@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="overflow-hidden">
+    <div class="h-full px-4 p1-5 bg-gray-200 sm:p-6 flex flex-wrap content-center justify-center">
+                <form class="w-1/2" action="/auth/signin" method="POST">
+                    <label class="block text-sm font-medium text-gray-700" for="username">Login</label><input class="mb-4 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" name="username" id="username" value="Dominik">
+                    <label class="block text-sm font-medium text-gray-700" for="password">Heslo</label><input class="mb-2 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" name="password" id="password" value="123Aa2123">
+                    <a class="mb-2 block italic hover:underline hover:text-green-600" href="/auth/signup">Chcem sa registrovať</a>
+                    <input class="myButtonStyle" type="submit" value="Prihlásiť">
+                </form>
+    </div>
+</div>
+
+</body>
+</html>

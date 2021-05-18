@@ -9,6 +9,9 @@ vytrorilo 2 objednavky namiesto jednej (ked neboli ziadne polozky)
 vytvorenie faktury - datum vyplatenia nemoze byt null
 po vytvoreni faktury/objednavky sa nevrati ziadna hodnota (zobrazi prazdnu fakturu/objednavku)
 pridat session do AJAX (prehlad funguje iba na dummy pouzivatela)
+forsnut novo-registrovaneho uzivatela vytvorit si firmu
+hesovat heslo este pred prihlasenim/registrovanim
+display errors (controller -> html)
 
 IMPROVE:
 doplnanie zamestnancov z DB?
@@ -16,6 +19,8 @@ print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
 @notEmpty a tieto dekoratory optimalizovat pre DTO
 že keď ma firma ic dph tak je platiteľ a keď nie je platiteľ tak ic dph nema teda dufam že si to dobre pamätám
 legenda grafov pod grafy
+templaty maju generovane !DOC aj ked je to redundant
+zistit ako setnut secondary layout (pre auth bez navigacie)
                                                                                                                         8-12 dni
 
 DONE:

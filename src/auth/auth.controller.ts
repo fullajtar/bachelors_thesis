@@ -9,8 +9,13 @@ export class AuthController {
     ) {}
 
     @Get()
-    @Render('auth')
+    @Render('auth/login-auth.hbs')
     root() {
+        return ;//{ message: 'Hello world!' };
+    }
+    @Get('/signup')
+    @Render('auth/signup-auth.hbs')
+    signUpForm() {
         return ;//{ message: 'Hello world!' };
     }
 
@@ -40,7 +45,7 @@ export class AuthController {
     }
 
     @Get('/signout')
-    @Render('auth')
+    @Render('auth/login-auth.hbs')
     signOut(
         @Session() session: Record<string, any>,
     ): Promise<{ accessToken: string }> {

@@ -22,6 +22,7 @@ async function bootstrap() {
   //Now, we can configure express-handlebars as our view engine:
   app.engine('hbs', exphbs({
     defaultLayout: 'main',
+    layout: 'other',
     extname: '.hbs',
     //As you can see on the page, we have a single comment which consumes two lines. Let's create a custom helper to summarize that text.
     //
