@@ -7,7 +7,7 @@ import {
     ParseIntPipe,
     Post,
     Query,
-    Render, UploadedFile,
+    Render, Req, Session, UploadedFile,
     UseInterceptors,
     ValidationPipe
 } from "@nestjs/common";
@@ -20,6 +20,8 @@ import {diskStorage} from 'multer';
 import {v4 as uuidv4} from 'uuid';
 import * as path from "path";
 import {Observable, of} from "rxjs";
+import session from "express-session";
+import {CompanyService} from "../company/company.service";
 
 export const storage = {
     storage: diskStorage({
@@ -37,58 +39,88 @@ export const storage = {
 export class ExpenseController{
     constructor(
         private expenseService: ExpenseService,
+        private companyService: CompanyService
     ) {}
 
     @Get()
     @Render('expense/expenses.hbs')
-    getExpenses(
-
+    async getExpenses(
+        @Session() session: Record<string, any>
     ) :Promise<Expense[]> {
-        const company = new Company();
-        company.id = 1;
-        return this.expenseService.getExpenses(company);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            return this.expenseService.getExpenses(company);
+        }
+        return
+
     }
 
     @Get('/create')
     @Render('expense/create-expense.hbs')
     createExpenseFrom(
+        @Session() session: Record<string, any>,
     ) :Expense {
-        return new Expense();
+        console.log(session)
+        if (session.userid){
+            return new Expense();
+        }
+        return
+
     }
 
     @Post('/create')
     @Render('expense/detail-expense.hbs')
-    createExpense(
+    async createExpense(
+        @Session() session: Record<string, any>,
         @Body() createExpenseDto: CreateExpenseDto
     ) :Promise<Expense> {
-        const company = new Company();
-        company.id = 1;
-        return this.expenseService.createExpense(createExpenseDto, company);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            return this.expenseService.createExpense(createExpenseDto, company);
+        }
+        return
+
     }
 
     @Get("/:id")
     @Render('expense/detail-expense.hbs')
-    getExpenseById(
+    async getExpenseById(
+        @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
-
     ) :Promise<Expense> {
-        const company = new Company();
-        company.id = 1;
-        return this.expenseService.getExpenseById(id, company);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            return this.expenseService.getExpenseById(id, company);
+        }
+        return
+
     }
 
     @Post("/:id")
     @Render('expense/detail-expense.hbs')
     @UseInterceptors(FileInterceptor('expenseFile', storage))
-    editExpense(
+    async editExpense(
+        @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
         @UploadedFile() expenseFile,
         @Body() createExpenseDto: CreateExpenseDto,
     ) :Promise<Expense>{
-        console.log(expenseFile)
-        const company = new Company();
-        company.id = 1;
-        return this.expenseService.editExpense(id, company, createExpenseDto);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            return this.expenseService.editExpense(id, company, createExpenseDto);
+        }
+        return
+
+    }
+
+    private async getUsersCompany(
+        userId: number
+    ) :Promise <Company>{
+        return  this.companyService.getMyCompany(userId);
     }
 
 

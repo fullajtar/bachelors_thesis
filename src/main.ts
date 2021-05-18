@@ -3,6 +3,8 @@ import {NestExpressApplication} from '@nestjs/platform-express';
 import {AppModule} from './app.module';
 import {join} from "path";
 import {IsNumber} from "class-validator";
+import * as session from 'express-session';
+
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -174,6 +176,15 @@ async function bootstrap() {
     extended: true
   }))
   app.use(methodOverride('X-HTTP-Method-Override'));
+
+  //apply the express-session middleware as global middleware
+  app.use(
+      session({
+        secret: 'my-secret',
+        resave: false,
+        saveUninitialized: false,
+      })
+  )
 
   await app.listen(3000);
   console.log(`Application is running on port: ${await app.getUrl()}`);

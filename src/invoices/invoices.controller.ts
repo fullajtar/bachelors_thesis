@@ -1,4 +1,16 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query, Render, ValidationPipe} from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    ParseIntPipe,
+    Post,
+    Query, Redirect,
+    Render,
+    Session,
+    ValidationPipe
+} from "@nestjs/common";
 import {InvoicesService} from "./invoices.service";
 import {CreateInvoiceDto} from "./dto/create-invoice.dto";
 import {InvoicePatchValidationPipe} from "./pipes/invoice-patch-validation.pipe";
@@ -16,7 +28,10 @@ import {CustomerService} from "../customer/customer.service";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 import {User} from "../auth/user.entity";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
+import * as express from 'express';
+
 import {GetItemsFilterDto} from "../Items/dto/get-items-filter.dto";
+import session from "express-session";
 
 @Controller('invoices')
 //@UseGuards(AuthGuard())
@@ -31,31 +46,38 @@ export class InvoicesController {
 
     @Get()
     @Render('invoices/invoices.hbs')
-    getInvoices(
+    async getInvoices(
+        @Session() session: Record<string, any>,
         @Query(ValidationPipe) filterDto: GetInvoicesFilterDto,
     ): Promise<Invoice[]> {
-        const company = new Company();
-        company.id = 1;
-        return this.invoicesService.getInvoices(company, filterDto); //.then((result) => result ? { invoices: result } : { invoices: [] } );
+        console.log(session)
+        if (session.userid){
+            const company = this.getUsersCompany(session.userid);
+            return this.invoicesService.getInvoices(await company, filterDto);
+        }
+        return;
     }
     @Get('/create')
     @Render('invoices/create-invoice.hbs')
-    async createInvoiceForm():Promise<Invoice>{ //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
-        const user = new User();
-        user.id = 1;
-        const company = new Company();
-        company.id = 1;
-        user.company = company;
-        const invoice = new Invoice();
-        invoice.company = await this.companyService.getMyCompany(user);
-        invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
-        return invoice;
+    async createInvoiceForm(
+        @Session() session: Record<string, any>,
+    ):Promise<Invoice>{
+        console.log(session)
+        if (session.userid){
+            const invoice = new Invoice();
+            invoice.company = await this.companyService.getMyCompany(session.userid);
+            invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
+            return invoice;
+        }
+        return;
+
     }
 
     @Post('/create')
     //@UsePipes(ValidationPipe)
     @Render('invoices/invoice-detail.hbs')
     async createInvoice( //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+        @Session() session: Record<string, any>,
         @Body() createInvoiceDto: CreateInvoiceDto,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
@@ -63,21 +85,23 @@ export class InvoicesController {
         // @GetUser() user: User,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Invoice> {
-        const user = new User();
-        user.id = 1;
-        const company = new Company();
-        company.id = 1;
-        user.company = company;
-        const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        const invoice :Invoice = await this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
-        invoice.company = await this.companyService.getMyCompany(user);
-        return
+        console.log(session)
+        if (session.userid){
+            const company = await this.companyService.getMyCompany(session.userid);
+            const customer = await this.customerService.createCustomer(company, createCustomerDto);
+            const invoice :Invoice = await this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
+            invoice.company = company;
+            return
+        }
+        return;
+
     }
 
     @Post('/generate')
     //@UsePipes(ValidationPipe)
     @Render('invoices/create-invoice.hbs')
     async generateInvoiceFromOrder( //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+        @Session() session: Record<string, any>,
         @Body() generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
         // @Body() createInvoiceDto: CreateInvoiceDto,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
@@ -86,21 +110,23 @@ export class InvoicesController {
         // @GetUser() user: User, //TODO make it work and get company with this user
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Invoice> {
-        const user = new User();
-        user.id = 1;
-        const company = new Company();
-        company.id = 1;
-        user.company = company;
-        const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        const invoice = await this.invoicesService.generateInvoiceFromOrder(company, paymentMethod ,generateInvoiceFromOrderDto, createItemDto, createInvoiceItemListDto, customer);
-        invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
-        invoice.company = await this.companyService.getMyCompany(user);
-        return invoice;
+        console.log(session)
+        if (session.userid){
+            const company = await this.companyService.getMyCompany(session.userid);
+            const customer = await this.customerService.createCustomer(company, createCustomerDto);
+            const invoice = await this.invoicesService.generateInvoiceFromOrder(company, paymentMethod ,generateInvoiceFromOrderDto, createItemDto, createInvoiceItemListDto, customer);
+            invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
+            invoice.company = company;
+            return invoice;
+        }
+        return;
+
     }
 
     @Post('/:invoiceId')
     @Render('invoices/invoice-detail.hbs')
     async addItemToInvoice(
+        @Session() session: Record<string, any>,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
@@ -108,30 +134,46 @@ export class InvoicesController {
         @Param('invoiceId', ParseIntPipe) invoiceId: number,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Invoice> {
-        const company = new Company();
-        company.id = 1;
-        const customer = await this.customerService.createCustomer(company, createCustomerDto);
-        return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            const customer = await this.customerService.createCustomer(company, createCustomerDto);
+            return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
+        }
+        return;
     }
 
     @Get('/:id')
     @Render('invoices/invoice-detail.hbs')
     async getInvoiceById(
+        @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
-    ): Promise<Invoice> { //TODO: vracat aj entitu company aby sa zobrazovali zakladne udaje
-        const company = new Company();
-        company.id = 1;
-        return this.invoicesService.getInvoiceById(company, id);
+    ): Promise<Invoice> {
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            return this.invoicesService.getInvoiceById(company, id);
+        }
+        return;
     }
 
     @Delete('/:id')
-    deleteInvoice(
+    async deleteInvoice(
+        @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
     ): Promise<void> {
-        const company = new Company();
-        company.id = 1;
-        return this.invoicesService.deleteInvoice(company, id);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            return this.invoicesService.deleteInvoice(company, id);
+        }
+        return;
     }
 
+    private async getUsersCompany(
+        userId: number
+    ) :Promise <Company>{
+        return  this.companyService.getMyCompany(userId);
+    }
 
 }

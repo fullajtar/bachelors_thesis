@@ -2,10 +2,14 @@ import {Controller, Get, Render} from '@nestjs/common';
 import { AppService } from './app.service';
 import {Company} from "./company/company.entity";
 import {Invoice} from "./invoices/invoice.entity";
+import {CompanyService} from "./company/company.service";
 
-@Controller()
+@Controller() //TODO ADD SESSIONS SOMEHOW
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+      private readonly appService: AppService,
+      private companyService: CompanyService,
+  ) {}
 
   @Get()
   @Render('dashBoard.hbs')
@@ -21,6 +25,12 @@ export class AppController {
     const company = new Company();
     company.id = 1;
     return this.appService.getDataDashboard(company);
+  }
+
+  private async getUsersCompany(
+      userId: number
+  ) :Promise <Company>{
+    return  this.companyService.getMyCompany(userId);
   }
 
 

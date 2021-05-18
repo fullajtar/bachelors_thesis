@@ -3,6 +3,12 @@ autorizacia pouzivatela                                                         
 fixnut uploadovanie fileov
 
 BUGS:
+pri vytvarani firmy ked je "platitel DPH" na false, hodi error "should not be empty"
+vytrorilo 2 objednavky namiesto jednej (ked neboli ziadne polozky)
+"uhradene zalohami" ma predvooenu hodnotu null, hadze to chyby
+vytvorenie faktury - datum vyplatenia nemoze byt null
+po vytvoreni faktury/objednavky sa nevrati ziadna hodnota (zobrazi prazdnu fakturu/objednavku)
+pridat session do AJAX (prehlad funguje iba na dummy pouzivatela)
 
 IMPROVE:
 doplnanie zamestnancov z DB?

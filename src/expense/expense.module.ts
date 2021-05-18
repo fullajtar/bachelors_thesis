@@ -20,10 +20,10 @@ import {ExpenseService} from "./expense.service";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([ExpenseRepository]),
+        TypeOrmModule.forFeature([ExpenseRepository, CompanyRepository]),
         AuthModule,
     ],
     controllers: [ExpenseController],
-    providers: [ExpenseService],
+    providers: [ExpenseService, CompanyService],
 })
 export class ExpenseModule {}

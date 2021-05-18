@@ -1,5 +1,5 @@
 import {OrderService} from "./order.service";
-import {Body, Controller, Get, Param, ParseIntPipe, Post, Render} from "@nestjs/common";
+import {Body, Controller, Get, Param, ParseIntPipe, Post, Render, Session} from "@nestjs/common";
 import {Order} from "./oder.entity";
 import {Company} from "../company/company.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
@@ -32,33 +32,39 @@ export class OrderController{
 
     @Get()
     @Render('orders/orders.hbs')
-    getOrders(
+    async getOrders(
+        @Session() session: Record<string, any>,
     ): Promise<Order[]> {
-        const company = new Company();
-        company.id = 1;
-        return this.orderService.getOrders(company); //.then((result) => result ? { invoices: result } : { invoices: [] } );
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            return this.orderService.getOrders(company);
+        }
+        return
+
     }
 
 
 
     @Get('/create')
     @Render('orders/create-order.hbs')
-    async createOrderForm():Promise<Order>{ //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
-        const user = new User();
-        user.id = 1;
-        const company = new Company();
-        company.id = 1;
-        user.company = company;
-        const order = new Order();
-        order.company = await this.companyService.getMyCompany(user);
-        order.orderNumber = await this.orderService.getNewOrderNumber();
-        order.company = await this.companyService.getMyCompany(user);
-        return order;
+    async createOrderForm(
+        @Session() session: Record<string, any>,
+    ):Promise<Order>{
+        console.log(session)
+        if (session.userid){
+            const order = new Order();
+            order.company = await this.companyService.getMyCompany(session.userid);
+            order.orderNumber = await this.orderService.getNewOrderNumber();
+            return order;
+        }
+        return
     }
+
     @Post('/create')
-    //@UsePipes(ValidationPipe)
     @Render('orders/order-detail.hbs')
-    async createOrder( //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+    async createOrder(
+        @Session() session: Record<string, any>,
         @Body() createOrderDto: CreateOrderDto,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
@@ -66,26 +72,35 @@ export class OrderController{
         @Body() createEmployeeDto: CreateEmployeeDto,
         @GetUser() user: Company,
     ): Promise<Order> {
-        const company = new Company();
-        company.id = 1;
-        const customer = await this.customerService.createCustomer(company, createCustomerDto);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            const customer = await this.customerService.createCustomer(company, createCustomerDto);
+            const order = await this.orderService.createOrder(company, createOrderDto, createItemDto, createInvoiceItemListDto, customer);
+            order.company = company;
+        }
+        return
 
-        return this.orderService.createOrder(company, createOrderDto, createItemDto, createInvoiceItemListDto, customer);
     }
 
     @Get('/:id')
     @Render('orders/order-detail.hbs')
     async getOrderById(
+        @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
     ): Promise<Order> {
-        const company = new Company();
-        company.id = 1;
-        return this.orderService.getOrderById(company, id);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            return this.orderService.getOrderById(company, id);
+        }
+        return
     }
 
     @Post('/:id')
     @Render('orders/order-detail.hbs')
     async editOrder(
+        @Session() session: Record<string, any>,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
@@ -94,13 +109,23 @@ export class OrderController{
         @Param('id', ParseIntPipe) invoiceId: number,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
     ): Promise<Order> {
-        const company = new Company();
-        company.id = 1;
-        if (createEmployeeDto["action"] == "save"){
-            const customer = await this.customerService.createCustomer(company, createCustomerDto);
-            return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
+        console.log(session)
+        if (session.userid){
+            const company = await this.getUsersCompany(session.userid)
+            if (createEmployeeDto["action"] == "save"){
+                //const customer = await this.customerService.createCustomer(company, createCustomerDto);
+                return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
+            }
         }
+        return
 
+
+    }
+
+    private async getUsersCompany(
+        userId: number
+    ) :Promise <Company>{
+        return  this.companyService.getMyCompany(userId);
     }
 
 }

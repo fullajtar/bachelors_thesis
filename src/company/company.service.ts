@@ -13,9 +13,11 @@ export class CompanyService {
     ) {}
 
     async getMyCompany(
-        user: User
+        //user: User
+        userId: number
     ): Promise<Company> {
-        return this.companyRepository.getMyCompany(user);
+        return this.companyRepository.findOne({where: { id :userId}});
+        //return this.companyRepository.getMyCompany(user);
     }
 
     async createMyCompany(
@@ -55,7 +57,7 @@ export class CompanyService {
         if  (supplierPayingTax == undefined){
             supplierPayingTax = false;
         }
-        const company = await this.getMyCompany(user);
+        const company = await this.getMyCompany(user.id);
         company.supplierName = supplierName;
         company.street = street;
         company.postCode = postCode;

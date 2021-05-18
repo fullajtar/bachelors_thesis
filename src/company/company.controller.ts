@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Redirect, Render, UsePipes, ValidationPipe} from "@nestjs/common";
+import {Body, Controller, Get, Post, Redirect, Render, Session, UsePipes, ValidationPipe} from "@nestjs/common";
 import {CreateCompanyDto} from "./dto/create-company.dto";
 import {Company} from "./company.entity";
 import {User} from "../auth/user.entity";
@@ -13,28 +13,29 @@ export class CompanyController{
     @Get()
     @Render('company/editMyCompany.hbs')
     getMyCompany(
-        //get user
+        @Session() session: Record<string, any>,
     ): Promise<Company>{
-        const user = new User();
-        user.id = 1;
-        const company = new Company();
-        company.id = 1;
-        user.company = company;
-        return this.companyService.getMyCompany(user);
+        console.log(session)
+        if (session.userid){
+            return this.companyService.getMyCompany(session.userid);
+        }
+        return;
     }
 
     @Post()
     @Render('company/editMyCompany.hbs')
     editMyCompany(
+        @Session() session: Record<string, any>,
         @Body() createCompanyDto: CreateCompanyDto,
-        //get company
     ): Promise<Company> {
-        const user = new User();
-        user.id = 1;
-        const company = new Company();
-        company.id = 1;
-        user.company = company;
-        return this.companyService.editMyCompany(user, createCompanyDto);
+        console.log(session)
+        if (session.userid){
+            const user = new User();
+            user.id = session.userid;
+            return this.companyService.editMyCompany(user, createCompanyDto);
+        }
+        return;
+
     }
 
     @Get('/create')
@@ -47,12 +48,21 @@ export class CompanyController{
     @Redirect('/invoices')
     @UsePipes(ValidationPipe)
     createMyCompany(
+        @Session() session: Record<string, any>,
         @Body(ValidationPipe) createCompanyDto: CreateCompanyDto,
     ): Promise<Company>{
-        const user = new User();
-        user.id = 1;
-        return this.companyService.createMyCompany(user, createCompanyDto);
+        console.log(session)
+        if (session.userid){
+            const user = new User();
+            user.id = session.userid;
+            return this.companyService.createMyCompany(user, createCompanyDto);
+        }
+        return;
+
     }
-
-
+    private async getUsersCompany(
+        userId: number
+    ) :Promise <Company>{
+        return  this.companyService.getMyCompany(userId);
+    }
 }

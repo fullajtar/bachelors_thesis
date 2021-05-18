@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Redirect, Render, ValidationPipe} from "@nestjs/common";
+import {Body, Controller, Get, Post, Redirect, Render, Session, ValidationPipe} from "@nestjs/common";
 import {AuthCredentialsDto} from "./dto/auth-credentials.dto";
 import {AuthService} from "./auth.service";
 
@@ -14,23 +14,39 @@ export class AuthController {
         return ;//{ message: 'Hello world!' };
     }
 
-    @Get('/testing')
-    @Render('blankTest.hbs')
-    test(){
-        return
-    }
-
-
     @Post('/signup')
     @Redirect('/company/create')
-    signUp(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<void> {
+    signUp(
+        @Session() session: Record<string, any>,
+        @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto
+    ): Promise<void> {
 
         return this.authService.signUp(authCredentialsDto);
     }
 
     @Post('/signin')
     @Redirect('/invoices')
-    signIn(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
-        return this.authService.signIn(authCredentialsDto);
+    async signIn(
+        @Session() session: Record<string, any>,
+        @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto
+    ): Promise<{ accessToken: string }> {
+        const usernameAndId = await this.authService.signIn(authCredentialsDto);
+        if (usernameAndId){
+            session.username = usernameAndId[0];
+            session.userid = usernameAndId[1];
+        }
+        console.log(session)
+        return ;
+    }
+
+    @Get('/signout')
+    @Render('auth')
+    signOut(
+        @Session() session: Record<string, any>,
+    ): Promise<{ accessToken: string }> {
+        session.userid = null;
+        session.username = null;
+        console.log(session)
+        return ;
     }
 }

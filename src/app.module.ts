@@ -17,11 +17,12 @@ import {CompanyRepository} from "./company/company.repository";
 import {CustomerRepository} from "./customer/customer.repository";
 import {OrderRepository} from "./order/order.repository";
 import {ExpenseRepository} from "./expense/expense.repository";
+import {CompanyService} from "./company/company.service";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
-    TypeOrmModule.forFeature([InvoiceRepository, ExpenseRepository]),
+    TypeOrmModule.forFeature([InvoiceRepository, ExpenseRepository, CompanyRepository]),
     InvoicesModule,
     AuthModule,
     OrderModule,
@@ -32,6 +33,6 @@ import {ExpenseRepository} from "./expense/expense.repository";
   ],
 
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CompanyService],
 })
 export class AppModule {}
