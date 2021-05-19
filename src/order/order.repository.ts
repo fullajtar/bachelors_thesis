@@ -28,6 +28,7 @@ export class OrderRepository extends Repository<Order> {
         itemLists: InvoiceItemList[],
         customer: Customer,
     ): Promise<Order> {
+        console.log("repo create")
 
         const {
             currency,

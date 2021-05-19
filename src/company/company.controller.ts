@@ -51,6 +51,7 @@ export class CompanyController{
         @Session() session: Record<string, any>,
         @Body(ValidationPipe) createCompanyDto: CreateCompanyDto,
     ): Promise<Company>{
+        console.log("company controller")
         console.log(session)
         if (session.userid){
             const user = new User();

@@ -1,5 +1,4 @@
 import {IsIBAN, IsNotEmpty, IsOptional, MaxLength} from "class-validator";
-import {Column} from "typeorm";
 
 export class CreateInvoiceDto {
 
@@ -104,5 +103,6 @@ export class CreateInvoiceDto {
     issuedByEmail: string;
 
     @IsOptional()
+    @IsNotEmpty()
     paidDate: string;
 }

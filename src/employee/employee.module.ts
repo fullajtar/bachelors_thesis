@@ -6,10 +6,11 @@ import {EmployeeController} from "./employee.controller";
 import {EmployeeService} from "./employee.service";
 import {CompanyRepository} from "../company/company.repository";
 import {CompanyService} from "../company/company.service";
+import {UserRepository} from "../auth/user.repository";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([EmployeeRepository, CompanyRepository]),
+        TypeOrmModule.forFeature([EmployeeRepository, CompanyRepository, UserRepository]),
         AuthModule,
     ],
     controllers: [EmployeeController],

@@ -14,10 +14,11 @@ import {CustomerRepository} from "../customer/customer.repository";
 import {CustomerService} from "../customer/customer.service";
 import {OrderRepository} from "../order/order.repository";
 import {OrderService} from "../order/order.service";
+import {UserRepository} from "../auth/user.repository";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([InvoiceRepository, InvoiceItemListRepository, ItemRepository, CompanyRepository, CustomerRepository, OrderRepository]),
+        TypeOrmModule.forFeature([InvoiceRepository, InvoiceItemListRepository, ItemRepository, CompanyRepository, CustomerRepository, OrderRepository, UserRepository]),
         AuthModule,
     ],
     controllers: [InvoicesController],

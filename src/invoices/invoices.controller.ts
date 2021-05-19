@@ -6,7 +6,7 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    Query, Redirect,
+    Query,
     Render,
     Session,
     ValidationPipe
@@ -16,7 +16,6 @@ import {CreateInvoiceDto} from "./dto/create-invoice.dto";
 import {InvoicePatchValidationPipe} from "./pipes/invoice-patch-validation.pipe";
 import {GetInvoicesFilterDto} from "./dto/get-invoices-filter.dto";
 import {Invoice} from "./invoice.entity";
-import {GetUser} from "src/auth/get-user.decorator";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
 import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
@@ -26,15 +25,9 @@ import {Company} from "../company/company.entity";
 import {CompanyService} from "../company/company.service";
 import {CustomerService} from "../customer/customer.service";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
-import {User} from "../auth/user.entity";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
-import * as express from 'express';
-
-import {GetItemsFilterDto} from "../Items/dto/get-items-filter.dto";
-import session from "express-session";
 
 @Controller('invoices')
-//@UseGuards(AuthGuard())
 export class InvoicesController {
     constructor(
         private invoicesService: InvoicesService,
@@ -50,7 +43,6 @@ export class InvoicesController {
         @Session() session: Record<string, any>,
         @Query(ValidationPipe) filterDto: GetInvoicesFilterDto,
     ): Promise<Invoice[]> {
-        console.log(session)
         if (session.userid){
             const company = this.getUsersCompany(session.userid);
             return this.invoicesService.getInvoices(await company, filterDto);
@@ -76,7 +68,7 @@ export class InvoicesController {
     @Post('/create')
     //@UsePipes(ValidationPipe)
     @Render('invoices/invoice-detail.hbs')
-    async createInvoice( //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+    async createInvoice(
         @Session() session: Record<string, any>,
         @Body() createInvoiceDto: CreateInvoiceDto,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
@@ -91,7 +83,7 @@ export class InvoicesController {
             const customer = await this.customerService.createCustomer(company, createCustomerDto);
             const invoice :Invoice = await this.invoicesService.createInvoice(company, paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
             invoice.company = company;
-            return
+            return invoice;
         }
         return;
 

@@ -6,21 +6,18 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    Query,
-    Render, Req, Session, UploadedFile,
-    UseInterceptors,
-    ValidationPipe
+    Render,
+    Session,
+    UploadedFile,
+    UseInterceptors
 } from "@nestjs/common";
 import {ExpenseService} from "./expense.service";
-import {GetInvoicesFilterDto} from "../invoices/dto/get-invoices-filter.dto";
 import {CreateExpenseDto} from "./dto/create-expense.dto";
 import {Company} from "../company/company.entity";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from 'multer';
 import {v4 as uuidv4} from 'uuid';
 import * as path from "path";
-import {Observable, of} from "rxjs";
-import session from "express-session";
 import {CompanyService} from "../company/company.service";
 
 export const storage = {

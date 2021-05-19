@@ -34,14 +34,14 @@
     <div class="border-black border-t-2 ">
         <div class="grid grid-cols-2 border-black border-b-2" >
             <div class="border-black border-r-2 pl-4">
-                <label for="paymentMethod">Forma úhrady:</label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="paymentMethod" id="paymentMethod" type="text" value="{{this.paymentMethod}}">
-                <!--
-                <select name="paymentMethod" id="paymentMethod" >
-                    <option value="POSTOVA POUKAZKA">Poštová poukážka</option>
-                    <option value="PREVOD">Bankový Prevod</option>
-                    <option value="HOTOVOST">Hotovosť</option>
-                    <option value="ZMENKA">Zmenka</option>
-                </select>--><br>
+                <label for="paymentMethod">Forma úhrady:</label>
+                <select class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="paymentMethod" id="paymentMethod">
+                    <option {{#ifCond "POSTOVA POUKAZKA" this.paymentMethod }} selected {{/ifCond}} value="POSTOVA POUKAZKA">Poštová poukážka</option>
+                    <option {{#ifCond "PREVOD" this.paymentMethod }} selected {{/ifCond}} value="PREVOD">Bankový Prevod</option>
+                    <option {{#ifCond "HOTOVOST" this.paymentMethod }} selected {{/ifCond}} value="HOTOVOST">Hotovosť</option>
+                    <option {{#ifCond "ZMENKA" this.paymentMethod }} selected {{/ifCond}} value="ZMENKA">Zmenka</option>
+                    <option {{#ifCond "KARTA" this.paymentMethod }} selected {{/ifCond}} value="KARTA">Karta</option>
+                </select>
                 <label for="deliveryMethod">Spôsob Dopravy:</label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="deliveryMethod" id="deliveryMethod" type="text" placeholder="Spôsob Dopravy" value="{{this.deliveryMethod}}" required><br>
             </div>
             <div class="border-black  pl-4">

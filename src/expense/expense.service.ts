@@ -1,7 +1,4 @@
-import {Injectable, Param, ParseIntPipe, Post} from "@nestjs/common";
-import {InjectRepository} from "@nestjs/typeorm";
-import {InvoiceRepository} from "../invoices/invoice.repository";
-import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
+import {Injectable} from "@nestjs/common";
 import {Expense} from "./expense.entity";
 import {ExpenseRepository} from "./expense.repository";
 import {Company} from "../company/company.entity";

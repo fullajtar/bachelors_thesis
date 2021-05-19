@@ -36,7 +36,6 @@
         <div class="grid grid-cols-2" >
             <div class="border-black border-r-2 pl-4">
                 <label for="paymentMethod">Forma úhrady:</label>
-<!--                <input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="paymentMethod" id="paymentMethod" type="text" value="{{this.paymentMethod}}">-->
                 <select class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="paymentMethod" id="paymentMethod" >
                     <option {{#ifCond "POSTOVA POUKAZKA" this.paymentMethod }} selected {{/ifCond}} value="POSTOVA POUKAZKA">Poštová poukážka</option>
                     <option {{#ifCond "PREVOD" this.paymentMethod }} selected {{/ifCond}} value="PREVOD">Bankový Prevod</option>
@@ -160,7 +159,7 @@
     <div >
         <p class="border-black border-t-2 pl-4">Suma bez DPH: <text id="summaryWithoutVat">{{priceWithoutTax this}}</text> {{this.currency}}</p>
         <p  class="border-black border-t-2 border-b-2 pl-4">Celková fakturovaná suma: <text id="summaryWithVat">{{priceWithTax this}}</text> {{this.currency}}</p>
-        <label class="pl-4" for="deposit">Uhradené zálohami: <input  class="w-20 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="deposit" id="deposit" type="number" placeholder="Uhradené zálohami" value="{{this.deposit}}" min="0" step="0.01" onchange="updateSummary()" > {{this.currency}}</label>
+        <label class="pl-4" for="deposit">Uhradené zálohami: <input  class="w-20 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="deposit" id="deposit" type="number" placeholder="Uhradené zálohami" {{#if this.deposit}} value="{{this.deposit}}" {{else}} value="0" {{/if}}     min="0" step="0.01" onchange="updateSummary()" required > {{this.currency}}</label>
         <p class="border-black border-t-2 h-16 pl-4"> K úhrade: <text id="summaryToPay">{{toPay this}}</text> {{this.currency}}</p>
     </div>
 

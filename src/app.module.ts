@@ -11,18 +11,15 @@ import {ExpenseModule} from "./expense/expense.module";
 import {AppController} from "./app.controller";
 import {AppService} from "./app.service";
 import {InvoiceRepository} from "./invoices/invoice.repository";
-import {InvoiceItemListRepository} from "./invoiceItems/invoiceItemList.repository";
-import {ItemRepository} from "./Items/item.repository";
 import {CompanyRepository} from "./company/company.repository";
-import {CustomerRepository} from "./customer/customer.repository";
-import {OrderRepository} from "./order/order.repository";
 import {ExpenseRepository} from "./expense/expense.repository";
 import {CompanyService} from "./company/company.service";
+import {UserRepository} from "./auth/user.repository";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
-    TypeOrmModule.forFeature([InvoiceRepository, ExpenseRepository, CompanyRepository]),
+    TypeOrmModule.forFeature([InvoiceRepository, ExpenseRepository, CompanyRepository, UserRepository]),
     InvoicesModule,
     AuthModule,
     OrderModule,

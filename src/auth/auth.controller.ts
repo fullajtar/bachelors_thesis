@@ -21,20 +21,29 @@ export class AuthController {
 
     @Post('/signup')
     @Redirect('/company/create')
-    signUp(
+    async signUp(
         @Session() session: Record<string, any>,
         @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto
     ): Promise<void> {
+        console.log(session)
 
-        return this.authService.signUp(authCredentialsDto);
+        await this.authService.signUp(authCredentialsDto);
+        const usernameAndId = await this.authService.signIn(authCredentialsDto);
+        console.log("auth credentials: ",usernameAndId)
+        if (usernameAndId){
+            session.username = usernameAndId[0];
+            session.userid = usernameAndId[1];
+        }
+        return
+
     }
 
     @Post('/signin')
-    @Redirect('/invoices')
+    @Redirect('/')
     async signIn(
         @Session() session: Record<string, any>,
         @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto
-    ): Promise<{ accessToken: string }> {
+    ): Promise<void> {
         const usernameAndId = await this.authService.signIn(authCredentialsDto);
         if (usernameAndId){
             session.username = usernameAndId[0];

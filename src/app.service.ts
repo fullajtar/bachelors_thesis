@@ -1,14 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {InvoiceRepository} from "./invoices/invoice.repository";
-import {InvoiceItemListsService} from "./invoiceItems/invoiceItemLists.service";
 import {Company} from "./company/company.entity";
 import {Invoice} from "./invoices/invoice.entity";
-import {Between, Not} from "typeorm";
-import {type} from "os";
-import any = jasmine.any;
+import {Between} from "typeorm";
 import {ExpenseRepository} from "./expense/expense.repository";
-import {ItemRepository} from "./Items/item.repository";
 import {Expense} from "./expense/expense.entity";
 
 @Injectable()

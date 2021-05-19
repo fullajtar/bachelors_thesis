@@ -1,17 +1,10 @@
 TODO:
-autorizacia pouzivatela                                                                                                 2-4 dni
 fixnut uploadovanie fileov
 
 BUGS:
-pri vytvarani firmy ked je "platitel DPH" na false, hodi error "should not be empty"
-vytrorilo 2 objednavky namiesto jednej (ked neboli ziadne polozky)
-"uhradene zalohami" ma predvooenu hodnotu null, hadze to chyby
-vytvorenie faktury - datum vyplatenia nemoze byt null
-po vytvoreni faktury/objednavky sa nevrati ziadna hodnota (zobrazi prazdnu fakturu/objednavku)
-pridat session do AJAX (prehlad funguje iba na dummy pouzivatela)
-forsnut novo-registrovaneho uzivatela vytvorit si firmu
-hesovat heslo este pred prihlasenim/registrovanim
-display errors (controller -> html)
+forcenut novo-registrovaneho uzivatela vytvorit si firmu //neviem bez redirectu
+??? hashovat heslo este pred odoslanim na BE ???
+redirectnut ak nie je prihlaseny
 
 IMPROVE:
 doplnanie zamestnancov z DB?
@@ -21,9 +14,21 @@ print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
 legenda grafov pod grafy
 templaty maju generovane !DOC aj ked je to redundant
 zistit ako setnut secondary layout (pre auth bez navigacie)
-                                                                                                                        8-12 dni
+display errors (controller -> html)
+
+
 
 DONE:
+pridat meno prihlaseneho do navigacie
+zahviezdickovat hesla
+pridat select na formy uhrady (objednavka)
+vytrorilo 2 objednavky namiesto jednej (ked neboli ziadne polozky)
+po vytvoreni faktury/objednavky sa nevrati ziadna hodnota (zobrazi prazdnu fakturu/objednavku)
+vytvorenie faktury - datum vyplatenia nemoze byt null
+"uhradene zalohami" ma predvooenu hodnotu null, hadze to chyby
+pri vytvarani firmy ked je "platitel DPH" na false, hodi error "should not be empty"
+pridat session do AJAX (prehlad funguje iba na dummy pouzivatela)
+autorizacia pouzivatela                                                                                                 2-4 dni
 zobrazenie detailu faktury nevypisuje zakladne info o company(po submite, inokedy to zobrazuje) po autorizacii by to mal byt ez fix / po savnuti rovno vyhladat v DB tiez fixne                       1 hodina
 suma faktur pri kt. sa caka na vyplatenie
 doplnanie poloziek z DB

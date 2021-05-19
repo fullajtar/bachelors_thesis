@@ -5,7 +5,6 @@ import {Company} from "../company/company.entity";
 import {GetEmployeeFilterDto} from "./dto/get-employee-filter.dto";
 import {CreateEmployeeDto} from "./dto/create-employee.dto";
 import {CompanyService} from "../company/company.service";
-import {User} from "../auth/user.entity";
 
 @Controller('employee')
 export class EmployeeController{

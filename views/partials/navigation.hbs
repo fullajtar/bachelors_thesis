@@ -5,8 +5,8 @@
                     <img class="w-24 p-3.5" src="/img/vectorpaint (1).svg" alt="LogoIpsum">
                 </a>
                 <div>
-                    <p class="text-white">Prihlásený:</p>
-                    <p class="text-white">Anon Anonymous</p>
+                    <p class="block text-white">Prihlásený:</p>
+                    <p id="logged-username" class="text-white block">.</p>
                 </div>
             </div>
 
@@ -26,9 +26,13 @@
 <!--        </div>-->
 
     </header>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <script>
+
     window.addEventListener('DOMContentLoaded', (event) => {
+
+
         console.log(window.location.href)
         if (window.location.href.includes("/auth")){
             document.getElementsByTagName('header')[0].style.display = 'none';
@@ -37,15 +41,30 @@
             const elements = document.getElementById('myDIV').childNodes
             if (elements[1].href === window.location.href){
                 elements[1].className += " logoColourBackground";
+                setLoggedUsername()
                 return
             }
             for (let i = 2; i < elements.length; i++){
                 if (window.location.href.includes(elements[i].href)){
                     elements[i].className += " logoColourBackground";
+                    setLoggedUsername()
                     return
                 }
             }
     });
+    function setLoggedUsername(){
+        $.ajax({
+            method: "GET",
+            url: "/session/username" ,
+            dataType: "text",
+            success: function (data) {
+                document.getElementById('logged-username').textContent = data
+            }
+        });
+
+    }
+
+
     function myFunction1() {
         let elements = document.getElementsByClassName("buttonImg")
         for(let element of elements){

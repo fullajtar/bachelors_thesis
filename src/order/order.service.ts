@@ -46,6 +46,8 @@ export class OrderService {
         createInvoiceItemListDto: CreateInvoiceItemListDto,
         customer: Customer,
     ): Promise<Order> {
+        console.log("service create")
+
         let itemLists = [];
         if (createItemDto.itemName != null){
             let addedItemsCount = createItemDto.itemName.length;

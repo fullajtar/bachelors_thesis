@@ -33,6 +33,7 @@ export class CreateCompanyDto {
     @IsNotEmpty()
     supplierRegister: string;
 
+    @IsOptional()
     @IsNotEmpty()
     supplierPayingTax: boolean;
 

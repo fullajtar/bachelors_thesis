@@ -2,7 +2,6 @@ import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn
 
 import {InvoicePaymentEnum} from './invoice-payment.enum';
 import {InvoiceItemList} from '../invoiceItems/invoiceItemList.entity';
-import {Employee} from '../employee/employee.entity';
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 

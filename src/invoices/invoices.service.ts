@@ -5,15 +5,13 @@ import {InvoiceRepository} from "./invoice.repository";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Invoice} from "./invoice.entity";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
-import {Employee} from "../employee/employee.entity";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
 import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
-import {ItemService} from "../Items/item.service";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
-import {Between, getConnection, MoreThan} from "typeorm";
+import {Between} from "typeorm";
 
 @Injectable()
 export class InvoicesService {

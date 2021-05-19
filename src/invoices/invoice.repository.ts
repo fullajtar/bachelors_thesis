@@ -3,7 +3,6 @@ import {EntityRepository, getConnection, Repository} from "typeorm";
 import {CreateInvoiceDto} from "./dto/create-invoice.dto";
 import {GetInvoicesFilterDto} from "./dto/get-invoices-filter.dto";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
-import {Employee} from "../employee/employee.entity";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 import {InvoiceItemList} from "../invoiceItems/invoiceItemList.entity";
@@ -93,9 +92,9 @@ export class InvoiceRepository extends Repository<Invoice> {
 
         const invoice = new Invoice();
         let {paidDate} = createInvoiceDto;
-        // if (paidDate === nu){
-        //     paidDate = null;
-        // }
+        if (paidDate === ""){
+            paidDate = null;
+        }
         //properties
         invoice.dateOfIssue = dateOfIssue;
         invoice.dueDate = dueDate;

@@ -10,10 +10,7 @@ import {CreateEmployeeDto} from "../employee/dto/create-employee.dto";
 import {GetUser} from "../auth/get-user.decorator";
 import {CustomerService} from "../customer/customer.service";
 import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
-import {User} from "../auth/user.entity";
-import {Invoice} from "../invoices/invoice.entity";
 import {CompanyService} from "../company/company.service";
-import {CreateInvoiceDto} from "../invoices/dto/create-invoice.dto";
 import {InvoicePatchValidationPipe} from "../invoices/pipes/invoice-patch-validation.pipe";
 import {InvoicePaymentEnum} from "../invoices/invoice-payment.enum";
 import {EmployeeService} from "../employee/employee.service";
@@ -74,10 +71,12 @@ export class OrderController{
     ): Promise<Order> {
         console.log(session)
         if (session.userid){
+            console.log("controller create")
             const company = await this.getUsersCompany(session.userid)
             const customer = await this.customerService.createCustomer(company, createCustomerDto);
             const order = await this.orderService.createOrder(company, createOrderDto, createItemDto, createInvoiceItemListDto, customer);
             order.company = company;
+            return order
         }
         return
 

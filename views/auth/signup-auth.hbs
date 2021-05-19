@@ -12,8 +12,8 @@
     <div class="h-full px-4 p1-5 bg-gray-200 sm:p-6 flex flex-wrap content-center justify-center">
         <form class="w-1/2" action="/auth/signup" method="POST" onsubmit="return matchingPasswords()">
             <label class="block text-sm font-medium text-gray-700" for="username">Login</label><input class="mb-4 pl-1.5 py-1.5 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" name="username" id="username" value="Dominik">
-            <label class="block text-sm font-medium text-gray-700" for="password">Heslo</label><input class="mb-4 pl-1.5 py-1.5 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" name="password" id="password" value="123Aa2123">
-            <label class="block text-sm font-medium text-gray-700" for="password">Zopakovať heslo</label><input class="mb-2 pl-1.5 py-1.5 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" name="passwordAgain" id="passwordAgain" value="123Aa2123">
+            <label class="block text-sm font-medium text-gray-700" for="password">Heslo</label><input class="mb-4 pl-1.5 py-1.5 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" type="password" name="password" id="password" value="123Aa2123">
+            <label class="block text-sm font-medium text-gray-700" for="password">Zopakovať heslo</label><input class="mb-2 pl-1.5 py-1.5 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" type="password" name="passwordAgain" id="passwordAgain" value="123Aa2123">
             <label class="hidden text-center block bg-red-600 text-white fond-bold border border-red-700 rounded-md mb-4" id="passwords-not-matching">Heslá sa nezhodujú</label>
             <a class="mb-2 block italic hover:underline hover:text-green-600" onclick="window.history.back()">Späť</a>
             <input class="myButtonStyle" type="submit" value="Registrovať">

@@ -1,7 +1,6 @@
 import {Controller, Get, Render, Session} from '@nestjs/common';
-import { AppService } from './app.service';
+import {AppService} from './app.service';
 import {Company} from "./company/company.entity";
-import {Invoice} from "./invoices/invoice.entity";
 import {CompanyService} from "./company/company.service";
 
 @Controller() //TODO ADD SESSIONS SOMEHOW
@@ -30,7 +29,14 @@ export class AppController {
       return this.appService.getDataDashboard(company);
     }
     return;
+  }
 
+  @Get('/session/username')
+  getUsername(
+      @Session() session: Record<string, any>
+  ) :string {
+    console.log("getting username: ", session.username)
+    return session.username
   }
 
   private async getUsersCompany(

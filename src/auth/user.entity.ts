@@ -20,7 +20,7 @@ export class User extends BaseEntity {
     @ManyToOne(
         (type) => Company,
         (company) => company.user,
-        { eager: false}
+        { eager: true}
     )
     company: Company;
 

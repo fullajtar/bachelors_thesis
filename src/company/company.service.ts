@@ -4,6 +4,7 @@ import {CompanyRepository} from "./company.repository";
 import {User} from "../auth/user.entity";
 import {Company} from "./company.entity";
 import {CreateCompanyDto} from "./dto/create-company.dto";
+import {getRepository} from "typeorm";
 
 @Injectable()
 export class CompanyService {
@@ -16,7 +17,8 @@ export class CompanyService {
         //user: User
         userId: number
     ): Promise<Company> {
-        return this.companyRepository.findOne({where: { id :userId}});
+        const user = await getRepository(User).findOne({ where: { id: userId } } );
+        return this.companyRepository.findOne({where: { id :user.company.id}});
         //return this.companyRepository.getMyCompany(user);
     }
 
