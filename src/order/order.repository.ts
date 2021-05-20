@@ -17,7 +17,7 @@ export class OrderRepository extends Repository<Order> {
 
         query.where('order.companyId = :companyId', { companyId: company.id});
 
-        query.orderBy('order.id');
+        query.orderBy('order.orderNumber');
         return await query.getMany();
 
     }
@@ -28,8 +28,6 @@ export class OrderRepository extends Repository<Order> {
         itemLists: InvoiceItemList[],
         customer: Customer,
     ): Promise<Order> {
-        console.log("repo create")
-
         const {
             currency,
             orderName,

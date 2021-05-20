@@ -42,31 +42,30 @@ export class InvoicesController {
     async getInvoices(
         @Session() session: Record<string, any>,
         @Query(ValidationPipe) filterDto: GetInvoicesFilterDto,
-    ): Promise<Invoice[]> {
+    ): Promise<Invoice[] | {url:string, status:number}> {
         if (session.userid){
             const company = this.getUsersCompany(session.userid);
             return this.invoicesService.getInvoices(await company, filterDto);
         }
-        return;
+        return { url: '/auth', status: 401};
     }
+
     @Get('/create')
     @Render('invoices/create-invoice.hbs')
     async createInvoiceForm(
         @Session() session: Record<string, any>,
-    ):Promise<Invoice>{
-        console.log(session)
+    ):Promise<Invoice | {url:string, status:number}>{
         if (session.userid){
             const invoice = new Invoice();
             invoice.company = await this.companyService.getMyCompany(session.userid);
             invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
             return invoice;
         }
-        return;
-
+        return { url: '/auth', status: 401};
     }
 
     @Post('/create')
-    //@UsePipes(ValidationPipe)
+    //@UsePipes(ValidationPipe) //TODO google wtf is this for
     @Render('invoices/invoice-detail.hbs')
     async createInvoice(
         @Session() session: Record<string, any>,
@@ -76,8 +75,7 @@ export class InvoicesController {
         @Body() createCustomerDto: CreateCustomerDto,
         // @GetUser() user: User,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
-    ): Promise<Invoice> {
-        console.log(session)
+    ): Promise<Invoice | {url:string, status:number}> {
         if (session.userid){
             const company = await this.companyService.getMyCompany(session.userid);
             const customer = await this.customerService.createCustomer(company, createCustomerDto);
@@ -85,24 +83,19 @@ export class InvoicesController {
             invoice.company = company;
             return invoice;
         }
-        return;
-
+        return { url: '/auth', status: 401};
     }
 
     @Post('/generate')
-    //@UsePipes(ValidationPipe)
     @Render('invoices/create-invoice.hbs')
-    async generateInvoiceFromOrder( //TODO fixnut bug, pri vytvarani faktury nezobrazi detail o company
+    async generateInvoiceFromOrder(
         @Session() session: Record<string, any>,
         @Body() generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
-        // @Body() createInvoiceDto: CreateInvoiceDto,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
-        // @GetUser() user: User, //TODO make it work and get company with this user
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
-    ): Promise<Invoice> {
-        console.log(session)
+    ): Promise<Invoice | {url:string, status:number}> {
         if (session.userid){
             const company = await this.companyService.getMyCompany(session.userid);
             const customer = await this.customerService.createCustomer(company, createCustomerDto);
@@ -111,7 +104,7 @@ export class InvoicesController {
             invoice.company = company;
             return invoice;
         }
-        return;
+        return { url: '/auth', status: 401};
 
     }
 
@@ -125,14 +118,13 @@ export class InvoicesController {
         @Body() createInvoiceDto: CreateInvoiceDto,
         @Param('invoiceId', ParseIntPipe) invoiceId: number,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
-    ): Promise<Invoice> {
-        console.log(session)
+    ): Promise<Invoice | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             const customer = await this.customerService.createCustomer(company, createCustomerDto);
             return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
         }
-        return;
+        return { url: '/auth', status: 401};
     }
 
     @Get('/:id')
@@ -140,26 +132,24 @@ export class InvoicesController {
     async getInvoiceById(
         @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
-    ): Promise<Invoice> {
-        console.log(session)
+    ): Promise<Invoice | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.invoicesService.getInvoiceById(company, id);
         }
-        return;
+        return { url: '/auth', status: 401};
     }
 
     @Delete('/:id')
     async deleteInvoice(
         @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
-    ): Promise<void> {
-        console.log(session)
+    ): Promise<void | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.invoicesService.deleteInvoice(company, id);
         }
-        return;
+        return { url: '/auth', status: 401};
     }
 
     private async getUsersCompany(

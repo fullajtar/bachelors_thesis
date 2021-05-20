@@ -2,6 +2,7 @@ import {Controller, Get, Render, Session} from '@nestjs/common';
 import {AppService} from './app.service';
 import {Company} from "./company/company.entity";
 import {CompanyService} from "./company/company.service";
+import * as url from "url";
 
 @Controller() //TODO ADD SESSIONS SOMEHOW
 export class AppController {
@@ -12,18 +13,19 @@ export class AppController {
 
   @Get()
   @Render('dashBoard.hbs')
-  getHello(): Company {
-    const company = new Company();
-    company.supplierName = "Jozo";
-    company.id = 1;
-    return company;
+  async getDashboard(
+      @Session() session: Record<string, any>
+  ): Promise<{url:string, status:number}> {
+    if (session.userid){
+      return
+    }
+    return { url: '/auth', status: 401}; //TODO redirect not working
   }
 
   @Get('/data/dashboard')
   async getDataDashboard(
       @Session() session: Record<string, any>
   ) :Promise<any> {  //:Promise <Map<string, number>> {
-    console.log(session)
     if (session.userid){
       const company = await this.getUsersCompany(session.userid)
       return this.appService.getDataDashboard(company);
@@ -35,7 +37,6 @@ export class AppController {
   getUsername(
       @Session() session: Record<string, any>
   ) :string {
-    console.log("getting username: ", session.username)
     return session.username
   }
 

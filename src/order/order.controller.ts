@@ -31,14 +31,12 @@ export class OrderController{
     @Render('orders/orders.hbs')
     async getOrders(
         @Session() session: Record<string, any>,
-    ): Promise<Order[]> {
-        console.log(session)
+    ): Promise<Order[] | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.orderService.getOrders(company);
         }
-        return
-
+        return { url: '/auth', status: 401};
     }
 
 
@@ -47,15 +45,14 @@ export class OrderController{
     @Render('orders/create-order.hbs')
     async createOrderForm(
         @Session() session: Record<string, any>,
-    ):Promise<Order>{
-        console.log(session)
+    ):Promise<Order | {url:string, status:number}>{
         if (session.userid){
             const order = new Order();
             order.company = await this.companyService.getMyCompany(session.userid);
             order.orderNumber = await this.orderService.getNewOrderNumber();
             return order;
         }
-        return
+        return { url: '/auth', status: 401};
     }
 
     @Post('/create')
@@ -68,18 +65,15 @@ export class OrderController{
         @Body() createCustomerDto: CreateCustomerDto,
         @Body() createEmployeeDto: CreateEmployeeDto,
         @GetUser() user: Company,
-    ): Promise<Order> {
-        console.log(session)
+    ): Promise<Order | {url:string, status:number}> {
         if (session.userid){
-            console.log("controller create")
             const company = await this.getUsersCompany(session.userid)
             const customer = await this.customerService.createCustomer(company, createCustomerDto);
             const order = await this.orderService.createOrder(company, createOrderDto, createItemDto, createInvoiceItemListDto, customer);
             order.company = company;
             return order
         }
-        return
-
+        return { url: '/auth', status: 401};
     }
 
     @Get('/:id')
@@ -87,13 +81,12 @@ export class OrderController{
     async getOrderById(
         @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
-    ): Promise<Order> {
-        console.log(session)
+    ): Promise<Order | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.orderService.getOrderById(company, id);
         }
-        return
+        return { url: '/auth', status: 401};
     }
 
     @Post('/:id')
@@ -107,18 +100,14 @@ export class OrderController{
         @Body() createOrderDto: CreateOrderDto,
         @Param('id', ParseIntPipe) invoiceId: number,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
-    ): Promise<Order> {
-        console.log(session)
+    ): Promise<Order | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             if (createEmployeeDto["action"] == "save"){
-                //const customer = await this.customerService.createCustomer(company, createCustomerDto);
                 return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
             }
         }
-        return
-
-
+        return { url: '/auth', status: 401};
     }
 
     private async getUsersCompany(

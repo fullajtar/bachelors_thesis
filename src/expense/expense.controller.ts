@@ -43,13 +43,12 @@ export class ExpenseController{
     @Render('expense/expenses.hbs')
     async getExpenses(
         @Session() session: Record<string, any>
-    ) :Promise<Expense[]> {
-        console.log(session)
+    ) :Promise<Expense[] | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.expenseService.getExpenses(company);
         }
-        return
+        return { url: '/auth', status: 401};
 
     }
 
@@ -57,12 +56,11 @@ export class ExpenseController{
     @Render('expense/create-expense.hbs')
     createExpenseFrom(
         @Session() session: Record<string, any>,
-    ) :Expense {
-        console.log(session)
+    ) :Expense | {url:string, status:number}{
         if (session.userid){
             return new Expense();
         }
-        return
+        return { url: '/auth', status: 401};
 
     }
 
@@ -71,13 +69,12 @@ export class ExpenseController{
     async createExpense(
         @Session() session: Record<string, any>,
         @Body() createExpenseDto: CreateExpenseDto
-    ) :Promise<Expense> {
-        console.log(session)
+    ) :Promise<Expense | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.expenseService.createExpense(createExpenseDto, company);
         }
-        return
+        return { url: '/auth', status: 401};
 
     }
 
@@ -86,13 +83,12 @@ export class ExpenseController{
     async getExpenseById(
         @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
-    ) :Promise<Expense> {
-        console.log(session)
+    ) :Promise<Expense | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.expenseService.getExpenseById(id, company);
         }
-        return
+        return { url: '/auth', status: 401};
 
     }
 
@@ -104,13 +100,12 @@ export class ExpenseController{
         @Param('id', ParseIntPipe) id: number,
         @UploadedFile() expenseFile,
         @Body() createExpenseDto: CreateExpenseDto,
-    ) :Promise<Expense>{
-        console.log(session)
+    ) :Promise<Expense | {url:string, status:number}>{
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.expenseService.editExpense(id, company, createExpenseDto);
         }
-        return
+        return { url: '/auth', status: 401};
 
     }
 

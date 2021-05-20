@@ -61,7 +61,6 @@
             url: "/data/dashboard" ,
             dataType: "json",
             success: function (data) {
-                console.log(data)
                 doughnut(data)
                 drawChart(data)
                 calcSum(data)

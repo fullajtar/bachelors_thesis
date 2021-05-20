@@ -18,25 +18,23 @@ export class EmployeeController{
     async getEmployees(
         @Session() session: Record<string, any>,
         @Query(ValidationPipe) filterDto: GetEmployeeFilterDto,
-    ): Promise<Employee[]> {
-        console.log(session)
+    ): Promise<Employee[] | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.employeeService.getEmployees(company, filterDto);
         }
-        return
+        return { url: '/auth', status: 401};
     }
 
     @Get('/create')
     @Render('employee/create-employee.hbs')
     async createEmployeeForm(
         @Session() session: Record<string, any>,
-    ):Promise <Employee> {
-        console.log(session)
+    ):Promise <Employee | {url:string, status:number}> {
         if (session.userid){
             return new Employee();
         }
-        return
+        return { url: '/auth', status: 401};
     }
 
     @Post('/create')
@@ -44,13 +42,12 @@ export class EmployeeController{
     async createEmployee(
         @Session() session: Record<string, any>,
         @Body() createEmployeeDto: CreateEmployeeDto,
-    ):Promise<Employee> {
-        console.log(session)
+    ):Promise<Employee | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.employeeService.createEmployee(company, createEmployeeDto);
         }
-        return
+        return { url: '/auth', status: 401};
     }
 
     @Get('/:id')
@@ -58,13 +55,12 @@ export class EmployeeController{
     async getEmployee(
         @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
-    ):Promise<Employee> {
-        console.log(session)
+    ):Promise<Employee | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.employeeService.getEmployeeById(company, id);
         }
-        return
+        return { url: '/auth', status: 401};
     }
 
     @Post('/:id')
@@ -73,12 +69,11 @@ export class EmployeeController{
         @Session() session: Record<string, any>,
         @Param('id', ParseIntPipe) id: number,
         @Body() createEmployeeDto: CreateEmployeeDto,
-    ):Promise<Employee> { //TODO NOT SECURE!
-        console.log(session)
+    ):Promise<Employee | {url:string, status:number}> { //TODO NOT SECURE!
         if (session.userid){
             return this.employeeService.editEmployee(id, createEmployeeDto);
         }
-        return
+        return { url: '/auth', status: 401};
     }
 
     private async getUsersCompany(
@@ -86,5 +81,4 @@ export class EmployeeController{
     ) :Promise <Company>{
         return  this.companyService.getMyCompany(userId);
     }
-
 }

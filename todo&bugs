@@ -4,7 +4,6 @@ fixnut uploadovanie fileov
 BUGS:
 forcenut novo-registrovaneho uzivatela vytvorit si firmu //neviem bez redirectu
 ??? hashovat heslo este pred odoslanim na BE ???
-redirectnut ak nie je prihlaseny
 
 IMPROVE:
 doplnanie zamestnancov z DB?
@@ -19,6 +18,7 @@ display errors (controller -> html)
 
 
 DONE:
+redirectnut ak nie je prihlaseny
 pridat meno prihlaseneho do navigacie
 zahviezdickovat hesla
 pridat select na formy uhrady (objednavka)

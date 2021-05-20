@@ -48,7 +48,7 @@ export class InvoiceRepository extends Repository<Invoice> {
                 'OR invoice.body LIKE :search ' +
                 'OR invoice.note LIKE :search)' , { search: `%${search}%` });
         }
-        query.orderBy('invoice.id');
+        query.orderBy('invoice.invoiceNumber');
         return await query.getMany();
 
     }

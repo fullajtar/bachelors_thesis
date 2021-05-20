@@ -18,14 +18,12 @@ export class ItemController{
     async getItems(
         @Session() session: Record<string, any>,
         @Query(ValidationPipe) filterDto: GetItemsFilterDto,
-    ): Promise<Item[]> {
-        console.log(session)
+    ): Promise<Item[] | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.itemService.getItems(company, filterDto);
         }
-        return
-
+        return { url: '/auth', status: 401};
     }
 
     @Post('/create')
@@ -33,14 +31,12 @@ export class ItemController{
     async CreateItem(
         @Session() session: Record<string, any>,
         @Body() createItemDto: CreateItemDto,
-    ): Promise<Item> {
-        console.log(session)
+    ): Promise<Item | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.itemService.createItem(company, createItemDto);
         }
-        return
-
+        return { url: '/auth', status: 401};
     }
 
     private async getUsersCompany(

@@ -10,13 +10,18 @@ export class AuthController {
 
     @Get()
     @Render('auth/login-auth.hbs')
-    root() {
-        return ;//{ message: 'Hello world!' };
+    signInForm(
+        @Session() session: Record<string, any>,
+    ) :null {
+        session.userid = null;
+        session.username = null;
+        return ;
     }
+
     @Get('/signup')
     @Render('auth/signup-auth.hbs')
     signUpForm() {
-        return ;//{ message: 'Hello world!' };
+        return ;
     }
 
     @Post('/signup')
@@ -25,17 +30,13 @@ export class AuthController {
         @Session() session: Record<string, any>,
         @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto
     ): Promise<void> {
-        console.log(session)
-
         await this.authService.signUp(authCredentialsDto);
         const usernameAndId = await this.authService.signIn(authCredentialsDto);
-        console.log("auth credentials: ",usernameAndId)
         if (usernameAndId){
             session.username = usernameAndId[0];
             session.userid = usernameAndId[1];
         }
         return
-
     }
 
     @Post('/signin')
@@ -49,7 +50,6 @@ export class AuthController {
             session.username = usernameAndId[0];
             session.userid = usernameAndId[1];
         }
-        console.log(session)
         return ;
     }
 
@@ -57,10 +57,9 @@ export class AuthController {
     @Render('auth/login-auth.hbs')
     signOut(
         @Session() session: Record<string, any>,
-    ): Promise<{ accessToken: string }> {
+    ) :null {
         session.userid = null;
         session.username = null;
-        console.log(session)
         return ;
     }
 }

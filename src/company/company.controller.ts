@@ -14,12 +14,11 @@ export class CompanyController{
     @Render('company/editMyCompany.hbs')
     getMyCompany(
         @Session() session: Record<string, any>,
-    ): Promise<Company>{
-        console.log(session)
+    ): Promise<Company> | {url:string, status:number}{
         if (session.userid){
             return this.companyService.getMyCompany(session.userid);
         }
-        return;
+        return { url: '/auth', status: 401};
     }
 
     @Post()
@@ -27,14 +26,13 @@ export class CompanyController{
     editMyCompany(
         @Session() session: Record<string, any>,
         @Body() createCompanyDto: CreateCompanyDto,
-    ): Promise<Company> {
-        console.log(session)
+    ): Promise<Company> | {url:string, status:number}{
         if (session.userid){
-            const user = new User();
+            const user = new User(); //TODO optimize
             user.id = session.userid;
             return this.companyService.editMyCompany(user, createCompanyDto);
         }
-        return;
+        return { url: '/auth', status: 401};
 
     }
 
@@ -50,15 +48,13 @@ export class CompanyController{
     createMyCompany(
         @Session() session: Record<string, any>,
         @Body(ValidationPipe) createCompanyDto: CreateCompanyDto,
-    ): Promise<Company>{
-        console.log("company controller")
-        console.log(session)
+    ): Promise<Company> | {url:string, status:number}{
         if (session.userid){
-            const user = new User();
+            const user = new User(); //TODO optimize
             user.id = session.userid;
             return this.companyService.createMyCompany(user, createCompanyDto);
         }
-        return;
+        return { url: '/auth', status: 401};
 
     }
     private async getUsersCompany(
