@@ -22,14 +22,35 @@
                 <textarea class="w-full pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" name="expenseBody" id="expenseBody" rows="15">{{this.expenseBody}}</textarea>
             </div>
 
-            <div class="col-span-1">
+            <div class="col-span-6">
                 <label for="expenseFile" class="block text-sm font-medium text-gray-700">Doklad</label>
                 <input class="pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" type="file" name="expenseFile" id="expenseFile">
             </div>
 
-        <div class="px-4 py-3">
+            {{#if this.expenseFileName}}
+                <div class="col-span-6">
+                    <img onclick="load()" class="cursor-pointer max-h-96 w-auto" src="/uploads/expenseImages/{{this.expenseFileName}}" alt="Súbor nebol nájdený">
+                </div>
+            {{/if}}
+
+
+        <div class="py-3">
             {{> button}}
         </div>
+
+            <df-modal id="df-modal">
+                <img slot="img" src="/uploads/expenseImages/{{this.expenseFileName}}" alt="">
+            </df-modal>
     </div>
 </div>
 </div>
+<script src="/components/fm-image-modal.js" ></script>
+<script>
+    function load() {
+        let mod = document.getElementById('df-modal');
+        if (!mod.isOpen) {
+            mod.open();
+        }
+        return true;
+    }
+</script>

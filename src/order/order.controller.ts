@@ -1,5 +1,5 @@
 import {OrderService} from "./order.service";
-import {Body, Controller, Get, Param, ParseIntPipe, Post, Render, Session} from "@nestjs/common";
+import {Body, Controller, Get, Param, ParseIntPipe, Post, Render, Res, Session} from "@nestjs/common";
 import {Order} from "./oder.entity";
 import {Company} from "../company/company.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
@@ -31,12 +31,13 @@ export class OrderController{
     @Render('orders/orders.hbs')
     async getOrders(
         @Session() session: Record<string, any>,
+        @Res() res
     ): Promise<Order[] | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.orderService.getOrders(company);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
 
@@ -45,6 +46,7 @@ export class OrderController{
     @Render('orders/create-order.hbs')
     async createOrderForm(
         @Session() session: Record<string, any>,
+        @Res() res
     ):Promise<Order | {url:string, status:number}>{
         if (session.userid){
             const order = new Order();
@@ -52,13 +54,14 @@ export class OrderController{
             order.orderNumber = await this.orderService.getNewOrderNumber();
             return order;
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     @Post('/create')
     @Render('orders/order-detail.hbs')
     async createOrder(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Body() createOrderDto: CreateOrderDto,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
@@ -73,26 +76,28 @@ export class OrderController{
             order.company = company;
             return order
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     @Get('/:id')
     @Render('orders/order-detail.hbs')
     async getOrderById(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Param('id', ParseIntPipe) id: number,
     ): Promise<Order | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.orderService.getOrderById(company, id);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     @Post('/:id')
     @Render('orders/order-detail.hbs')
     async editOrder(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
@@ -107,7 +112,7 @@ export class OrderController{
                 return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
             }
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     private async getUsersCompany(

@@ -35,6 +35,7 @@ export class ExpenseService{
         id: number,
         company: Company,
         createExpenseDto: CreateExpenseDto,
+        expenseFile: any
     ) :Promise<Expense>{
         const expense = await this.getExpenseById(id, company);
         const {
@@ -48,6 +49,16 @@ export class ExpenseService{
         expense.expenseBody = expenseBody;
         expense.expenseAmount = expenseAmount;
 
+        if  (expenseFile){
+            const fs = require('fs');
+            try {
+                fs.unlinkSync('./public/uploads/expenseImages/'+expense.expenseFileName)
+                //file removed
+            } catch(err) {
+                console.error(err)
+            }
+            expense.expenseFileName = expenseFile.filename;
+        }
         await expense.save();
         return expense;
     }

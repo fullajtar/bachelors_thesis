@@ -1,8 +1,11 @@
-import {Controller, Get, Render, Session} from '@nestjs/common';
+import {Controller, Get, Post, Redirect, Render, Res, Session, UploadedFile, UseInterceptors} from '@nestjs/common';
 import {AppService} from './app.service';
 import {Company} from "./company/company.entity";
 import {CompanyService} from "./company/company.service";
 import * as url from "url";
+import {FileInterceptor} from "@nestjs/platform-express";
+import {diskStorage} from "multer";
+import path from "path";
 
 @Controller() //TODO ADD SESSIONS SOMEHOW
 export class AppController {
@@ -13,13 +16,35 @@ export class AppController {
 
   @Get()
   @Render('dashBoard.hbs')
+  @Redirect()
   async getDashboard(
-      @Session() session: Record<string, any>
+      @Session() session: Record<string, any>,
+      @Res() res
   ): Promise<{url:string, status:number}> {
     if (session.userid){
       return
     }
-    return { url: '/auth', status: 401}; //TODO redirect not working
+    return res.redirect('/auth');
+  }
+
+  @Get('/testing')
+  @Render('component-testing.hbs')
+  testingGetMethod(
+      @Session() session: Record<string, any>,
+      @Res() res
+  ) :any | Promise<any> {
+    return
+  }
+
+  @Post('/testing')
+  @Render('component-testing.hbs')
+  @UseInterceptors(FileInterceptor('file'))
+  testingPostMethod(
+      @UploadedFile() file: Express.Multer.File,
+      @Session() session: Record<string, any>,
+      @Res() res
+  ) :any | Promise<any> {
+    return
   }
 
   @Get('/data/dashboard')

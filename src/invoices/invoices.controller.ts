@@ -7,7 +7,7 @@ import {
     ParseIntPipe,
     Post,
     Query,
-    Render,
+    Render, Res,
     Session,
     ValidationPipe
 } from "@nestjs/common";
@@ -41,19 +41,21 @@ export class InvoicesController {
     @Render('invoices/invoices.hbs')
     async getInvoices(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Query(ValidationPipe) filterDto: GetInvoicesFilterDto,
     ): Promise<Invoice[] | {url:string, status:number}> {
         if (session.userid){
             const company = this.getUsersCompany(session.userid);
             return this.invoicesService.getInvoices(await company, filterDto);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     @Get('/create')
     @Render('invoices/create-invoice.hbs')
     async createInvoiceForm(
         @Session() session: Record<string, any>,
+        @Res() res,
     ):Promise<Invoice | {url:string, status:number}>{
         if (session.userid){
             const invoice = new Invoice();
@@ -61,7 +63,7 @@ export class InvoicesController {
             invoice.invoiceNumber = await this.invoicesService.getNewInvoiceNumber();
             return invoice;
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     @Post('/create')
@@ -69,6 +71,7 @@ export class InvoicesController {
     @Render('invoices/invoice-detail.hbs')
     async createInvoice(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Body() createInvoiceDto: CreateInvoiceDto,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
@@ -83,13 +86,14 @@ export class InvoicesController {
             invoice.company = company;
             return invoice;
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     @Post('/generate')
     @Render('invoices/create-invoice.hbs')
     async generateInvoiceFromOrder(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Body() generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
@@ -104,7 +108,7 @@ export class InvoicesController {
             invoice.company = company;
             return invoice;
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
 
     }
 
@@ -112,6 +116,7 @@ export class InvoicesController {
     @Render('invoices/invoice-detail.hbs')
     async addItemToInvoice(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
@@ -124,32 +129,34 @@ export class InvoicesController {
             const customer = await this.customerService.createCustomer(company, createCustomerDto);
             return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     @Get('/:id')
     @Render('invoices/invoice-detail.hbs')
     async getInvoiceById(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Param('id', ParseIntPipe) id: number,
     ): Promise<Invoice | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.invoicesService.getInvoiceById(company, id);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     @Delete('/:id')
     async deleteInvoice(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Param('id', ParseIntPipe) id: number,
     ): Promise<void | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.invoicesService.deleteInvoice(company, id);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
     }
 
     private async getUsersCompany(

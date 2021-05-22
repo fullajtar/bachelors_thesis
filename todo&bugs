@@ -1,23 +1,35 @@
 TODO:
-fixnut uploadovanie fileov
+buildnut komponenty v stencil:
+                                input+label
+                                modal s obrazkom
+                                link
+                                button
+
+zoradit vsetky najdene entity podla datumu
+uploadovanie viac ako 1 suboru
+kontrolovat typ uploadnuteho suboru
+
 
 BUGS:
+nastylovat modal okno s obrazkom
 forcenut novo-registrovaneho uzivatela vytvorit si firmu //neviem bez redirectu
 ??? hashovat heslo este pred odoslanim na BE ???
+zistit ako setnut secondary layout (pre auth bez navigacie)
+
 
 IMPROVE:
+pridat podporu na uploadnutie PDF suboru
 doplnanie zamestnancov z DB?
 print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
 @notEmpty a tieto dekoratory optimalizovat pre DTO
 že keď ma firma ic dph tak je platiteľ a keď nie je platiteľ tak ic dph nema teda dufam že si to dobre pamätám
 legenda grafov pod grafy
 templaty maju generovane !DOC aj ked je to redundant
-zistit ako setnut secondary layout (pre auth bez navigacie)
 display errors (controller -> html)
 
 
-
 DONE:
+fixnut uploadovanie fileov
 redirectnut ak nie je prihlaseny
 pridat meno prihlaseneho do navigacie
 zahviezdickovat hesla

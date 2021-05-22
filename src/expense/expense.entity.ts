@@ -24,6 +24,11 @@ export class Expense extends BaseEntity{
     )
     expenseAmount: number;
 
+    @Column(
+        {nullable: true}
+    )
+    expenseFileName: string;
+
     @ManyToOne(
         (type) => Company,
         (company) => company.expenses,

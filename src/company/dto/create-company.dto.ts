@@ -37,10 +37,6 @@ export class CreateCompanyDto {
     @IsNotEmpty()
     supplierPayingTax: boolean;
 
-
-
-
-
     @IsNotEmpty()
     supplierBank1: string;
 

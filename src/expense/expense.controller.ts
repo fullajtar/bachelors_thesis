@@ -6,7 +6,7 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    Render,
+    Render, Res,
     Session,
     UploadedFile,
     UseInterceptors
@@ -22,7 +22,7 @@ import {CompanyService} from "../company/company.service";
 
 export const storage = {
     storage: diskStorage({
-        destination: './uploads/expenseImages',
+        destination: './public/uploads/expenseImages',
         filename: (req, expenseFile, cb) => {
             const filename: string = path.parse(expenseFile.originalname).name.replace(/\s/g, "") + uuidv4();
             const extenstion: string = path.parse(expenseFile.originalname).ext;
@@ -42,13 +42,14 @@ export class ExpenseController{
     @Get()
     @Render('expense/expenses.hbs')
     async getExpenses(
-        @Session() session: Record<string, any>
+        @Session() session: Record<string, any>,
+        @Res() res
     ) :Promise<Expense[] | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.expenseService.getExpenses(company);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
 
     }
 
@@ -56,11 +57,12 @@ export class ExpenseController{
     @Render('expense/create-expense.hbs')
     createExpenseFrom(
         @Session() session: Record<string, any>,
+        @Res() res
     ) :Expense | {url:string, status:number}{
         if (session.userid){
             return new Expense();
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
 
     }
 
@@ -68,13 +70,14 @@ export class ExpenseController{
     @Render('expense/detail-expense.hbs')
     async createExpense(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Body() createExpenseDto: CreateExpenseDto
     ) :Promise<Expense | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.expenseService.createExpense(createExpenseDto, company);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
 
     }
 
@@ -82,13 +85,14 @@ export class ExpenseController{
     @Render('expense/detail-expense.hbs')
     async getExpenseById(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Param('id', ParseIntPipe) id: number,
     ) :Promise<Expense | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             return this.expenseService.getExpenseById(id, company);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
 
     }
 
@@ -97,15 +101,16 @@ export class ExpenseController{
     @UseInterceptors(FileInterceptor('expenseFile', storage))
     async editExpense(
         @Session() session: Record<string, any>,
+        @Res() res,
         @Param('id', ParseIntPipe) id: number,
         @UploadedFile() expenseFile,
         @Body() createExpenseDto: CreateExpenseDto,
     ) :Promise<Expense | {url:string, status:number}>{
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
-            return this.expenseService.editExpense(id, company, createExpenseDto);
+            return this.expenseService.editExpense(id, company, createExpenseDto, expenseFile);
         }
-        return { url: '/auth', status: 401};
+        return res.redirect('/auth');
 
     }
 

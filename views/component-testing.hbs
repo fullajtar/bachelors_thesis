@@ -1,0 +1,38 @@
+<script src="/tooltipInput.js" ></script>
+<script src="/components/fm-input.js" ></script>
+<script src="/components/fm-input2.js" ></script>
+<script src="/components/fm-input3.js" ></script>
+<script src="/components/fm-input4.js" ></script>
+
+
+<!--<fullajtar-tooltip text="Tu sa zobrazuje Tooltip!">-->
+<!--    <input name="testingcomponent" slot="input" type="text">-->
+<!--</fullajtar-tooltip>-->
+<div class="grid grid-cols-3 gap-4">
+
+    <fm-input class="col-span-3 lg:col-span-1" type="number" label="Label 1" name="testName" required></fm-input>
+
+
+    <fm-input2 class="col-span-3 lg:col-span-1" label="Label 2 css demo">
+        <input slot="input" type="number">
+    </fm-input2>
+
+
+    <fm-input2 class="col-span-3 lg:col-span-1" label="Label 2">
+        <input class="pl-1.5 py-1.5 mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" slot="input" type="number">
+    </fm-input2>
+
+
+    <fm-input3 class="col-span-3 lg:col-span-1">
+        <label slot="label" for="input3">Label 3</label>
+        <input slot="input" name="input3" type="text">
+    </fm-input3>
+
+    <form action="/testing" method="post" enctype="multipart/form-data">
+        <label for="file">upload file</label>
+        <input name="file" id="file" type="file">
+        <input type="submit">
+    </form>
+<!--    <input is="fm-input4" class="col-span-3 lg:col-span-1" type="number">-->
+
+</div>
