@@ -9,7 +9,9 @@ import {CreateOrderDto} from "./dto/create-order.dto";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
 import {Customer} from "../customer/customer.entity";
-import {Between} from "typeorm";
+import {Between, getRepository} from "typeorm";
+import {CustomerService} from "../customer/customer.service";
+import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 
 
 @Injectable()
@@ -20,6 +22,7 @@ export class OrderService {
         @InjectRepository(OrderRepository)
         private orderRepository: OrderRepository,
         private invoiceItemListsService:  InvoiceItemListsService,
+        private customerService: CustomerService
     ) {}
 
     async getOrders(
@@ -92,6 +95,7 @@ export class OrderService {
         createOrderDto: CreateOrderDto,
         createItemDto: CreateItemDto,
         createInvoiceItemListDto: CreateInvoiceItemListDto,
+        createCustomerDto: CreateCustomerDto
     ): Promise<Order> {
         let itemLists = [];
 
@@ -163,6 +167,9 @@ export class OrderService {
 
 
         //relations
+        if (order.customer && order.customer.customerOrders == null){
+            order.customer = await this.customerService.editCustomer(order.customer.id, createCustomerDto);
+        }
         if (order.invoiceItemLists[0] != null && order.invoiceItemLists[0].invoice == null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
             this.invoiceItemListsService.deleteArray(order.invoiceItemLists); //not necessary await imo
         }

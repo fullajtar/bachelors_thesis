@@ -8,22 +8,23 @@ import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {ItemService} from "../Items/item.service";
 
 @Injectable()
-export class InvoiceItemListsService{
+export class InvoiceItemListsService {
 
   constructor(
-    @InjectRepository(InvoiceItemListRepository)
-    private invoiceItemListRepository: InvoiceItemListRepository,
-    private itemService: ItemService,
-  ) {}
+      @InjectRepository(InvoiceItemListRepository)
+      private invoiceItemListRepository: InvoiceItemListRepository,
+      private itemService: ItemService,
+  ) {
+  }
 
 
   async createInvoiceItemList(
       company: Company,
       createInvoiceItemListDto: CreateInvoiceItemListDto,
       createItemDto: CreateItemDto,
-  ): Promise<InvoiceItemList>{
+  ): Promise<InvoiceItemList> {
     let item = await this.itemService.findDuplicity(company, createItemDto);
-    if (item == null){
+    if (item == null) {
       item = await this.itemService.createItem(company, createItemDto);
     }
     return this.invoiceItemListRepository.createInvoiceItemList(createInvoiceItemListDto, item);
@@ -32,15 +33,15 @@ export class InvoiceItemListsService{
   async getListsOfInvoiceById(
       company: Company,
       invoiceId: Number,
-  ): Promise <InvoiceItemList[]>{
+  ): Promise<InvoiceItemList[]> {
     return this.invoiceItemListRepository.getListsOfInvoiceById(company, invoiceId);
   }
 
   async getInvoiceItemListById(
-    invoiceId: number,
-    id: number,
+      invoiceId: number,
+      id: number,
   ): Promise<InvoiceItemList> {
-    const found = await this.invoiceItemListRepository.findOne({ where: { id, invoice: invoiceId } });
+    const found = await this.invoiceItemListRepository.findOne({where: {id, invoice: invoiceId}});
     if (!found) {
       throw new NotFoundException(`Invoice with ID "${id}" or item list with ID "${invoiceId}" not found`);
     }
@@ -50,13 +51,9 @@ export class InvoiceItemListsService{
 
   async deleteArray(
       invoiceItemLists: InvoiceItemList[]
-  ):Promise<void>{
-    invoiceItemLists.forEach( entity => {
-
-
-    })
-    const result = await this.invoiceItemListRepository.remove(invoiceItemLists);
-
+  ): Promise<void> {
+    for (let i = 0; i < invoiceItemLists.length; i++) {
+      await this.invoiceItemListRepository.delete(invoiceItemLists[i].id)
+    }
   }
-
 }

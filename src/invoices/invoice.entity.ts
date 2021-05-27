@@ -162,7 +162,7 @@ export class Invoice extends BaseEntity {
     @ManyToOne(
         (type) => Customer,
         (customer) => customer.clientOrders,
-        {eager: true}
+        {eager: true, onDelete: "CASCADE"}
     )
     customer: Customer;
 }

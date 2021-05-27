@@ -36,11 +36,6 @@ export class Item extends BaseEntity {
   )
   itemTax: number;
 
-  /* //TODO
-  @Column()
-  image:
- */
-
   @Column()
   itemBody: string;
 

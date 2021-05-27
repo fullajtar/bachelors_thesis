@@ -11,7 +11,9 @@ import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
 import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
-import {Between} from "typeorm";
+import {Between, getRepository} from "typeorm";
+import {CustomerService} from "../customer/customer.service";
+import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 
 @Injectable()
 export class InvoicesService {
@@ -19,6 +21,7 @@ export class InvoicesService {
         @InjectRepository(InvoiceRepository)
         private invoiceRepository: InvoiceRepository,
         private invoiceItemListsService:  InvoiceItemListsService,
+        private customerService: CustomerService
     ) {}
 
     async getInvoices(
@@ -81,7 +84,7 @@ export class InvoicesService {
         createInvoiceDto: CreateInvoiceDto,
         createItemDto: CreateItemDto,
         createInvoiceItemListDto: CreateInvoiceItemListDto,
-        customer: Customer,
+        createCustomerDto: CreateCustomerDto
     ): Promise<Invoice> {
         const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
         const invoice = await this.getInvoiceById(company, id);
@@ -149,10 +152,11 @@ export class InvoicesService {
         invoice.paidDate = paidDate;
 
         //relations
-        // invoice.issuedBy = issuedBy;
-        invoice.customer = customer;
-        if  (invoice.invoiceItemLists[0] === undefined || invoice.invoiceItemLists[0].order === null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
-            this.invoiceItemListsService.deleteArray(invoice.invoiceItemLists); //not necessary await imo
+        if (invoice.customer && invoice.customer.customerOrders == null){
+            invoice.customer = await this.customerService.editCustomer(invoice.customer.id, createCustomerDto);
+        }
+        if  (invoice.invoiceItemLists[0] != null || invoice.invoiceItemLists[0].order != null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
+            await this.invoiceItemListsService.deleteArray(invoice.invoiceItemLists);
         }
 
         invoice.invoiceItemLists = itemLists;

@@ -4,10 +4,15 @@ buildnut komponenty v stencil:
                                 modal s obrazkom
                                 link
                                 button
-
+auto generate dokumentaciu ku komponentom
+k buttonu pridat enum na shades
 zoradit vsetky najdene entity podla datumu
 uploadovanie viac ako 1 suboru
 kontrolovat typ uploadnuteho suboru
+(mozno) pridat prijate faktury
+cez template generovat riadky poloziek
+pridat moznost vymazania zamestnancov
+zmenit discount, z 10(%) -> 0.1 pre jednoduchsie prepocitavanie
 
 
 BUGS:

@@ -109,7 +109,7 @@ export class OrderController{
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
             if (createEmployeeDto["action"] == "save"){
-                return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto);
+                return this.orderService.updateOrderProperties(company,invoiceId , createOrderDto, createItemDto, createInvoiceItemListDto, createCustomerDto);
             }
         }
         return res.redirect('/auth');

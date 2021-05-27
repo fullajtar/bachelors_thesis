@@ -11,21 +11,21 @@ export class Customer extends BaseEntity{
     @ManyToOne(
         (type) => Company,
         (company) => company.customers,
-        {eager: false}
+        {eager: false, onDelete: "CASCADE"}
     )
     clientSupplier: Company;
 
     @OneToMany(
         (type) => Invoice,
         (invoice) => invoice.customer,
-        {eager: false}
+        {eager: false, onDelete: "CASCADE"}
     )
     clientOrders: Invoice[]; //TODO retardovany nazov premennej -> zmenit
 
     @OneToMany(
         (type) => Order,
         (order) => order.customer,
-        {eager: false}
+        {eager: false, onDelete: "CASCADE"}
     )
     customerOrders: Order[]; //TODO retardovany nazov premennej -> zmenit
 
@@ -49,21 +49,7 @@ export class Customer extends BaseEntity{
 
     @Column() //10-digit
     clientDic: number;
-/*
-    @Column()
-    clientBank: string;
 
-    @Column()
-    clientSwift: string;
-*/
     @Column()
     clientIcDph: string;
-/*
-    @Column()
-    clientRegister: string;
-
-    @Column()
-    clientPayingTax: string;
-
- */
 }

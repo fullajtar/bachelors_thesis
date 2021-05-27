@@ -1,25 +1,10 @@
 import {EntityRepository, getConnection, Repository} from "typeorm";
 import {Customer} from "./customer.entity";
 import {Company} from "../company/company.entity";
-import {GetCustomersFilterDto} from "./dto/get-customers-filter.dto";
 import {CreateCustomerDto} from "./dto/create-customer.dto";
 
 @EntityRepository(Customer)
 export class CustomerRepository extends Repository<Customer> {
-    async getCustomers(
-        company: Company,
-        filterDto: GetCustomersFilterDto,
-    ): Promise<Customer[]> {
-        const { search } = filterDto;
-        const query = this.createQueryBuilder('customer')
-            .where('customer.supplierId = :companyId', {companyId: company.id});
-
-        if (search) {
-            query.andWhere('(customer.name LIKE :search)', { search: `%${search}%` });
-        }
-
-        return await query.getMany();
-    }
 
     async createCustomer(
         company: Company,
@@ -33,11 +18,7 @@ export class CustomerRepository extends Repository<Customer> {
             clientCountry,
             clientIco,
             clientDic,
-           // clientBank,
-          //  clientSwift,
             clientIcDph,
-          //  clientRegister,
-           // clientPayingTax,
         } = createCustomerDTO;
 
         const customer = new Customer();
@@ -48,12 +29,9 @@ export class CustomerRepository extends Repository<Customer> {
         customer.clientCountry = clientCountry;
         customer.clientIco = clientIco;
         customer.clientDic = clientDic;
-       // customer.clientBank = clientBank;
-       // customer.clientSwift = clientSwift;
         customer.clientIcDph = clientIcDph;
-       // customer.clientRegister = clientRegister;
-       // customer.clientPayingTax = clientPayingTax;
 
+        //relation
         customer.clientSupplier = company;
 
         await  getConnection().manager.save(customer);

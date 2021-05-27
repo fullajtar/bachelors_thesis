@@ -126,8 +126,7 @@ export class InvoicesController {
     ): Promise<Invoice | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
-            const customer = await this.customerService.createCustomer(company, createCustomerDto);
-            return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, customer);
+            return this.invoicesService.updateInvoiceProperties(company,invoiceId , paymentMethod, createInvoiceDto, createItemDto, createInvoiceItemListDto, createCustomerDto);
         }
         return res.redirect('/auth');
     }
