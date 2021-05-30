@@ -4,15 +4,19 @@ import multer from "multer";
 export class CreateExpenseDto {
 
     @IsNotEmpty()
+    expenseName: string;
+
+    @IsNotEmpty()
     expenseDate: string;
 
     @IsNotEmpty()
-    expenseName: string;
+    expenseAmount: number;
 
     @IsOptional()
     @IsNotEmpty()
-    expenseBody: string;
+    expenseNote: string;
 
+    @IsOptional()
     @IsNotEmpty()
-    expenseAmount: number;
+    expenseFileName: string;
 }

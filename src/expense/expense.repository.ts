@@ -13,14 +13,14 @@ export class ExpenseRepository extends Repository<Expense>{
         const {
             expenseDate,
             expenseName,
-            expenseBody,
+            expenseNote,
             expenseAmount,
         } = createExpenseDto;
         const expense = new Expense();
-        expense.expenseDate = expenseDate;
-        expense.expenseName = expenseName;
-        expense.expenseBody = expenseBody;
-        expense.expenseAmount = expenseAmount;
+        expense.date = expenseDate;
+        expense.name = expenseName;
+        expense.note = expenseNote;
+        expense.amount = expenseAmount;
 
         expense.company = company;
         await getConnection().manager.save(expense);

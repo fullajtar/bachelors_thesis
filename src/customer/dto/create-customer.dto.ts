@@ -3,38 +3,26 @@ import {IsNotEmpty} from "class-validator";
 export class CreateCustomerDto{
 
     @IsNotEmpty()
-    clientName: string;
+    customerName: string;
 
     @IsNotEmpty()
-    clientStreet: string;
+    customerStreet: string;
 
     @IsNotEmpty()
-    clientPostCode: string;
+    customerZipCode: string;
 
     @IsNotEmpty()
-    clientTown: string;
+    customerTown: string;
 
     @IsNotEmpty()
-    clientCountry: string;
+    customerCountry: string;
 
     @IsNotEmpty()
-    clientIco: number;
+    customerIco: number;
 
     @IsNotEmpty() //10-digit
-    clientDic: number;
+    customerDic: number;
 
     @IsNotEmpty()
-    clientBank: string;
-
-    @IsNotEmpty()
-    clientSwift: string;
-
-    @IsNotEmpty()
-    clientIcDph: string;
-
-    @IsNotEmpty()
-    clientRegister: string;
-
-    @IsNotEmpty()
-    clientPayingTax: string;
+    customerIcDph: string;
 }

@@ -13,13 +13,10 @@ export class Company extends BaseEntity {
     id: number;
 
     @Column()
-    supplierName: string;
+    name: string;
 
     @Column()
     street: string;
-
-    @Column()
-    postCode: string;
 
     @Column()
     town: string;
@@ -28,28 +25,28 @@ export class Company extends BaseEntity {
     country: string;
 
     @Column()
-    supplierFoundedIn: Date;
+    zipCode: string;
 
     @Column()
-    supplierIco: string;
+    dateCreated: Date;
 
     @Column()
-    supplierDic: string;
-
-
-
+    ico: string;
 
     @Column()
-    supplierIcDph: string;
+    dic: string;
 
     @Column()
-    supplierRegister: string;
+    icdph: string;
+
+    @Column()
+    register: string;
 
     @Column("bool")
-    supplierPayingTax: boolean;
+    payingTax: boolean;
 
     @Column()
-    supplierBank1: string;
+    bank1: string;
 
     @Column()
     bankAccountNumber1: string;
@@ -60,7 +57,7 @@ export class Company extends BaseEntity {
     @Column({
         nullable: true,
     })
-    supplierBank2: string;
+    bank2: string;
 
     @Column({
         nullable: true,
@@ -75,7 +72,7 @@ export class Company extends BaseEntity {
     @Column({
         nullable: true,
     })
-    supplierBank3: string;
+    bank3: string;
 
     @Column({
         nullable: true,
@@ -86,6 +83,26 @@ export class Company extends BaseEntity {
         nullable: true,
     })
     iban3: string;
+
+    @OneToMany(
+        (type) => User,
+        (user) => user.company,
+        {}
+    )
+    user: User[];
+
+    @OneToMany(
+        (type) => Employee,
+        (employee) => employee.company,
+        {eager: true})
+    employees: Employee[];
+
+    @OneToMany(
+        (type) => Expense,
+        (expense) => expense.company,
+        {}
+    )
+    expenses: Expense[];
 
     @OneToMany(
         (type) => Invoice,
@@ -101,19 +118,6 @@ export class Company extends BaseEntity {
     )
     orders: Order[];
 
-    @OneToMany(
-        (type) => User,
-        (user) => user.company,
-        {}
-    )
-    user: User[];
-
-    @OneToMany(
-        (type) => Customer,
-        (customer) => customer.clientSupplier,
-        { eager: false }
-    )
-    customers: Customer[];
 
     @OneToMany(
         (type) => Item,
@@ -121,17 +125,8 @@ export class Company extends BaseEntity {
         { eager: false })
     items: Item[];
 
-    @OneToMany(
-        (type) => Employee,
-        (employee) => employee.company,
-        {eager: true})
-    employees: Employee[];
 
-    @OneToMany(
-        (type) => Expense,
-        (expense) => expense.company,
-        {}
-    )
-    expenses: Expense[];
+
+
 
 }

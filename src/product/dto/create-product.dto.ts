@@ -1,8 +1,8 @@
 import {IsNotEmpty, IsOptional, Max, Min} from "class-validator";
 
-export class CreateInvoiceItemListDto {
+export class CreateProductDto {
   @IsNotEmpty()
-  @Min(1)
+  @Min(0)
   quantity: number;
 
   @IsOptional()

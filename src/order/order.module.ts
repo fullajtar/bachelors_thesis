@@ -5,9 +5,9 @@ import {AuthModule} from "../auth/auth.module";
 import {OrderController} from "./order.controller";
 import {OrderService} from "./order.service";
 import {CustomerService} from "../customer/customer.service";
-import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
+import {ProductService} from "../product/product.service";
 import {CustomerRepository} from "../customer/customer.repository";
-import {InvoiceItemListRepository} from "../invoiceItems/invoiceItemList.repository";
+import {ProductRepository} from "../product/product.repository";
 import {ItemRepository} from "../Items/item.repository";
 import {ItemService} from "../Items/item.service";
 import {CompanyRepository} from "../company/company.repository";
@@ -18,10 +18,10 @@ import {UserRepository} from "../auth/user.repository";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([OrderRepository, CustomerRepository, InvoiceItemListRepository, ItemRepository, CompanyRepository, EmployeeRepository, UserRepository]),
+        TypeOrmModule.forFeature([OrderRepository, CustomerRepository, ProductRepository, ItemRepository, CompanyRepository, EmployeeRepository, UserRepository]),
         AuthModule,
     ],
     controllers: [OrderController],
-    providers: [OrderService, CustomerService, InvoiceItemListsService, ItemService, CompanyService, EmployeeService],
+    providers: [OrderService, CustomerService, ProductService, ItemService, CompanyService, EmployeeService],
 })
 export class OrderModule {}

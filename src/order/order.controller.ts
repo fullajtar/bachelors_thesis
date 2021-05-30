@@ -3,13 +3,13 @@ import {Body, Controller, Get, Param, ParseIntPipe, Post, Render, Res, Session} 
 import {Order} from "./oder.entity";
 import {Company} from "../company/company.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
-import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
+import {CreateProductDto} from "../product/dto/create-product.dto";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 import {CreateEmployeeDto} from "../employee/dto/create-employee.dto";
 import {GetUser} from "../auth/get-user.decorator";
 import {CustomerService} from "../customer/customer.service";
-import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
+import {ProductService} from "../product/product.service";
 import {CompanyService} from "../company/company.service";
 import {InvoicePatchValidationPipe} from "../invoices/pipes/invoice-patch-validation.pipe";
 import {InvoicePaymentEnum} from "../invoices/invoice-payment.enum";
@@ -21,7 +21,7 @@ export class OrderController{
         private orderService: OrderService,
         private customerService: CustomerService,
         private companyService: CompanyService,
-        private invoicesListService: InvoiceItemListsService,
+        private invoicesListService: ProductService,
         private employeeService: EmployeeService,
     ) {}
 
@@ -63,7 +63,7 @@ export class OrderController{
         @Session() session: Record<string, any>,
         @Res() res,
         @Body() createOrderDto: CreateOrderDto,
-        @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         @Body() createEmployeeDto: CreateEmployeeDto,
@@ -98,7 +98,7 @@ export class OrderController{
     async editOrder(
         @Session() session: Record<string, any>,
         @Res() res,
-        @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         @Body() createEmployeeDto: CreateEmployeeDto,

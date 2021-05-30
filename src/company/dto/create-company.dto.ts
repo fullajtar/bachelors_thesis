@@ -3,67 +3,64 @@ import {IsNotEmpty, IsOptional} from "class-validator";
 export class CreateCompanyDto {
 
     @IsNotEmpty()
-    supplierName: string;
+    companyName: string;
 
     @IsNotEmpty()
-    street: string;
+    companyStreet: string;
 
     @IsNotEmpty()
-    postCode: string;
+    companyTown: string;
 
     @IsNotEmpty()
-    town: string;
+    companyCountry: string;
 
     @IsNotEmpty()
-    country: string;
+    companyZipCode: string;
 
     @IsNotEmpty()
-    supplierFoundedIn: Date;
+    companyDateCreated: Date;
 
     @IsNotEmpty()
-    supplierIco: string;
+    companyIco: string;
 
     @IsNotEmpty() //10-digit
-    supplierDic: string;
+    companyDic: string;
 
     @IsOptional()
     @IsNotEmpty()
-    supplierIcDph: string;
+    companyIcdph: string;
 
     @IsNotEmpty()
-    supplierRegister: string;
+    companyRegister: string;
 
     @IsOptional()
     @IsNotEmpty()
-    supplierPayingTax: boolean;
+    companyPayingTax: boolean;
 
     @IsNotEmpty()
-    supplierBank1: string;
+    companyBank1: string;
 
     @IsNotEmpty()
-    bankAccountNumber1: string;
+    companyBankAccountNumber1: string;
 
     @IsNotEmpty()
-    iban1: string;
+    companyIban1: string;
 
     @IsOptional()
-    supplierBank2: string;
+    companyBank2: string;
 
     @IsOptional()
-    bankAccountNumber2: string;
+    companyBankAccountNumber2: string;
 
     @IsOptional()
-    iban2: string;
+    companyIban2: string;
 
     @IsOptional()
-    supplierBank3: string;
+    companyBank3: string;
 
     @IsOptional()
-    bankAccountNumber3: string;
+    companyBankAccountNumber3: string;
 
     @IsOptional()
-    iban3: string;
-
-
-
+    companyIban3: string;
 }

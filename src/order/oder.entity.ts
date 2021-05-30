@@ -1,6 +1,6 @@
 import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn,} from 'typeorm';
 
-import {InvoiceItemList} from '../invoiceItems/invoiceItemList.entity';
+import {Product} from '../product/product.entity';
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 
@@ -9,17 +9,10 @@ export class Order extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    dateOfIssue: Date; //datum vystavenia
-
-
-    @Column()
-    currency: string;
-
     @Column({
         nullable: true,
     })
-    orderName: string;
+    orderNumber: string;
 
     @Column()
     bank: string;
@@ -30,20 +23,22 @@ export class Order extends BaseEntity {
     @Column()
     iban: string;
 
-    @Column({
-        nullable: true,
-    })
-    note: string;
+    @Column()
+    paymentMethod: string;
+
+    @Column()
+    deliveryMethod: string;
+
+    @Column()
+    currency: string;
+
+    @Column()
+    dateOfIssue: Date; //datum vystavenia
 
     @Column({
         nullable: true,
     })
-    tag: string;
-
-    @Column({
-        nullable: true,
-    })
-    customerTitleBefore: string;
+    customerDegreeBefore: string;
 
     @Column()
     customerName: string;
@@ -54,27 +49,30 @@ export class Order extends BaseEntity {
     @Column({
         nullable: true,
     })
-    customerTitleAfter: string;
-
-    @Column()
-    paymentMethod: string;
-
-    @Column()
-    deliveryMethod: string;
+    customerDegreeAfter: string;
 
     @Column({
         nullable: true,
     })
-    orderNumber: string;
+    name: string;
+    @Column({
+        nullable: true,
+    })
+    tag: string;
 
-    @OneToMany( //TODO edit services of itemLists
-        (type) => InvoiceItemList,
+    @Column({
+        nullable: true,
+    })
+    note: string;
+
+    @OneToMany(
+        (type) => Product,
         (invoiceItemList) => invoiceItemList.order,
         { eager: true },
     )
-    invoiceItemLists: InvoiceItemList[];
+    invoiceItemLists: Product[];
 
-    @ManyToOne( //TODO edit services of company
+    @ManyToOne(
         (type) => Company,
         (company) => company.orders,
         { eager: true }
@@ -83,7 +81,7 @@ export class Order extends BaseEntity {
 
     @ManyToOne(
         (type) => Customer,
-        (customer) => customer.customerOrders,
+        (customer) => customer.order,
         {eager: true, onDelete: "CASCADE"}
     )
     customer: Customer;

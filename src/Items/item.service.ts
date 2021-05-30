@@ -1,11 +1,10 @@
 import {Injectable} from "@nestjs/common";
 import {ItemRepository} from "./item.repository";
 import {CreateItemDto} from "./dto/create-item.dto";
-import {InvoiceItemList} from "../invoiceItems/invoiceItemList.entity";
+import {Product} from "../product/product.entity";
 import {Item} from "./item.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import {getConnection} from "typeorm";
-import {GetItemsFilterDto} from "./dto/get-items-filter.dto";
 import {Company} from "../company/company.entity";
 
 @Injectable()
@@ -17,7 +16,7 @@ export class ItemService{
 
 
   async addToInvoiceItemList(
-    invoiceItemList: InvoiceItemList,
+    invoiceItemList: Product,
     itemId: Number,
   ): Promise<Item> {
     const item = await this.getItemById(itemId);
@@ -34,10 +33,9 @@ export class ItemService{
   }
 
   async getItems(
-      company: Company,
-      filterDto: GetItemsFilterDto,
+      company: Company
   ): Promise<Item[]>{
-    return this.itemRepository.getItems(company, filterDto);
+    return this.itemRepository.getItems(company);
   }
 
   async createItem(

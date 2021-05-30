@@ -14,7 +14,6 @@ import {
 import {EmployeeService} from "./employee.service";
 import {Employee} from "./employee.entity";
 import {Company} from "../company/company.entity";
-import {GetEmployeeFilterDto} from "./dto/get-employee-filter.dto";
 import {CreateEmployeeDto} from "./dto/create-employee.dto";
 import {CompanyService} from "../company/company.service";
 
@@ -30,11 +29,10 @@ export class EmployeeController{
     async getEmployees(
         @Session() session: Record<string, any>,
         @Res() res,
-        @Query(ValidationPipe) filterDto: GetEmployeeFilterDto,
     ): Promise<Employee[] | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
-            return this.employeeService.getEmployees(company, filterDto);
+            return this.employeeService.getEmployees(company);
         }
         return res.redirect('/auth');
     }

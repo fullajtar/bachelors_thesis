@@ -3,7 +3,7 @@ import {EntityRepository, getConnection, Repository} from "typeorm";
 import {CreateOrderDto} from "./dto/create-order.dto";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
-import {InvoiceItemList} from "../invoiceItems/invoiceItemList.entity";
+import {Product} from "../product/product.entity";
 
 @EntityRepository(Order)
 export class OrderRepository extends Repository<Order> {
@@ -25,7 +25,7 @@ export class OrderRepository extends Repository<Order> {
     async createOrder(
         company: Company,
         createOrderDto: CreateOrderDto,
-        itemLists: InvoiceItemList[],
+        itemLists: Product[],
         customer: Customer,
     ): Promise<Order> {
         const {
@@ -51,17 +51,17 @@ export class OrderRepository extends Repository<Order> {
         //properties
         order.dateOfIssue = dateOfIssue;
         order.currency = currency;
-        order.orderName = orderName;
+        order.name = orderName;
         order.bankAccountNumber = bankAccountNumber;
         order.bank = bank;
         order.iban = iban;
         order.note = note;
         order.tag = tag;
         order.deliveryMethod = deliveryMethod;
-        order.customerTitleBefore = customerTitleBefore;
+        order.customerDegreeBefore = customerTitleBefore;
         order.customerName = customerName;
         order.customerSurname = customerSurname;
-        order.customerTitleAfter = customerTitleAfter;
+        order.customerDegreeAfter = customerTitleAfter;
         order.paymentMethod = paymentMethod;
         order.orderNumber = orderNumber;
 

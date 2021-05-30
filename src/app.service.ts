@@ -31,7 +31,7 @@ export class AppService {
           {
               where: {
                   company: company.id,
-                  expenseDate: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000')
+                  date: Between(n+'-04-01  00:00:00.000000', n+1+'-3-31  23:59:59.000000')
               }
           });
       const invoiceStates = this.invoiceRepository.find(
@@ -100,42 +100,42 @@ export class AppService {
   ): Map<string, number>{
       let data = new Map([ ['jan',0], ['feb',0], ['mar',0], ['apr',0], ['may',0], ['jun',0], ['jul',0], ['aug',0], ['sep',0], ['oct',0], ['nov',0], ['dec',0]]);
       expenses.forEach(expense =>{
-          switch(expense.expenseDate.slice(5,7)) {
+          switch(expense.date.slice(5,7)) {
               case "01":
-                  data.set('jan', data.get('jan') + parseFloat(''+expense.expenseAmount));
+                  data.set('jan', data.get('jan') + parseFloat(''+expense.amount));
                   break;
               case "02":
-                  data.set('feb', data.get('feb') + parseFloat(''+expense.expenseAmount));
+                  data.set('feb', data.get('feb') + parseFloat(''+expense.amount));
                   break;
               case "03":
-                  data.set('mar', data.get('mar') + parseFloat(''+expense.expenseAmount));
+                  data.set('mar', data.get('mar') + parseFloat(''+expense.amount));
                   break;
               case "04":
-                  data.set('apr', data.get('apr') + parseFloat(''+expense.expenseAmount));
+                  data.set('apr', data.get('apr') + parseFloat(''+expense.amount));
                   break;
               case "05":
-                  data.set('may', data.get('may') + parseFloat(''+expense.expenseAmount) );
+                  data.set('may', data.get('may') + parseFloat(''+expense.amount) );
                   break;
               case "06":
-                  data.set('jun', data.get('jun') + parseFloat(''+expense.expenseAmount));
+                  data.set('jun', data.get('jun') + parseFloat(''+expense.amount));
                   break;
               case "07":
-                  data.set('jul', data.get('jul') + parseFloat(''+expense.expenseAmount));
+                  data.set('jul', data.get('jul') + parseFloat(''+expense.amount));
                   break;
               case "08":
-                  data.set('aug', data.get('aug') + parseFloat(''+expense.expenseAmount));
+                  data.set('aug', data.get('aug') + parseFloat(''+expense.amount));
                   break;
               case "09":
-                  data.set('sep', data.get('sep') + parseFloat(''+expense.expenseAmount));
+                  data.set('sep', data.get('sep') + parseFloat(''+expense.amount));
                   break;
               case "10":
-                  data.set('oct', data.get('oct') + parseFloat(''+expense.expenseAmount));
+                  data.set('oct', data.get('oct') + parseFloat(''+expense.amount));
                   break;
               case "11":
-                  data.set('nov', data.get('nov') + parseFloat(''+expense.expenseAmount));
+                  data.set('nov', data.get('nov') + parseFloat(''+expense.amount));
                   break;
               case "12":
-                  data.set('dec', data.get('dec') + parseFloat(''+expense.expenseAmount));
+                  data.set('dec', data.get('dec') + parseFloat(''+expense.amount));
                   break;
           }
       })
@@ -194,7 +194,7 @@ export class AppService {
   ) :number {
       let sum = 0;
       invoice.invoiceItemLists.forEach( item => {
-          let price = item.item.itemPriceWithoutTax * item.quantity ;
+          let price = item.item.priceWithoutTax * item.quantity ;
           if (item.discount != 0){
               price *= 1 - item.discount/100;
           }

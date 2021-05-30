@@ -1,7 +1,6 @@
 import {EntityRepository, Repository} from "typeorm";
 import {Employee} from "./employee.entity";
 import {CreateEmployeeDto} from "./dto/create-employee.dto";
-import {GetEmployeeFilterDto} from "./dto/get-employee-filter.dto";
 import {Company} from "../company/company.entity";
 
 @EntityRepository(Employee)
@@ -10,22 +9,22 @@ export class EmployeeRepository extends Repository<Employee>{
       company: Company,
       createEmployeeDto: CreateEmployeeDto,
   ): Promise<Employee>{
-    const { name,
-      degreeAfterName,
-      degreeBeforeName,
-      email,
-      phoneNumber,
-      surname,
+    const { employeeName,
+      employeeDegreeAfter,
+      employeeDegreeBefore,
+      employeeEmail,
+      employeePhone,
+      employeeSurname,
     } = createEmployeeDto;
     const employee = new Employee();
 
     //properties
-    employee.name = name;
-    employee.degreeAfterName = degreeAfterName;
-    employee.degreeBeforeName = degreeBeforeName;
-    employee.email = email;
-    employee.phoneNumber = phoneNumber;
-    employee.surname = surname;
+    employee.name = employeeName;
+    employee.degreeAfter = employeeDegreeAfter;
+    employee.degreeBefore = employeeDegreeBefore;
+    employee.email = employeeEmail;
+    employee.phone = employeePhone;
+    employee.surname = employeeSurname;
 
     //relations
     employee.company = company;
@@ -36,17 +35,11 @@ export class EmployeeRepository extends Repository<Employee>{
 
   async getEmployees(
       company: Company,
-      filterDto: GetEmployeeFilterDto,
   ): Promise<Employee[]>{
-    const { name } = filterDto;
-    const query = this.createQueryBuilder('employee');
-
-    query.where('employee.companyId = :companyId', { companyId: company.id });
-    if (name) {
-      query.andWhere( '(employee.name LIKE :search ' +
-                            'OR employee.surname LIKE :search)', { search: `%${name}%` });
-    }
-    return await query.getMany();
+    return await this.find(
+        {
+          where: {company: company.id}
+        })
   }
 
   async findDuplicity(
@@ -54,23 +47,23 @@ export class EmployeeRepository extends Repository<Employee>{
       createEmployeeDto: CreateEmployeeDto,
   ): Promise<Employee>{
     const {
-      name,
-      surname,
-      phoneNumber,
-      email,
-      degreeBeforeName,
-      degreeAfterName,
+      employeeName,
+      employeeSurname,
+      employeePhone,
+      employeeEmail,
+      employeeDegreeBefore,
+      employeeDegreeAfter,
     } = createEmployeeDto;
 
     const query = this.createQueryBuilder('employee');
     query.where('employee.companyId = :companyId', { companyId: company.id });
 
-    query.andWhere('employee.name = :name', {name: name});
-    query.andWhere('employee.surname = :surname', {surname: surname});
-    query.andWhere('employee.phoneNumber = :phoneNumber', {phoneNumber: phoneNumber});
-    query.andWhere('employee.email = :email', {email: email});
-    query.andWhere('employee.degreeBeforeName = :degreeBeforeName', {degreeBeforeName: degreeBeforeName});
-    query.andWhere('employee.degreeAfterName = :degreeAfterName', {degreeAfterName: degreeAfterName});
+    query.andWhere('employee.name = :name', {name: employeeName});
+    query.andWhere('employee.surname = :surname', {surname: employeeSurname});
+    query.andWhere('employee.phoneNumber = :phoneNumber', {phoneNumber: employeePhone});
+    query.andWhere('employee.email = :email', {email: employeeEmail});
+    query.andWhere('employee.degreeBeforeName = :degreeBeforeName', {degreeBeforeName: employeeDegreeBefore});
+    query.andWhere('employee.degreeAfterName = :degreeAfterName', {degreeAfterName: employeeDegreeAfter});
 
     return await query.getOne();
   }

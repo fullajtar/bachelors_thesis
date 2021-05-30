@@ -17,8 +17,8 @@ import {InvoicePatchValidationPipe} from "./pipes/invoice-patch-validation.pipe"
 import {GetInvoicesFilterDto} from "./dto/get-invoices-filter.dto";
 import {Invoice} from "./invoice.entity";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
-import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
-import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
+import {ProductService} from "../product/product.service";
+import {CreateProductDto} from "../product/dto/create-product.dto";
 import {ItemService} from "../Items/item.service";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
 import {Company} from "../company/company.entity";
@@ -31,7 +31,7 @@ import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto
 export class InvoicesController {
     constructor(
         private invoicesService: InvoicesService,
-        private invoicesListService: InvoiceItemListsService,
+        private invoicesListService: ProductService,
         private itemService: ItemService,
         private companyService: CompanyService,
         private customerService: CustomerService,
@@ -73,7 +73,7 @@ export class InvoicesController {
         @Session() session: Record<string, any>,
         @Res() res,
         @Body() createInvoiceDto: CreateInvoiceDto,
-        @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         // @GetUser() user: User,
@@ -95,7 +95,7 @@ export class InvoicesController {
         @Session() session: Record<string, any>,
         @Res() res,
         @Body() generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
-        @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
@@ -117,7 +117,7 @@ export class InvoicesController {
     async addItemToInvoice(
         @Session() session: Record<string, any>,
         @Res() res,
-        @Body() createInvoiceItemListDto: CreateInvoiceItemListDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         @Body() createInvoiceDto: CreateInvoiceDto,

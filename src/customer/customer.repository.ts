@@ -11,28 +11,28 @@ export class CustomerRepository extends Repository<Customer> {
         createCustomerDTO: CreateCustomerDto,
     ): Promise<Customer>{
         const{
-            clientName,
-            clientStreet,
-            clientPostCode,
-            clientTown,
-            clientCountry,
-            clientIco,
-            clientDic,
-            clientIcDph,
+            customerName,
+            customerStreet,
+            customerZipCode,
+            customerTown,
+            customerCountry,
+            customerIco,
+            customerDic,
+            customerIcDph,
         } = createCustomerDTO;
 
         const customer = new Customer();
-        customer.clientName = clientName;
-        customer.clientStreet =clientStreet;
-        customer.clientPostCode = clientPostCode;
-        customer.clientTown = clientTown;
-        customer.clientCountry = clientCountry;
-        customer.clientIco = clientIco;
-        customer.clientDic = clientDic;
-        customer.clientIcDph = clientIcDph;
+        customer.name = customerName;
+        customer.street =customerStreet;
+        customer.zipCode = customerZipCode;
+        customer.town = customerTown;
+        customer.country = customerCountry;
+        customer.ico = customerIco;
+        customer.dic = customerDic;
+        customer.icdph = customerIcDph;
 
         //relation
-        customer.clientSupplier = company;
+        //customer.clientSupplier = company;
 
         await  getConnection().manager.save(customer);
         return customer

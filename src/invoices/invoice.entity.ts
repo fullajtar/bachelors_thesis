@@ -1,7 +1,7 @@
 import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn,} from 'typeorm';
 
 import {InvoicePaymentEnum} from './invoice-payment.enum';
-import {InvoiceItemList} from '../invoiceItems/invoiceItemList.entity';
+import {Product} from '../product/product.entity';
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 
@@ -10,39 +10,28 @@ export class Invoice extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    dateOfIssue: Date; //datum vystavenia
-
     @Column({
         nullable: true,
     })
-    dueDate: Date;
-
-    @Column({
-        nullable: true,
-    })
-    deliveryDate: Date;
-
-    @Column()
-    paymentMethod: InvoicePaymentEnum;
-
-    @Column()
-    currency: string;
-
-    //optional
-    @Column({
-        nullable: true,
-    })
-    invoiceName: string;
+    invoiceNumber: string;
 
     @Column()
     bank: string;
 
     @Column()
-    bankAccountNumber: string; //cislo uctu
+    bankAccountNumber: string;
 
     @Column()
     iban: string;
+
+    @Column()
+    paymentMethod: InvoicePaymentEnum;
+
+    @Column()
+    deliveryMethod: string;
+
+    @Column()
+    currency: string;
 
     @Column({
         nullable: true,
@@ -52,22 +41,75 @@ export class Invoice extends BaseEntity {
     @Column({
         nullable: true,
     })
-    specificSymbol: string;
-
-    @Column({
-        nullable: true,
-    })
     constantSymbol: string;
 
     @Column({
         nullable: true,
     })
-    tag: string;
+    specificSymbol: string;
+
+    @Column()
+    dateOfIssue: Date;
 
     @Column({
         nullable: true,
     })
-    note: string;
+    deliveryDate: Date;
+
+    @Column({
+        nullable: true,
+    })
+    dueDate: Date;
+
+    @Column({
+        nullable: true,
+    })
+    issuedDegreeBefore: string;
+
+    @Column({
+        nullable: true,
+    })
+    issuedName: string;
+
+    @Column({
+        nullable: true,
+    })
+    issuedSurname: string;
+
+    @Column({
+        nullable: true,
+    })
+    issuedDegreeAfter: string;
+
+    @Column({
+        nullable: true,
+    })
+    issuedPhone: string; //TODO number type
+
+    @Column({
+        nullable: true,
+    })
+    issuedEmail: string;
+
+    @Column({
+        nullable: true,
+    })
+    pickedUpDegreeBefore: string;
+
+    @Column({
+        nullable: true,
+    })
+    pickedUpName: string;
+
+    @Column({
+        nullable: true,
+    })
+    pickedUpSurname: string;
+
+    @Column({
+        nullable: true,
+    })
+    pickedUpDegreeAfter: string;
 
     @Column({
         nullable: true,
@@ -79,60 +121,12 @@ export class Invoice extends BaseEntity {
     @Column({
         nullable: true,
     })
-    pickedUpByTitleBefore: string;
+    name: string;
 
     @Column({
         nullable: true,
     })
-    pickedUpByName: string;
-
-    @Column({
-        nullable: true,
-    })
-    pickedUpBySurname: string;
-
-    @Column({
-        nullable: true,
-    })
-    pickedUpByTitleAfter: string;
-
-    @Column()
-    deliveryMethod: string;
-
-    @Column({
-        nullable: true,
-    })
-    invoiceNumber: string;
-
-    @Column({
-        nullable: true,
-    })
-    issuedByName: string;
-
-    @Column({
-        nullable: true,
-    })
-    issuedBySurname: string;
-
-    @Column({
-        nullable: true,
-    })
-    issuedByDegreeBeforeName: string;
-
-    @Column({
-        nullable: true,
-    })
-    issuedByDegreeAfterName: string;
-
-    @Column({
-        nullable: true,
-    })
-    issuedByPhoneNumber: string; //TODO number type
-
-    @Column({
-        nullable: true,
-    })
-    issuedByEmail: string;
+    tag: string;
 
     @Column({
         type: 'date',
@@ -140,12 +134,17 @@ export class Invoice extends BaseEntity {
     })
     paidDate: string;
 
+    @Column({
+        nullable: true,
+    })
+    note: string;
+
     @OneToMany(
-        (type) => InvoiceItemList,
+        (type) => Product,
         (invoiceItemList) => invoiceItemList.invoice,
         { eager: true },
     )
-    invoiceItemLists: InvoiceItemList[];
+    invoiceItemLists: Product[];
 
     @ManyToOne(
         (type) => Company,
@@ -154,14 +153,9 @@ export class Invoice extends BaseEntity {
     )
     company: Company;
 
-    // @ManyToOne((type) => Employee, (employee) => employee.invoicesIssued, {
-    //     eager: true,
-    // })
-    // issuedBy: Employee;
-
     @ManyToOne(
         (type) => Customer,
-        (customer) => customer.clientOrders,
+        (customer) => customer.invoice,
         {eager: true, onDelete: "CASCADE"}
     )
     customer: Customer;

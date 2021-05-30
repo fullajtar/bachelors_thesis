@@ -4,38 +4,31 @@ import {Column} from "typeorm";
 export class CreateOrderDto {
 
     @IsNotEmpty()
-    dateOfIssue: Date; //datum vystavenia
-
-    @IsNotEmpty()
-    currency: string;
-
-//optional
-    @IsOptional()
-    @IsNotEmpty()
-    orderName: string;
+    orderNumber: string
 
     @IsNotEmpty()
     bank: string;
 
     @IsOptional()
     @IsNotEmpty()
-    bankAccountNumber: string; //cislo uctu
+    bankAccountNumber: string;
 
     @IsOptional()
     @IsNotEmpty()
     @IsIBAN()
     iban: string;
 
-    @IsOptional()
-    @IsNotEmpty()
-    note: string;
+    @Column()
+    paymentMethod: string;
 
-    @IsOptional()
     @IsNotEmpty()
-    tag: string;
+    deliveryMethod: string;
 
-    @IsOptional()
-    deposit: number;
+    @IsNotEmpty()
+    currency: string;
+
+    @IsNotEmpty()
+    dateOfIssue: Date;
 
     @IsOptional()
     @IsNotEmpty()
@@ -51,13 +44,15 @@ export class CreateOrderDto {
     @IsNotEmpty()
     customerTitleAfter: string;
 
+    @IsOptional()
     @IsNotEmpty()
-    deliveryMethod: string;
+    orderName: string;
 
-    @Column()
-    paymentMethod: string;
-
+    @IsOptional()
     @IsNotEmpty()
-    orderNumber: string
+    tag: string;
 
+    @IsOptional()
+    @IsNotEmpty()
+    note: string;
 }

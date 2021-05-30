@@ -5,51 +5,45 @@ import {Order} from "../order/oder.entity";
 
 @Entity()
 export class Customer extends BaseEntity{
+
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(
-        (type) => Company,
-        (company) => company.customers,
-        {eager: false, onDelete: "CASCADE"}
-    )
-    clientSupplier: Company;
+    @Column()
+    name: string;
+
+    @Column()
+    street: string;
+
+    @Column()
+    zipCode: string;
+
+    @Column()
+    town: string;
+
+    @Column()
+    country: string;
+
+    @Column()
+    ico: number;
+
+    @Column() //10-digit
+    dic: number;
+
+    @Column()
+    icdph: string;
 
     @OneToMany(
         (type) => Invoice,
         (invoice) => invoice.customer,
         {eager: false, onDelete: "CASCADE"}
     )
-    clientOrders: Invoice[]; //TODO retardovany nazov premennej -> zmenit
+    invoice: Invoice;
 
     @OneToMany(
         (type) => Order,
         (order) => order.customer,
         {eager: false, onDelete: "CASCADE"}
     )
-    customerOrders: Order[]; //TODO retardovany nazov premennej -> zmenit
-
-    @Column()
-    clientName: string;
-
-    @Column()
-    clientStreet: string;
-
-    @Column()
-    clientPostCode: string;
-
-    @Column()
-    clientTown: string;
-
-    @Column()
-    clientCountry: string;
-
-    @Column()
-    clientIco: number;
-
-    @Column() //10-digit
-    clientDic: number;
-
-    @Column()
-    clientIcDph: string;
+    order: Order;
 }

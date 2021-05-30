@@ -1,7 +1,6 @@
 import {EntityRepository, Repository} from "typeorm";
 import {Item} from "./item.entity";
 import {CreateItemDto} from "./dto/create-item.dto";
-import {GetItemsFilterDto} from "./dto/get-items-filter.dto";
 import {Company} from "../company/company.entity";
 
 @EntityRepository(Item)
@@ -18,17 +17,10 @@ export class ItemRepository extends Repository<Item>{
 
   async getItems(
       company: Company,
-      filterDto: GetItemsFilterDto,
   ): Promise<Item[]> {
-    const { search } = filterDto;
-    const query = this.createQueryBuilder('item');
-    query.where('item.companyId = :companyId', { companyId: company.id});
-
-    if(search){
-      query.andWhere('(item.name LIKE :search)', { search: `%${search}%` });
-    }
-
-    return await query.getMany();
+    return await this.find({
+      where: {company: company.id}
+    })
   }
 
   async createItem(
@@ -39,13 +31,13 @@ export class ItemRepository extends Repository<Item>{
     const item = new Item();
 
     //properties
-    item.itemBarcode = itemBarcode;
-    item.itemBody = itemBody;
-    item.itemName = itemName;
-    item.itemNote = itemNote;
-    item.itemPriceWithoutTax = itemPriceWithoutTax;
-    item.itemTax = itemTax;
-    item.itemUnit = itemUnit;
+    item.barcode = itemBarcode;
+    item.body = itemBody;
+    item.name = itemName;
+    item.note = itemNote;
+    item.priceWithoutTax = itemPriceWithoutTax;
+    item.tax = itemTax;
+    item.unit = itemUnit;
 
     //relations
     item.company = company;

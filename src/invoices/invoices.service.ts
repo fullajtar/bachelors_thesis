@@ -8,8 +8,8 @@ import {InvoicePaymentEnum} from "./invoice-payment.enum";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
-import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
-import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
+import {CreateProductDto} from "../product/dto/create-product.dto";
+import {ProductService} from "../product/product.service";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
 import {Between, getRepository} from "typeorm";
 import {CustomerService} from "../customer/customer.service";
@@ -20,7 +20,7 @@ export class InvoicesService {
     constructor(
         @InjectRepository(InvoiceRepository)
         private invoiceRepository: InvoiceRepository,
-        private invoiceItemListsService:  InvoiceItemListsService,
+        private invoiceItemListsService:  ProductService,
         private customerService: CustomerService
     ) {}
 
@@ -47,7 +47,7 @@ export class InvoicesService {
         paymentMethod: InvoicePaymentEnum,
         createInvoiceDto: CreateInvoiceDto,
         createItemDto: CreateItemDto,
-        createInvoiceItemListDto: CreateInvoiceItemListDto,
+        createInvoiceItemListDto: CreateProductDto,
         customer: Customer,
     ): Promise<Invoice> {
         const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
@@ -59,7 +59,7 @@ export class InvoicesService {
         paymentMethod: InvoicePaymentEnum,
         generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
         createItemDto: CreateItemDto,
-        createInvoiceItemListDto: CreateInvoiceItemListDto,
+        createInvoiceItemListDto: CreateProductDto,
         customer: Customer,
     ): Promise<Invoice> {
         const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
@@ -83,7 +83,7 @@ export class InvoicesService {
         status: InvoicePaymentEnum,
         createInvoiceDto: CreateInvoiceDto,
         createItemDto: CreateItemDto,
-        createInvoiceItemListDto: CreateInvoiceItemListDto,
+        createInvoiceItemListDto: CreateProductDto,
         createCustomerDto: CreateCustomerDto
     ): Promise<Invoice> {
         const itemLists = await this.processInvoiceItemList(createInvoiceItemListDto, createItemDto, company);
@@ -127,7 +127,7 @@ export class InvoicesService {
         invoice.dueDate = dueDate;
         invoice.deliveryDate = deliveryDate;
         invoice.currency = currency;
-        invoice.invoiceName = invoiceName;
+        invoice.name = invoiceName;
         invoice.bank = bank;
         invoice.bankAccountNumber = bankAccountNumber;
         invoice.iban = iban;
@@ -138,21 +138,21 @@ export class InvoicesService {
         invoice.note = note;
         invoice.deposit = deposit;
         invoice.deliveryMethod = deliveryMethod;
-        invoice.pickedUpByTitleBefore = pickedUpByTitleBefore;
-        invoice.pickedUpByName = pickedUpByName;
-        invoice.pickedUpBySurname = pickedUpBySurname;
-        invoice.pickedUpByTitleAfter = pickedUpByTitleAfter;
+        invoice.pickedUpDegreeBefore = pickedUpByTitleBefore;
+        invoice.pickedUpName = pickedUpByName;
+        invoice.pickedUpSurname = pickedUpBySurname;
+        invoice.pickedUpDegreeAfter = pickedUpByTitleAfter;
         invoice.invoiceNumber = invoiceNumber;
-        invoice.issuedByName =  issuedByName;
-        invoice.issuedBySurname = issuedBySurname;
-        invoice.issuedByPhoneNumber = issuedByPhoneNumber;
-        invoice.issuedByEmail = issuedByEmail;
-        invoice.issuedByDegreeBeforeName = issuedByDegreeBeforeName;
-        invoice.issuedByDegreeAfterName = issuedByDegreeAfterName;
+        invoice.issuedName =  issuedByName;
+        invoice.issuedSurname = issuedBySurname;
+        invoice.issuedPhone = issuedByPhoneNumber;
+        invoice.issuedEmail = issuedByEmail;
+        invoice.issuedDegreeBefore = issuedByDegreeBeforeName;
+        invoice.issuedDegreeAfter = issuedByDegreeAfterName;
         invoice.paidDate = paidDate;
 
         //relations
-        if (invoice.customer && invoice.customer.customerOrders == null){
+        if (invoice.customer && invoice.customer.order == null){
             invoice.customer = await this.customerService.editCustomer(invoice.customer.id, createCustomerDto);
         }
         if  (invoice.invoiceItemLists[0] != null || invoice.invoiceItemLists[0].order != null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
@@ -183,7 +183,7 @@ export class InvoicesService {
                 newItemDto.itemBody =createItemDto.itemBody[i];
                 newItemDto.itemBarcode = createItemDto.itemBarcode[i];
 
-                let newInvoiceItemListDto = new CreateInvoiceItemListDto();
+                let newInvoiceItemListDto = new CreateProductDto();
                 newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
                 newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
 

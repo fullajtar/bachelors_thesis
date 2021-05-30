@@ -1,17 +1,17 @@
 import {EntityRepository, Repository} from "typeorm";
-import {InvoiceItemList} from "./invoiceItemList.entity";
-import {CreateInvoiceItemListDto} from "./dto/create-invoiceItemList.dto";
+import {Product} from "./product.entity";
+import {CreateProductDto} from "./dto/create-product.dto";
 import {Company} from "../company/company.entity";
 import {Item} from "../Items/item.entity";
 
-@EntityRepository(InvoiceItemList)
-export class InvoiceItemListRepository extends Repository<InvoiceItemList>{
+@EntityRepository(Product)
+export class ProductRepository extends Repository<Product>{
   async createInvoiceItemList(
-    createInvoiceItemListDto: CreateInvoiceItemListDto,
+    createInvoiceItemListDto: CreateProductDto,
     item: Item,
-  ): Promise<InvoiceItemList>{
+  ): Promise<Product>{
     const {quantity, discount} = createInvoiceItemListDto;
-    const invoiceItemList = new InvoiceItemList();
+    const invoiceItemList = new Product();
     invoiceItemList.quantity = quantity;
     invoiceItemList.discount = discount;
     // const order = new Order();
@@ -27,7 +27,7 @@ export class InvoiceItemListRepository extends Repository<InvoiceItemList>{
   async getListsOfInvoiceById(
       company: Company,
       invoiceId: Number,
-  ): Promise <InvoiceItemList[]>{
+  ): Promise <Product[]>{
     const query = this.createQueryBuilder('invoiceItemList');
 
     query.andWhere('invoiceItemList.invoiceId =:invoiceId', {invoiceId: invoiceId})

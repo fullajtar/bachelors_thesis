@@ -5,7 +5,7 @@ import {GetInvoicesFilterDto} from "./dto/get-invoices-filter.dto";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
-import {InvoiceItemList} from "../invoiceItems/invoiceItemList.entity";
+import {Product} from "../product/product.entity";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
 
 @EntityRepository(Invoice)
@@ -58,7 +58,7 @@ export class InvoiceRepository extends Repository<Invoice> {
         paymentMethod: InvoicePaymentEnum,
         createInvoiceDto: CreateInvoiceDto,
         customer: Customer,
-        itemLists: InvoiceItemList[],
+        itemLists: Product[],
     ): Promise<Invoice> {
 
         const {
@@ -101,7 +101,7 @@ export class InvoiceRepository extends Repository<Invoice> {
         invoice.deliveryDate = deliveryDate;
         invoice.paymentMethod = paymentMethod;
         invoice.currency = currency;
-        invoice.invoiceName = invoiceName;
+        invoice.name = invoiceName;
         invoice.bank = bank;
         invoice.bankAccountNumber = bankAccountNumber;
         invoice.iban = iban;
@@ -112,17 +112,17 @@ export class InvoiceRepository extends Repository<Invoice> {
         invoice.note = note;
         invoice.deposit = deposit;
         invoice.deliveryMethod = deliveryMethod;
-        invoice.pickedUpByTitleBefore = pickedUpByTitleBefore;
-        invoice.pickedUpByName = pickedUpByName;
-        invoice.pickedUpBySurname = pickedUpBySurname;
-        invoice.pickedUpByTitleAfter = pickedUpByTitleAfter;
+        invoice.pickedUpDegreeBefore = pickedUpByTitleBefore;
+        invoice.pickedUpName = pickedUpByName;
+        invoice.pickedUpSurname = pickedUpBySurname;
+        invoice.pickedUpDegreeAfter = pickedUpByTitleAfter;
         invoice.invoiceNumber = invoiceNumber;
-        invoice.issuedByName =  issuedByName;
-        invoice.issuedBySurname = issuedBySurname;
-        invoice.issuedByPhoneNumber = issuedByPhoneNumber;
-        invoice.issuedByEmail = issuedByEmail;
-        invoice.issuedByDegreeBeforeName = issuedByDegreeBeforeName;
-        invoice.issuedByDegreeAfterName = issuedByDegreeAfterName;
+        invoice.issuedName =  issuedByName;
+        invoice.issuedSurname = issuedBySurname;
+        invoice.issuedPhone = issuedByPhoneNumber;
+        invoice.issuedEmail = issuedByEmail;
+        invoice.issuedDegreeBefore = issuedByDegreeBeforeName;
+        invoice.issuedDegreeAfter = issuedByDegreeAfterName;
         invoice.paidDate = paidDate;
 
         //relations
@@ -140,7 +140,7 @@ export class InvoiceRepository extends Repository<Invoice> {
         paymentMethod: InvoicePaymentEnum,
         generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
         customer: Customer,
-        itemLists: InvoiceItemList[],
+        itemLists: Product[],
     ): Promise<Invoice> {
 
         const {
@@ -163,7 +163,7 @@ export class InvoiceRepository extends Repository<Invoice> {
         invoice.deliveryDate = null;
         invoice.paymentMethod = paymentMethod;
         invoice.currency = currency;
-        invoice.invoiceName = orderName;
+        invoice.name = orderName;
         invoice.bank = bank;
         invoice.bankAccountNumber = bankAccountNumber;
         invoice.iban = iban;
@@ -174,10 +174,10 @@ export class InvoiceRepository extends Repository<Invoice> {
         invoice.note = note;
         invoice.deposit = null;
         invoice.deliveryMethod = deliveryMethod;
-        invoice.pickedUpByTitleBefore = null;
-        invoice.pickedUpByName = null;
-        invoice.pickedUpBySurname = null;
-        invoice.pickedUpByTitleAfter = null;
+        invoice.pickedUpDegreeBefore = null;
+        invoice.pickedUpName = null;
+        invoice.pickedUpSurname = null;
+        invoice.pickedUpDegreeAfter = null;
 
 
         //relations

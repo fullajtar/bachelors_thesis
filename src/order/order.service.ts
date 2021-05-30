@@ -2,12 +2,12 @@ import {Injectable, NotFoundException} from "@nestjs/common";
 import {ItemService} from "../Items/item.service";
 import {InjectRepository} from "@nestjs/typeorm";
 import {OrderRepository} from "./order.repository";
-import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
+import {ProductService} from "../product/product.service";
 import {Company} from "../company/company.entity";
 import {Order} from "./oder.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
 import {CreateItemDto} from "../Items/dto/create-item.dto";
-import {CreateInvoiceItemListDto} from "../invoiceItems/dto/create-invoiceItemList.dto";
+import {CreateProductDto} from "../product/dto/create-product.dto";
 import {Customer} from "../customer/customer.entity";
 import {Between, getRepository} from "typeorm";
 import {CustomerService} from "../customer/customer.service";
@@ -21,7 +21,7 @@ export class OrderService {
     constructor(
         @InjectRepository(OrderRepository)
         private orderRepository: OrderRepository,
-        private invoiceItemListsService:  InvoiceItemListsService,
+        private invoiceItemListsService:  ProductService,
         private customerService: CustomerService
     ) {}
 
@@ -46,7 +46,7 @@ export class OrderService {
         company: Company,
         createInvoiceDto: CreateOrderDto,
         createItemDto: CreateItemDto,
-        createInvoiceItemListDto: CreateInvoiceItemListDto,
+        createInvoiceItemListDto: CreateProductDto,
         customer: Customer,
     ): Promise<Order> {
         let itemLists = [];
@@ -62,7 +62,7 @@ export class OrderService {
                 newItemDto.itemBody =createItemDto.itemBody[i];
                 newItemDto.itemBarcode = createItemDto.itemBarcode[i];
 
-                let newInvoiceItemListDto = new CreateInvoiceItemListDto();
+                let newInvoiceItemListDto = new CreateProductDto();
                 newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
                 newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
 
@@ -94,7 +94,7 @@ export class OrderService {
         id: number,
         createOrderDto: CreateOrderDto,
         createItemDto: CreateItemDto,
-        createInvoiceItemListDto: CreateInvoiceItemListDto,
+        createInvoiceItemListDto: CreateProductDto,
         createCustomerDto: CreateCustomerDto
     ): Promise<Order> {
         let itemLists = [];
@@ -111,7 +111,7 @@ export class OrderService {
                 newItemDto.itemBody =createItemDto.itemBody[i];
                 newItemDto.itemBarcode = createItemDto.itemBarcode[i];
 
-                let newInvoiceItemListDto = new CreateInvoiceItemListDto();
+                let newInvoiceItemListDto = new CreateProductDto();
                 newInvoiceItemListDto.discount = createInvoiceItemListDto.discount[i];
                 newInvoiceItemListDto.quantity = createInvoiceItemListDto.quantity[i];
 
@@ -151,23 +151,23 @@ export class OrderService {
         //properties
         order.dateOfIssue = dateOfIssue;
         order.currency = currency;
-        order.orderName = orderName;
+        order.name = orderName;
         order.bank = bank;
         order.bankAccountNumber = bankAccountNumber;
         order.iban = iban;
         order.note = note;
         order.tag = tag;
         order.deliveryMethod = deliveryMethod;
-        order.customerTitleBefore = customerTitleBefore;
+        order.customerDegreeBefore = customerTitleBefore;
         order.customerName = customerName;
         order.customerSurname = customerSurname;
-        order.customerTitleAfter = customerTitleAfter;
+        order.customerDegreeAfter = customerTitleAfter;
         order.paymentMethod = paymentMethod;
         order.orderNumber = orderNumber;
 
 
         //relations
-        if (order.customer && order.customer.customerOrders == null){
+        if (order.customer && order.customer.invoice == null){
             order.customer = await this.customerService.editCustomer(order.customer.id, createCustomerDto);
         }
         if (order.invoiceItemLists[0] != null && order.invoiceItemLists[0].invoice == null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList

@@ -7,27 +7,27 @@ export class Expense extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column()
+    name: string;
+
     @Column({
         type: 'date',
     })
-    expenseDate: string;
-
-    @Column()
-    expenseName: string;
-
-    @Column()
-    expenseBody: string;
+    date: string;
 
     @Column(
         "decimal",
         {scale: 2}
     )
-    expenseAmount: number;
+    amount: number;
+
+    @Column()
+    note: string;
 
     @Column(
         {nullable: true}
     )
-    expenseFileName: string;
+    fileName: string;
 
     @ManyToOne(
         (type) => Company,

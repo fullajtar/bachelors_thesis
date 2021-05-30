@@ -41,23 +41,23 @@ export class ExpenseService{
         const {
             expenseDate,
             expenseName,
-            expenseBody,
+            expenseNote,
             expenseAmount,
         } = createExpenseDto;
-        expense.expenseDate = expenseDate;
-        expense.expenseName = expenseName;
-        expense.expenseBody = expenseBody;
-        expense.expenseAmount = expenseAmount;
+        expense.date = expenseDate;
+        expense.name = expenseName;
+        expense.note = expenseNote;
+        expense.amount = expenseAmount;
 
         if  (expenseFile){
             const fs = require('fs');
             try {
-                fs.unlinkSync('./public/uploads/expenseImages/'+expense.expenseFileName)
+                fs.unlinkSync('./public/uploads/expenseImages/'+expense.fileName)
                 //file removed
             } catch(err) {
                 console.error(err)
             }
-            expense.expenseFileName = expenseFile.filename;
+            expense.fileName = expenseFile.filename;
         }
         await expense.save();
         return expense;

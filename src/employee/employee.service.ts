@@ -3,7 +3,6 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {EmployeeRepository} from "./employee.repository";
 import {CreateEmployeeDto} from "./dto/create-employee.dto";
 import {Employee} from "./employee.entity";
-import {GetEmployeeFilterDto} from "./dto/get-employee-filter.dto";
 import {Company} from "../company/company.entity";
 
 @Injectable()
@@ -20,10 +19,9 @@ export class EmployeeService {
   }
 
   async getEmployees(
-      company: Company,
-      filterDto: GetEmployeeFilterDto,
+      company: Company
   ): Promise<Employee[]>{
-    return this.employeeRepository.getEmployees(company, filterDto);
+    return this.employeeRepository.getEmployees(company);
   }
 
   async editEmployee(
@@ -32,19 +30,19 @@ export class EmployeeService {
   ):Promise<Employee>{
     const employee = await this.employeeRepository.findOne({ where: { id: id } } )
     const {
-        name,
-        surname,
-        degreeBeforeName,
-        degreeAfterName,
-        phoneNumber,
-        email,
+        employeeName,
+        employeeSurname,
+        employeeDegreeBefore,
+        employeeDegreeAfter,
+        employeePhone,
+        employeeEmail,
     } = createEmployeeDto;
-    employee.name = name;
-    employee.surname = surname;
-    employee.degreeBeforeName = degreeBeforeName;
-    employee.degreeAfterName = degreeAfterName;
-    employee.phoneNumber = phoneNumber;
-    employee.email = email;
+    employee.name = employeeName;
+    employee.surname = employeeSurname;
+    employee.degreeBefore = employeeDegreeBefore;
+    employee.degreeAfter = employeeDegreeAfter;
+    employee.phone = employeePhone;
+    employee.email = employeeEmail;
     await employee.save();
     return employee;
   }

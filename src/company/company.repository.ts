@@ -7,9 +7,9 @@ import {User} from "../auth/user.entity";
 export class CompanyRepository extends  Repository<Company> {
 
     async getMyCompany(user: User): Promise<Company> {
-        const query = this.createQueryBuilder('company')
-            .where('company.id = :userId', {userId: user.company.id});
-        return await query.getOne();
+        return await this.findOne({
+            where: {id: user.company.id}
+        });
     }
 
     async createMyCompany(
@@ -17,53 +17,53 @@ export class CompanyRepository extends  Repository<Company> {
         createCompanyDto: CreateCompanyDto,
     ): Promise<Company> {
         const {
-            supplierName,
-            street,
-            postCode,
-            town,
-            country,
-            supplierFoundedIn,
-            supplierIco,
-            supplierDic,
-            supplierIcDph,
-            supplierRegister,
-            supplierBank1,
-            bankAccountNumber1,
-            iban1,
-            supplierBank2,
-            bankAccountNumber2,
-            iban2,
-            supplierBank3,
-            bankAccountNumber3,
-            iban3,
+            companyName,
+            companyStreet,
+            companyZipCode,
+            companyTown,
+            companyCountry,
+            companyDateCreated,
+            companyIco,
+            companyDic,
+            companyIcdph,
+            companyRegister,
+            companyBank1,
+            companyBankAccountNumber1,
+            companyIban1,
+            companyBank2,
+            companyBankAccountNumber2,
+            companyIban2,
+            companyBank3,
+            companyBankAccountNumber3,
+            companyIban3,
         } = createCompanyDto;
         const company = new Company();
-        let {supplierPayingTax} = createCompanyDto;
-        if  (supplierPayingTax == undefined){
-            supplierPayingTax = false;
+        let {companyPayingTax} = createCompanyDto;
+        if  (companyPayingTax == undefined){
+            companyPayingTax = false;
         }
-        company.supplierName = supplierName;
-        company.street = street;
-        company.postCode = postCode;
-        company.town = town;
-        company.country = country;
-        company.supplierFoundedIn = supplierFoundedIn;
-        company.supplierIco = supplierIco;
-        company.supplierDic = supplierDic;
-        company.supplierIcDph = supplierIcDph;
-        company.supplierRegister = supplierRegister;
-        company.supplierPayingTax = supplierPayingTax;
-        company.supplierBank1 = supplierBank1;
-        company.bankAccountNumber1 = bankAccountNumber1;
-        company.iban1 = iban1;
+        company.name = companyName;
+        company.street = companyStreet;
+        company.zipCode = companyZipCode;
+        company.town = companyTown;
+        company.country = companyCountry;
+        company.dateCreated = companyDateCreated;
+        company.ico = companyIco;
+        company.dic = companyDic;
+        company.icdph = companyIcdph;
+        company.register = companyRegister;
+        company.payingTax = companyPayingTax;
+        company.bank1 = companyBank1;
+        company.bankAccountNumber1 = companyBankAccountNumber1;
+        company.iban1 = companyIban1;
 
-        company.supplierBank2 = supplierBank2;
-        company.bankAccountNumber2 = bankAccountNumber2;
-        company.iban2 = iban2;
+        company.bank2 = companyBank2;
+        company.bankAccountNumber2 = companyBankAccountNumber2;
+        company.iban2 = companyIban2;
 
-        company.supplierBank3 = supplierBank3;
-        company.bankAccountNumber3 = bankAccountNumber3;
-        company.iban3 = iban3;
+        company.bank3 = companyBank3;
+        company.bankAccountNumber3 = companyBankAccountNumber3;
+        company.iban3 = companyIban3;
 
         //relations
         company.user = [user]; //TODO create decorator @get user and add company to user, not user to company

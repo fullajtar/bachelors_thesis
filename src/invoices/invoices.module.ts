@@ -4,8 +4,8 @@ import {InvoicesService} from "./invoices.service";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {InvoiceRepository} from "./invoice.repository";
 import {AuthModule} from "../auth/auth.module";
-import {InvoiceItemListsService} from "../invoiceItems/invoiceItemLists.service";
-import {InvoiceItemListRepository} from "../invoiceItems/invoiceItemList.repository";
+import {ProductService} from "../product/product.service";
+import {ProductRepository} from "../product/product.repository";
 import {ItemRepository} from "../Items/item.repository";
 import {ItemService} from "../Items/item.service";
 import {CompanyService} from "../company/company.service";
@@ -18,10 +18,10 @@ import {UserRepository} from "../auth/user.repository";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([InvoiceRepository, InvoiceItemListRepository, ItemRepository, CompanyRepository, CustomerRepository, OrderRepository, UserRepository]),
+        TypeOrmModule.forFeature([InvoiceRepository, ProductRepository, ItemRepository, CompanyRepository, CustomerRepository, OrderRepository, UserRepository]),
         AuthModule,
     ],
     controllers: [InvoicesController],
-    providers: [InvoicesService, InvoiceItemListsService, ItemService, CompanyService, CustomerService, OrderService],
+    providers: [InvoicesService, ProductService, ItemService, CompanyService, CustomerService, OrderService],
 })
 export class InvoicesModule {}

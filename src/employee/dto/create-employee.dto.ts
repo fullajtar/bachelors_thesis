@@ -1,22 +1,23 @@
 import {IsEmail, IsNotEmpty, IsOptional} from "class-validator";
 
 export class CreateEmployeeDto{
-  @IsNotEmpty()
-  name: string;
-
-  @IsNotEmpty()
-  surname: string;
 
   @IsOptional()
-  phoneNumber: string; //TODO number type
+  employeeDegreeBefore: string;
+
+  @IsNotEmpty()
+  employeeName: string;
+
+  @IsNotEmpty()
+  employeeSurname: string;
+
+  @IsOptional()
+  employeePhone: string; //TODO number type
 
   @IsOptional()
   @IsEmail()
-  email: string;
+  employeeEmail: string;
 
   @IsOptional()
-  degreeBeforeName: string;
-
-  @IsOptional()
-  degreeAfterName: string;
+  employeeDegreeAfter: string;
 }
