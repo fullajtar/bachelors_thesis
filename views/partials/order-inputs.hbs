@@ -1,0 +1,173 @@
+<div class="a4 relative h-screen border-black border-4 text-sm font-sans bg-white">
+    <fm-label class="pl-4" for="orderNumber">Objednávka číslo</fm-label><input class="ml-1 mt-1 shadow-sm sm:text-sm border-gray-300 rounded-md" name="orderNumber" id="orderNumber" type="text" value="{{this.orderNumber}}" required>
+    <div class="grid grid-cols-2">
+        <div class="border-black border-t-2 border-r-2 p-4">
+
+            <h2>Dodávateľ</h2>
+            <p>{{this.company.name}}</p>
+            <p>{{this.company.supplierResidence}}</p>
+            <fm-label class="inline-block w-1/6">IČO</fm-label>             <p class="inline-block w-4/5"> {{this.company.ico}}</p>
+            <fm-label class="inline-block w-1/6">DIČ</fm-label>             <p class="inline-block w-4/5"> {{this.company.dic}}</p>
+            <fm-label class="inline-block">Platiteľ DPH</fm-label>          <p class="inline-block w-3/5"> {{#if this.company.payingTax}}Áno{{else}}Nie{{/if}}</p>
+            <fm-label class="inline-block w-1/6">IČDPH</fm-label>           <p class="inline-block w-4/5"> {{this.company.icdph}}</p>
+            <fm-label class="inline-block w-1/6">Register</fm-label>        <p class="inline-block w-4/5"> {{this.company.register}}</p>
+            <a class="block remove-on-print text-xs logoColourText underline hover:text-green-700" href="/company">Zmeniť údaje</a>
+
+            <fm-label class="inline-block w-1/6" for="supplierSwift" >ÚČET</fm-label>
+            <fm-input class="inline-block w-4/5" list="bank-accounts" name="bankAccountNumber" type="text" placeholder="Číslo Účtu" value="{{this.bankAccountNumber}}"></fm-input>
+            <datalist id="bank-accounts">
+                <option value="{{this.company.bankAccountNumber1}}">{{this.company.bankAccountNumber1}}</option>
+                <option value="{{this.company.bankAccountNumber2}}">{{this.company.bankAccountNumber2}}</option>
+                <option value="{{this.company.bankAccountNumber3}}">{{this.company.bankAccountNumber3}}</option>
+            </datalist>
+
+            <fm-label class="inline-block w-1/6" for="supplierBank">Banka</fm-label>
+            <fm-input class="inline-block w-4/5" list="bank-names"  name="bank" type="text" placeholder="Moja Banka, a.s." value="{{this.bank}}" required></fm-input>
+            <datalist id="bank-names">
+                <option value="{{this.company.bank1}}">{{this.company.bank1}}</option>
+                <option value="{{this.company.bank2}}">{{this.company.bank2}}</option>
+                <option value="{{this.company.bank3}}">{{this.company.bank3}}</option>
+            </datalist>
+
+            <fm-label class="inline-block w-1/6" for="iban">IBAN</fm-label>
+            <fm-input class="inline-block w-4/5" list="bank-ibans" name="iban" type="text" placeholder="IBAN" value="{{this.iban}}" required maxlength="32"></fm-input>
+            <datalist id="bank-ibans">
+                <option value="{{this.company.iban1}}">{{this.company.iban1}}</option>
+                <option value="{{this.company.iban2}}">{{this.company.iban2}}</option>
+                <option value="{{this.company.iban3}}">{{this.company.iban3}}</option>
+            </datalist>
+
+        </div>
+        <div class="border-black border-t-2 ">
+            <div class="grid grid-cols-2 border-black border-b-2" >
+                <div class="border-black border-r-2 px-4">
+                    <fm-label for="paymentMethod">Forma úhrady</fm-label>
+                    <select class="block border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="paymentMethod" id="paymentMethod">
+                        <option {{#ifCond "POSTOVA POUKAZKA" this.paymentMethod }} selected {{/ifCond}} value="POSTOVA POUKAZKA">Poštová poukážka</option>
+                        <option {{#ifCond "PREVOD" this.paymentMethod }} selected {{/ifCond}} value="PREVOD">Bankový Prevod</option>
+                        <option {{#ifCond "HOTOVOST" this.paymentMethod }} selected {{/ifCond}} value="HOTOVOST">Hotovosť</option>
+                        <option {{#ifCond "ZMENKA" this.paymentMethod }} selected {{/ifCond}} value="ZMENKA">Zmenka</option>
+                        <option {{#ifCond "KARTA" this.paymentMethod }} selected {{/ifCond}} value="KARTA">Karta</option>
+                    </select>
+                    <fm-label for="deliveryMethod">Spôsob Dopravy</fm-label>
+                    <fm-input name="deliveryMethod" type="text" placeholder="Spôsob Dopravy" value="{{this.deliveryMethod}}" required></fm-input>
+                </div>
+                <div class="border-black  px-4">
+                    <fm-label for="currency">Mena</fm-label>
+                    <fm-input name="currency" type="text" placeholder="Mena" value="{{this.currency}}" required></fm-input>
+                </div>
+
+            </div>
+            <div class="px-4">
+                <h2 >Odberateľ</h2>
+                <label for="customerName"></label><fm-input     name="customerName"       type="text" placeholder="Môj klient, s.r.o." value="{{this.customer.name}}" required></fm-input>
+                <label for="customerStreet"></label><fm-input   name="customerStreet"     type="text" placeholder="Ulica, súpisné číslo" value="{{this.customer.street}}" required></fm-input>
+                <label for="customerPostCode"></label><fm-input name="customerZipCode"   type="text" placeholder="PSČ" value="{{this.customer.zipCode}}" required></fm-input>
+                <label for="customerTown"></label><fm-input     name="customerTown"       type="text" placeholder="Mesto" value="{{this.customer.town}}" required></fm-input>
+                <label for="customerCountry"></label><fm-input  name="customerCountry"    type="text" placeholder="Krajina" value="{{this.customer.country}}" required></fm-input>
+                <fm-label class="inline-block w-1/6" for="customerIco">IČO</fm-label><fm-input class="inline-block w-5/6"        name="customerIco"        type="number" placeholder="IČO" value="{{this.customer.ico}}" required max="99999999"></fm-input>
+                <fm-label class="inline-block w-1/6" for="customerDic">DIČ</fm-label><fm-input class="inline-block w-5/6"         name="customerDic"        type="number" placeholder="DIČ" value="{{this.customer.dic}}" required max="9999999999"></fm-input>
+                <fm-label class="inline-block w-1/6" for="customerIcDph">IČDPH</fm-label><fm-input class="inline-block w-5/6"     name="customerIcDph"      type="text" placeholder="IČDPH" value="{{this.customer.icdph}}" required minlength="12" maxlength="12"></fm-input>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="grid grid-cols-2 border-b-2 border-black"  id="payment">
+        <div class="px-4 border-black border-t-2 border-r-2">
+            <fm-label class="inline-block w-2/6" for="dateOfIssue">Dátum vystavenia</fm-label>
+            <fm-input class="inline-block" name="dateOfIssue"   type="date"     placeholder="Dátum vystavenia"  value="{{dateParse this.dateOfIssue}}" required></fm-input>
+        </div>
+    </div>
+
+
+    <div class="flex justify-center mt-3 ml-3 mr-1">
+        <table class="content-center table-auto text-xs" >
+            <tbody id="table-of-contents">
+            <tr>
+                <th class="font-normal border-2 border-black">P. č.</th>
+                <th class="font-normal border-2 border-black"><label for="quantity">Kód položky</label></th>
+
+                <th class="font-normal border-2 border-black"><label for="itemName">Názov položky</label></th>
+                <th class="font-normal border-2 border-black"><label for="quantity">Množstvo</label></th>
+                <th class="font-normal border-2 border-black"><label for="itemUnit">MJ</label></th>
+
+                <th class="font-normal border-2 border-black"><label for="itemPriceWithoutTax">Cena za j. bez DPH</label></th>
+                <th class="font-normal border-2 border-black"><label for="">Cena za j. s DPH</label></th>
+                <th class="font-normal border-2 border-black">Spolu bez DPH</th>
+                <th class="font-normal border-2 border-black"><label for="">DPH</label></th>
+                <th class="font-normal border-2 border-black"><label for="itemTax">DPH %</label></th>
+                <th class="font-normal border-2 border-black"><label for="discount">Zľava v %</label></th>
+
+                <th class="font-normal border-2 border-black"><label for="">Celková cena</label></th>
+            </tr>
+
+            {{#each this.invoiceItemLists}}
+                <tr id="row{{plus @index 1}}">
+                    <!--0--><td class="border-2 border-black">{{plus @index 1}}</td>
+                    <!--1--><td class="border-2 border-black"><input  class="w-20 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemBarcode" id="itemBarcode" type="text" placeholder="Kód položky" value="{{item.itemBarcode}}" ></td>
+                    <!--2--><td class="border-2 border-black"><input  class="w-24 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemName" id="itemName" type="text" placeholder="" value="{{item.itemName}}" required></td>
+                    <!--3--><td class="border-2 border-black"><input  class="w-16 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="quantity" id="quantity" type="number"  placeholder="" value="{{quantity}}" min="0" required step="0.1" onchange="updateAll(this)"></td>
+                    <!--4--><td class="border-2 border-black"><input  class="w-10 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemUnit" id="itemUnit" type="text" placeholder="" value="{{item.itemUnit}}" required></td>
+                    <!--5--><td class="border-2 border-black"><input  class="w-20 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemPriceWithoutTax" id="itemPriceWithoutTax"  type="number"    value="{{item.itemPriceWithoutTax}}" min="0" required step="0.01" onchange="updateAll(this)"></td>
+                    <!--6--><td class="border-2 border-black">{{singleItemWithTax this.item.itemTax item.itemPriceWithoutTax}}</td>
+                    <!--7--><td class="border-2 border-black itemSum">{{multiply item.itemPriceWithoutTax quantity discount}}</td>
+                    <!--8--><td class="border-2 border-black">{{absTax this.item.itemTax quantity item.itemPriceWithoutTax}}</td>
+                    <!--9--><td class="border-2 border-black"><input  class="w-14 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemTax" id="itemTax" type="number" placeholder=""  value="{{this.item.itemTax}}" required onchange="updateAll(this)"></td>
+                    <!--10--><td class="border-2 border-black"><input  class="w-16 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="discount" id="discount"        type="number"   value="{{discount}}" min="0" max="100" onchange="updateAll(this)"></td>
+
+                    <!--11--><td class="border-2 border-black itemSumWithVatAndDiscount">{{totalWithVat this.item.itemTax quantity item.itemPriceWithoutTax}}</td>
+                    <input  name="itemNote" id="itemBarcode" type="hidden" placeholder="" value="-">
+                    <input  name="itemBody" id="itemBody" type="hidden" placeholder="" value="-">
+                    <!--12--><td class="remove-on-print cursor-pointer" onclick="removeItem(this)" > X</td>
+                </tr>
+            {{/each}}
+            <tr>
+                <td class="border-2 border-black text-right" colspan="11">Spolu:</td>
+                <td id="totalSumPrice" class="border-2 border-black">{{priceWithTax this}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <fm-button onclick="addItem()" type="button">Pridaj Položku</fm-button>
+    <div class="grid grid-cols-3 absolute bottom-0 w-full">
+        <div class="border-black border-t-2 border-r-2 pl-4">
+            <p>Dodávateľ:  </p>
+        </div>
+        <div class="border-black border-t-2 border-r-2 pl-4">
+            <p>Odberateľ: </p>
+            <label for="customerTitleBefore"></label><fm-input  class="inline-block w-8" name="customerTitleBefore"  type="text" placeholder="Titul" value="{{this.customerTitleBefore}}"></fm-input>
+            <label for="customerName"></label><fm-input  class="inline-block w-1/3" name="customerName"  type="text" placeholder="Meno" value="{{this.customerName}}" required></fm-input>
+            <label for="customerSurname"></label><fm-input  class="inline-block w-1/3" name="customerSurname"  type="text" placeholder="Priezvisko" value="{{this.customerSurname}}" required></fm-input>
+            <label for="customerTitleAfter"></label><fm-input  class="inline-block w-8" name="customerTitleAfter"  type="text" placeholder="Titul" value="{{this.customerTitleAfter}}"></fm-input>
+        </div>
+        <div>
+            <p class="border-black border-t-2 border-b-2 pl-4">Celková suma: <text id="summaryWithVat">{{priceWithTax this}}</text> {{this.currency}}</p>
+            <p class="border-black h-16 pl-4"> K úhrade: <text id="summaryToPay">{{toPay this}}</text> {{this.currency}}</p>
+        </div>
+    </div>
+
+</div>
+<div class="remove-on-print mt-2">
+    <fm-input-labeled name="orderName" type="text" value="{{this.orderName}}">Zákazka:</fm-input-labeled>
+    <fm-input-labeled name="tag" id="tag" type="text" value="{{this.tag}}">Tag:</fm-input-labeled>
+    <fm-label for="note">Poznámka</fm-label>
+    <fm-textarea name="note" id="note" cols="" rows="5" value="{{this.note}}"></fm-textarea>
+</div>
+<fm-button name="action" value="save">Ulož</fm-button>
+<!--<button name="action" class="w-16 myButtonStyle" value="save">-->
+<!--    Ulož-->
+<!--</button>-->
+<fm-button name="action" type="button" onclick="generateInvoice()"  value="createInvoice">Vytvor Faktúru</fm-button>
+<!--<button name="action" type="button" onclick="generateInvoice()" class="myButtonStyle bg-purple-500" value="createInvoice">-->
+<!--    Vytvor Faktúru-->
+<!--</button>-->
+<script>
+    function generateInvoice(){
+        let form = document.getElementById("orderForm");
+        form.action = "/invoices/generate";
+        form.submit();
+    }
+</script>

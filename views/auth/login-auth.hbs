@@ -11,8 +11,8 @@
 <div class="overflow-hidden">
     <div class="h-full px-4 p1-5 bg-gray-200 sm:p-6 flex flex-wrap content-center justify-center">
                 <form class="w-1/2" action="/auth/signin" method="POST">
-                    <label class="block text-sm font-medium text-gray-700" for="username">Login</label><input class="mb-4 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" name="username" id="username" value="Dominik">
-                    <label class="block text-sm font-medium text-gray-700" for="password">Heslo</label><input class="mb-2 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" type="password" name="password" id="password" value="123Aa2123">
+                    <fm-input-labeled name='username' value='Dominik' required>Login</fm-input-labeled>
+                    <fm-input-labeled name='password' value='123Aa2123' type="password" required>Heslo</fm-input-labeled>
                     <a class="mb-2 block italic hover:underline hover:text-green-600" href="/auth/signup">Chcem sa registrovať</a>
                     <input class="myButtonStyle" type="submit" value="Prihlásiť">
                 </form>

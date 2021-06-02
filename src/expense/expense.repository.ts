@@ -9,6 +9,7 @@ export class ExpenseRepository extends Repository<Expense>{
     async createExpense(
         createExpenseDto: CreateExpenseDto,
         company: Company,
+        expenseFile: any
     ) :Promise<Expense> {
         const {
             expenseDate,
@@ -21,6 +22,10 @@ export class ExpenseRepository extends Repository<Expense>{
         expense.name = expenseName;
         expense.note = expenseNote;
         expense.amount = expenseAmount;
+        if (expenseFile){
+            expense.fileName = expenseFile.filename;
+        }
+
 
         expense.company = company;
         await getConnection().manager.save(expense);

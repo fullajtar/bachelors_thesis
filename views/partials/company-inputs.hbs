@@ -1,0 +1,38 @@
+<div class="overflow-hidden">
+    <div class="px-4 p1-5 bg-gray-200 sm:p-6">
+        <div class="grid grid-cols-6 gap-6">
+            <fm-input-labeled class="col-span-6 sm:col-span-3" name="companyName" value="{{this.name}}" required>Názov firmy</fm-input-labeled>
+            <fm-input-labeled class="col-span-6" name="companyStreet" value="{{this.street}}" required>Ulica</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-6 lg:col-span-2" name="companyTown" value="{{this.town}}" required>Mesto</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyCountry" value="{{this.country}}" required>Krajina</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyZipCode" value="{{this.zipCode}}" required>Poštové číslo</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" type="date" name="companyDateCreated" value="{{dateParse this.dateCreated}}" required>Dátum vzniku</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyIco" value="{{this.ico}}" required>IČO</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyDic" id="companyDic" value="{{this.dic}}" maxlength="10" minlength="10" required>DIČ</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyIcdph" maxlength="12" minlength="10"value="{{this.icdph}}">IČ DPH</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyRegister" value="{{this.register}}" required>Register</fm-input-labeled>
+            <fm-input-labeled class="col-span-6" type="checkbox" name="companyPayingTax" {{#if this.payingTax}} checked {{/if}}>Platiteľ Dph</fm-input-labeled>
+        </div>
+
+        <div class="mt-4 grid grid-cols-6 gap-6">
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyBank1" value="{{this.bank1}}" required>Banka 1</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyBankAccountNumber1" value="{{this.bankAccountNumber1}}" required>Číslo účtu 1</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyIban1" value="{{this.iban1}}" required>IBAN 1</fm-input-labeled>
+        </div>
+
+        <div class="mt-4 grid grid-cols-6 gap-6">
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyBank2" value="{{this.bank2}}">Banka 2</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyBankAccountNumber2" value="{{this.bankAccountNumber2}}">Číslo účtu 2</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyIban2" value="{{this.iban2}}">IBAN 2</fm-input-labeled>
+        </div>
+
+        <div class="mt-4 grid grid-cols-6 gap-6">
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyBank3" value="{{this.bank3}}">Banka 3</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyBankAccountNumber3" value="{{this.bankAccountNumber3}}">Číslo účtu 3</fm-input-labeled>
+            <fm-input-labeled class="col-span-6 sm:col-span-3 lg:col-span-2" name="companyIban3" value="{{this.iban3}}">IBAN 3</fm-input-labeled>
+        </div>
+        <div class="px-4 py-3">
+            <fm-button>Ulož</fm-button>
+        </div>
+    </div>
+</div>

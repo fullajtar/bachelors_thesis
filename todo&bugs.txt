@@ -1,21 +1,18 @@
 TODO:
-buildnut komponenty v stencil:
-                                input+label
-                                modal s obrazkom
-                                link
-                                button
-auto generate dokumentaciu ku komponentom
+build select komponent
+display errors (controller -> html)
 k buttonu pridat enum na shades
 zoradit vsetky najdene entity podla datumu
-uploadovanie viac ako 1 suboru
 kontrolovat typ uploadnuteho suboru
-(mozno) pridat prijate faktury
-cez template generovat riadky poloziek
 pridat moznost vymazania zamestnancov
-zmenit discount, z 10(%) -> 0.1 pre jednoduchsie prepocitavanie
+"rezidenciu" dodavatela pridat do objednavky/faktury
 
 
 BUGS:
+v order nejak kazi meno odberatela
+fm-button nema .w-full
+modal-img, povodny "maly" img treba nastylovat, owerflowuje
+navigacia nezvyraznuje selectnutu lokaciu
 nastylovat modal okno s obrazkom
 forcenut novo-registrovaneho uzivatela vytvorit si firmu //neviem bez redirectu
 ??? hashovat heslo este pred odoslanim na BE ???
@@ -23,6 +20,10 @@ zistit ako setnut secondary layout (pre auth bez navigacie)
 
 
 IMPROVE:
+.align-inputs pravdepodobne mozne zmazat (CSS)
+(mozno) pridat prijate faktury
+zmenit discount, z 10(%) -> 0.1 pre jednoduchsie prepocitavanie
+cez template generovat riadky poloziek
 pridat podporu na uploadnutie PDF suboru
 doplnanie zamestnancov z DB?
 print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
@@ -30,10 +31,17 @@ print CSS nejak zlepsit aby to zobrazovalo aj dlhu email adresu
 že keď ma firma ic dph tak je platiteľ a keď nie je platiteľ tak ic dph nema teda dufam že si to dobre pamätám
 legenda grafov pod grafy
 templaty maju generovane !DOC aj ked je to redundant
-display errors (controller -> html)
+uploadovanie viac ako 1 suboru
+poznamka v order/fakture je vacsim fontom ako tag
+value button save je asi zbytocne v order inputs
 
 
 DONE:
+buildnut komponenty v stencil:
+                                input+label
+                                modal s obrazkom
+                                link
+                                button
 fixnut uploadovanie fileov
 redirectnut ak nie je prihlaseny
 pridat meno prihlaseneho do navigacie

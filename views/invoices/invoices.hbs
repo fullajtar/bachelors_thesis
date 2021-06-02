@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <title>Auth</title>
-   <!-- <script src="my-helper.js"></script> -->
 </head>
 
 <body>
@@ -47,20 +46,6 @@
     </table>
     <a class="myButtonStyle" href="/invoices/create">Vytvor Faktúru</a>
 </body>
-<script>$(document).ready(function() {
-    $('#fancyTable').DataTable({
-        "language":{
-            url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Slovak.json"
-        },
-        lengthMenu: [20,25,50,100]
-    });
-});
-
-    function redirect(path){
-        window.location.href = path;
-    }
-
-
-</script>
-
+<script src="/initDatatables.js"></script>
+<script src="/redirectFunction.js"></script>
 </html>

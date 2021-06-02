@@ -14,8 +14,9 @@ export class ExpenseService{
     async createExpense(
         createExpenseDto: CreateExpenseDto,
         company: Company,
+        expenseFile: any
     ) :Promise<Expense> {
-        return this.expenseRepository.createExpense(createExpenseDto, company);
+        return this.expenseRepository.createExpense(createExpenseDto, company, expenseFile);
     }
 
     async getExpenses(

@@ -1,56 +1,22 @@
 <div class="overflow-hidden">
     <div class="px-4 p1-5 bg-gray-200 sm:p-6">
-        <div class="grid grid-cols-6 gap-6">
+        <div class="">
+            <fm-input-labeled name="expenseName" value="{{this.name}}">Názov</fm-input-labeled>
+            <fm-input-labeled type="date" name="expenseDate" value="{{this.date}}">Dátum</fm-input-labeled>
+            <fm-input-labeled type="number" name="expenseAmount" value="{{this.amount}}" step="0.01">Suma</fm-input-labeled>
 
-            <div class="col-span-6">
-                <label for="expenseName" class="block text-sm font-medium text-gray-700">Názov</label>
-                <input type="text"  name="expenseName" id="expenseName" value="{{this.expenseName}}" class="pl-1.5 py-1.5 pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-            </div>
+            <fm-label class="text-sm" for="expenseNote">Poznámka</fm-label>
+            <fm-textarea name="expenseNote" rows="15" value="{{this.note}}"></fm-textarea>
 
-            <div class="col-span-6">
-                <label for="expenseDate" class="block text-sm font-medium text-gray-700">Dátum</label>
-                <input type="date" name="expenseDate" id="expenseDate" value="{{this.expenseDate}}" class="pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-            </div>
+            <fm-input-labeled type="file" name="expenseFile">Doklad</fm-input-labeled>
 
-            <div class="col-span-6">
-                <label for="expenseAmount" class="block text-sm font-medium text-gray-700">Suma</label>
-                <input type="number" name="expenseAmount" id="expenseAmount" value="{{this.expenseAmount}}" class="pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" step="0.01">
-            </div>
-
-            <div class="col-span-6">
-                <label for="expenseBody" class="block text-sm font-medium text-gray-700">Poznámka</label>
-                <textarea class="w-full pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" name="expenseBody" id="expenseBody" rows="15">{{this.expenseBody}}</textarea>
-            </div>
-
-            <div class="col-span-6">
-                <label for="expenseFile" class="block text-sm font-medium text-gray-700">Doklad</label>
-                <input class="pl-1.5 py-1.5 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" type="file" name="expenseFile" id="expenseFile">
-            </div>
-
-            {{#if this.expenseFileName}}
-                <div class="col-span-6">
-                    <img onclick="load()" class="cursor-pointer max-h-96 w-auto" src="/uploads/expenseImages/{{this.expenseFileName}}" alt="Súbor nebol nájdený">
-                </div>
+            {{#if this.fileName}}
+                <fm-modal-image src="/uploads/expenseImages/{{this.fileName}}" alt="Súbor nebol nájdený"></fm-modal-image>
             {{/if}}
 
 
-        <div class="py-3">
-            {{> button}}
-        </div>
+            <fm-button>Ulož</fm-button>
 
-            <df-modal id="df-modal">
-                <img slot="img" src="/uploads/expenseImages/{{this.expenseFileName}}" alt="">
-            </df-modal>
     </div>
 </div>
 </div>
-<script src="/components/fm-image-modal.js" ></script>
-<script>
-    function load() {
-        let mod = document.getElementById('df-modal');
-        if (!mod.isOpen) {
-            mod.open();
-        }
-        return true;
-    }
-</script>

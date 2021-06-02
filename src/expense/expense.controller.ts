@@ -66,16 +66,20 @@ export class ExpenseController{
 
     }
 
-    @Post('/create')
+    @Post('/create') //TODO nejaky bug, udaje sa nedostanu do DTO
     @Render('expense/detail-expense.hbs')
+    @UseInterceptors(FileInterceptor('expenseFile', storage))
     async createExpense(
         @Session() session: Record<string, any>,
         @Res() res,
-        @Body() createExpenseDto: CreateExpenseDto
+        @Body() createExpenseDto: CreateExpenseDto,
+        @UploadedFile() expenseFile
     ) :Promise<Expense | {url:string, status:number}> {
+        console.log("DTO: ", createExpenseDto)
+        console.log("file name: ", expenseFile)
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
-            return this.expenseService.createExpense(createExpenseDto, company);
+            return this.expenseService.createExpense(createExpenseDto, company, expenseFile);
         }
         return res.redirect('/auth');
 
