@@ -8,15 +8,15 @@
             <fm-label class="text-sm" for="expenseNote">Poznámka</fm-label>
             <fm-textarea name="expenseNote" rows="15" value="{{this.note}}"></fm-textarea>
 
-            <fm-input-labeled type="file" name="expenseFile">Doklad</fm-input-labeled>
+            <fm-input-labeled type="file" name="expenseFile" accept="image/png,image/jpeg,image/jpeg" >Doklad</fm-input-labeled>
 
             {{#if this.fileName}}
-                <fm-modal-image src="/uploads/expenseImages/{{this.fileName}}" alt="Súbor nebol nájdený"></fm-modal-image>
+                <fm-modal-image class="block m-4" src="/uploads/expenseImages/{{this.fileName}}" alt="Súbor nebol nájdený"></fm-modal-image>
             {{/if}}
 
 
-            <fm-button>Ulož</fm-button>
+            <fm-button class="block py-4">Ulož</fm-button>
 
+        </div>
     </div>
-</div>
 </div>

@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="sk">
+<aside class="col-span-3 md:col-span-2">
+    {{> navigation}}
+</aside>
 
-<head>
-    <meta charset="utf-8">
-    <title>Detail</title>
-    <style>
 
-    </style>
-</head>
 
-<body>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
+<main class="col-span-9 md:col-span-10 p-6">
 <table id="fancyTable">
     <thead>
         <tr>
@@ -33,18 +27,19 @@
             {{#if this.id}}
             <tr class="hover:bg-gray-300 text-center">
                 <td>{{this.id}}</td>
-                <td>{{this.itemName}}</td>
-                <td>{{this.itemBarcode}}</td>
-                <td>{{this.itemPriceWithoutTax}}</td>
-                <td>{{this.itemUnit}}</td>
-                <td>{{this.itemTax}}</td>
-                <td>{{this.itemBody}}</td>
-                <td>{{this.itemNote}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.barcode}}</td>
+                <td>{{this.priceWithoutTax}}</td>
+                <td>{{this.unit}}</td>
+                <td>{{this.tax}}</td>
+                <td>{{this.body}}</td>
+                <td>{{this.note}}</td>
             </tr>
             {{/if}}
         {{/each}}
     </tbody>
 </table>
+</main>
 
 
 
@@ -58,6 +53,3 @@
         });
     });
 </script>
-
-</body>
-</html>

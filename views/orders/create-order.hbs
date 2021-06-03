@@ -1,11 +1,14 @@
-<!--borders are set to top & right only, except edging elements
-<input name="" id="" type="text" placeholder="" value="">
--->
+<aside class="col-span-3 md:col-span-2">
+    {{> navigation}}
+</aside>
+<main class="col-span-9 md:col-span-10 p-6">
+
 <div class="print flex justify-center">
     <form id="orderForm" action="/order/create" method="POST">
         {{> order-inputs}}
     </form>
 </div>
+</main>
 <script src="/order.js"></script>
 <script>
     function removeItem(itemListId){

@@ -38,10 +38,10 @@ export class OrderRepository extends Repository<Order> {
             tag,
             dateOfIssue,
             deliveryMethod,
-            customerTitleBefore,
-            customerName,
-            customerSurname,
-            customerTitleAfter,
+            forDegreeBefore,
+            forName,
+            forSurname,
+            forDegreeAfter,
             paymentMethod,
             orderNumber,
         } = createOrderDto;
@@ -58,10 +58,10 @@ export class OrderRepository extends Repository<Order> {
         order.note = note;
         order.tag = tag;
         order.deliveryMethod = deliveryMethod;
-        order.customerDegreeBefore = customerTitleBefore;
-        order.customerName = customerName;
-        order.customerSurname = customerSurname;
-        order.customerDegreeAfter = customerTitleAfter;
+        order.customerDegreeBefore = forDegreeBefore;
+        order.customerName = forName;
+        order.customerSurname = forSurname;
+        order.customerDegreeAfter = forDegreeAfter;
         order.paymentMethod = paymentMethod;
         order.orderNumber = orderNumber;
 

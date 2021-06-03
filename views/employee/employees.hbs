@@ -1,30 +1,34 @@
+<aside class="col-span-3 md:col-span-2">
+    {{> navigation}}
+</aside>
+
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
-<table id="fancyTable">
-    <thead>
-    <tr>
-        <th>Meno</th>
-        <th>Priezvisko</th>
-        <th>Telefón</th>
-        <th>Email</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#each this}}
-    {{#if this.id}}
-        <tr onclick="redirect('/employee/{{this.id}}')" class="hover:bg-gray-300 cursor-pointer text-center">
-            <td>{{this.name}}</td>
-            <td>{{this.surname}}</td>
-            <td>{{this.phone}}</td>
-            <td>{{this.email}}</td>
+<main class="col-span-9 md:col-span-10 p-6">
+    <table id="fancyTable">
+        <thead>
+        <tr>
+            <th>Meno</th>
+            <th>Priezvisko</th>
+            <th>Telefón</th>
+            <th>Email</th>
         </tr>
-    {{/if}}
-    {{/each}}
-    </tbody>
-</table>
-<fm-button onclick="redirect('/employee/create')">Pridaj Zamestnanca</fm-button>
-
+        </thead>
+        <tbody>
+        {{#each this}}
+        {{#if this.id}}
+            <tr onclick="redirect('/employee/{{this.id}}')" class="hover:bg-gray-300 cursor-pointer text-center">
+                <td>{{this.name}}</td>
+                <td>{{this.surname}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.email}}</td>
+            </tr>
+        {{/if}}
+        {{/each}}
+        </tbody>
+    </table>
+    <fm-button class="block mt-4" onclick="redirect('/employee/create')">Pridaj Zamestnanca</fm-button>
+</main>
 <script src="/initDatatables.js"></script>
 <script src="/redirectFunction.js"></script>

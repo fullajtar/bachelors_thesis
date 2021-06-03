@@ -29,7 +29,15 @@ export const storage = {
 
             cb(null, `${filename}${extenstion}`)
         }
-    })
+    }),
+    fileFilter: (req, expenseFile, cb) => {
+        if (expenseFile.mimetype == "image/png" || expenseFile.mimetype == "image/jpg" || expenseFile.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
 }
 
 @Controller('expense')

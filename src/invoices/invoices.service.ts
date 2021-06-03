@@ -155,7 +155,7 @@ export class InvoicesService {
         if (invoice.customer && invoice.customer.order == null){
             invoice.customer = await this.customerService.editCustomer(invoice.customer.id, createCustomerDto);
         }
-        if  (invoice.invoiceItemLists[0] != null || invoice.invoiceItemLists[0].order != null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
+        if  (invoice.invoiceItemLists[0] != null && invoice.invoiceItemLists[0].order == null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
             await this.invoiceItemListsService.deleteArray(invoice.invoiceItemLists);
         }
 

@@ -36,8 +36,8 @@ async function bootstrap() {
               if (comment.invoiceItemLists) {
                 let cost = 0;
                 comment.invoiceItemLists.forEach(element => {
-                  if (element.item && element.item.itemPriceWithoutTax){
-                    cost += (element.quantity * element.item.itemPriceWithoutTax* (1 - element.discount/100));
+                  if (element.item && element.item.priceWithoutTax){
+                    cost += (element.quantity * element.item.priceWithoutTax* (1 - element.discount/100));
                   }
 
                 })
@@ -50,8 +50,8 @@ async function bootstrap() {
               if (comment.invoiceItemLists) {
                 let cost = 0;
                 comment.invoiceItemLists.forEach(element => {
-                  if (element.item && element.item.itemPriceWithoutTax){
-                    cost = cost + totalWithVat(element.item.itemTax, element.quantity, element.item.itemPriceWithoutTax, element.discount)
+                  if (element.item && element.item.priceWithoutTax){
+                    cost = cost + totalWithVat(element.item.tax, element.quantity, element.item.priceWithoutTax, element.discount)
                   }
 
                 })
@@ -64,8 +64,8 @@ async function bootstrap() {
               if (invoiceEntity.invoiceItemLists) {
                 let cost = 0;
                 invoiceEntity.invoiceItemLists.forEach(element => {
-                  if (element.item && element.item.itemPriceWithoutTax){
-                    cost = cost + totalWithVat(element.item.itemTax, element.quantity, element.item.itemPriceWithoutTax, element.discount);
+                  if (element.item && element.item.priceWithoutTax){
+                    cost = cost + totalWithVat(element.item.tax, element.quantity, element.item.priceWithoutTax, element.discount);
                   }
 
                 })

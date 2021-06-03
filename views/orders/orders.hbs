@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="sk">
+<aside class="col-span-3 md:col-span-2">
+    {{> navigation}}
+</aside>
 
-<head>
-    <meta charset="utf-8">
-    <title>Auth</title>
-    <!-- <script src="my-helper.js"></script> -->
-</head>
-
-<body>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+<main class="col-span-9 md:col-span-10 p-6">
 <table id="fancyTable">
     <thead>
     <tr>
@@ -29,8 +24,8 @@
             <tr onclick="redirect('/order/{{this.id}}')" class="hover:bg-gray-300 cursor-pointer text-center">
                 <td>{{this.id}}</td>
                 <td> {{dateParse this.dateOfIssue}} </td>
-                <td>{{this.customerTitleBefore}} {{this.customerName}} {{this.customerSurname}} {{this.customerTitleAfter}}</td>
-                <td>{{this.orderName}}</td>
+                <td>{{this.customerDegreeBefore}} {{this.customerName}} {{this.customerSurname}} {{this.customerDegreeAfter}}</td>
+                <td>{{this.name}}</td>
                 <td>{{priceWithoutTax this}}</td>
                 <td>{{this.tag}}</td>
             </tr>
@@ -39,9 +34,8 @@
     </tbody>
 
 </table>
-<fm-button onclick="redirect('/order/create')">Vytvor Objednávku</fm-button>
-</body>
+<fm-button class="block mt-4" onclick="redirect('/order/create')">Vytvor Objednávku</fm-button>
+</main>
+
 <script src="/initDatatables.js"></script>
 <script src="/redirectFunction.js"></script>
-
-</html>

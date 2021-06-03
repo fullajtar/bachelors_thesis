@@ -1,4 +1,9 @@
- <fm-button class="block">Button</fm-button>
+<aside class="col-span-3 md:col-span-2">
+    {{> navigation}}
+</aside>
+<main class="col-span-9 md:col-span-10 p-6">
+
+<fm-button class="block">Button</fm-button>
 
     <fm-a href="#" color="purple">Link</fm-a>
 
@@ -10,4 +15,7 @@
     <fm-label for="textarea" >Label For Textarea</fm-label>
     <fm-textarea name="textarea"></fm-textarea>
 
+ <input type="file" name="myImage" accept="image/x-png,image/gif,image/jpeg" />
+
     <fm-modal-image class="ml-32 block w-1/2 h-32" path="" src="lorem.png" ></fm-modal-image>
+</main>

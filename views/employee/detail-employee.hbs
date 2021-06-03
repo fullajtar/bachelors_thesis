@@ -1,4 +1,12 @@
+<aside class="col-span-3 md:col-span-2">
+    {{> navigation}}
+</aside>
+<main class="col-span-9 md:col-span-10 p-6">
 <form id="orderForm" action="/employee/{{this.id}}" method="POST">
     {{> employee-inputs}}
 </form>
+    <form class="flex justify-center" action="/employee/delete/{{this.id}}" method="POST">
+        <fm-button class="block w-48 justify-center" color="red" onclick="redirect()">Vymaž Zamestnanca</fm-button>
+    </form>
+</main>
 

@@ -59,6 +59,14 @@ export class EmployeeService {
 
     return found;
   }
+
+  async deleteEmployee(
+      company: Company,
+      id: number
+  ):Promise<void>{
+    await this.employeeRepository.delete({id: id, company: company});
+  }
+
   async findDuplicity(
       company: Company,
       createEmployeeDto: CreateEmployeeDto,

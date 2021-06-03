@@ -11,7 +11,7 @@ export class CompanyController{
     ) {}
 
     @Get()
-    @Render('company/editMyCompany.hbs')
+    @Render('company/edit-company.hbs')
     getMyCompany(
         @Session() session: Record<string, any>,
         @Res() res
@@ -23,7 +23,7 @@ export class CompanyController{
     }
 
     @Post()
-    @Render('company/editMyCompany.hbs')
+    @Render('company/edit-company.hbs')
     editMyCompany(
         @Session() session: Record<string, any>,
         @Res() res,
@@ -39,7 +39,7 @@ export class CompanyController{
     }
 
     @Get('/create')
-    @Render('company/myCompany.hbs')
+    @Render('company/create-company.hbs')
     createMyCompanyForm(){
         return;
     }

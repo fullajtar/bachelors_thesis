@@ -1,10 +1,12 @@
-<!--borders are set to top & right only, except edging elements
-<input  name="" id="" type="text" placeholder="" value="">
--->
+<aside class="col-span-3 md:col-span-2">
+    {{> navigation}}
+</aside>
+<main class="col-span-9 md:col-span-10 p-6">
 <script src="/tooltipInput.js" ></script>
 <div class="print flex justify-center">
     <form class="" id="orderForm" action="" method="POST">
         {{> order-inputs}}
     </form>
 </div>
+</main>
 <script src="/order.js"></script>

@@ -1,6 +1,9 @@
 import {Body, Controller, Get, Post, Redirect, Render, Res, Session, ValidationPipe} from "@nestjs/common";
 import {AuthCredentialsDto} from "./dto/auth-credentials.dto";
 import {AuthService} from "./auth.service";
+import {Company} from "../company/company.entity";
+import {getRepository} from "typeorm";
+import {User} from "./user.entity";
 
 @Controller('auth')
 export class AuthController {
@@ -53,7 +56,10 @@ export class AuthController {
         if (usernameAndId){
             session.username = usernameAndId[0];
             session.userid = usernameAndId[1];
-            return;
+            if (await this.hasCreatedCompany(session.userid)){
+                return;
+            }
+            return res.redirect('/company/create');
         }
         return res.redirect('/auth');
     }
@@ -66,5 +72,15 @@ export class AuthController {
         session.userid = null;
         session.username = null;
         return ;
+    }
+
+    private async hasCreatedCompany(
+        userId: number
+    ) :Promise <boolean>{
+        const user = await getRepository(User).findOne({ where: { id: userId } } );
+        if (user.company == null){
+            return false;
+        }
+        return true;
     }
 }

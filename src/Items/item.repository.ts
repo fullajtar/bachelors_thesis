@@ -63,11 +63,11 @@ export class ItemRepository extends Repository<Item>{
     const query = this.createQueryBuilder('item');
     query.where('item.companyId = :companyId', { companyId: company.id });
 
-    query.andWhere('item.itemName = :name', {name: itemName});
-    query.andWhere('item.itemUnit = :unit', {unit: itemUnit});
-    query.andWhere('item.itemPriceWithoutTax = :priceWithoutTax', {priceWithoutTax: itemPriceWithoutTax});
-    query.andWhere('item.itemTax = :tax', {tax: itemTax});
-    query.andWhere('item.itemBarcode = :barcode', {barcode: itemBarcode});
+    query.andWhere('item.name = :name', {name: itemName});
+    query.andWhere('item.unit = :unit', {unit: itemUnit});
+    query.andWhere('item.priceWithoutTax = :priceWithoutTax', {priceWithoutTax: itemPriceWithoutTax});
+    query.andWhere('item.tax = :tax', {tax: itemTax});
+    query.andWhere('item.barcode = :barcode', {barcode: itemBarcode});
     return await query.getOne();
   }
 }

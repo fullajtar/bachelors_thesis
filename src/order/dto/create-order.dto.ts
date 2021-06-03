@@ -32,17 +32,17 @@ export class CreateOrderDto {
 
     @IsOptional()
     @IsNotEmpty()
-    customerTitleBefore: string;
+    forDegreeBefore: string;
 
     @IsNotEmpty()
-    customerName: string;
+    forName: string;
 
     @IsNotEmpty()
-    customerSurname: string;
+    forSurname: string;
 
     @IsOptional()
     @IsNotEmpty()
-    customerTitleAfter: string;
+    forDegreeAfter: string;
 
     @IsOptional()
     @IsNotEmpty()

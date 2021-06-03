@@ -5,7 +5,7 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    Query,
+    Query, Redirect,
     Render,
     Res,
     Session,
@@ -50,7 +50,7 @@ export class EmployeeController{
     }
 
     @Post('/create')
-    @Render('employee/create-employee.hbs')
+    @Render('employee/detail-employee.hbs')
     async createEmployee(
         @Session() session: Record<string, any>,
         @Res() res,
@@ -87,6 +87,20 @@ export class EmployeeController{
     ):Promise<Employee | {url:string, status:number}> { //TODO NOT SECURE!
         if (session.userid){
             return this.employeeService.editEmployee(id, createEmployeeDto);
+        }
+        return res.redirect('/auth');
+    }
+
+    @Post('/delete/:id')
+    @Redirect('/employee')
+    async deleteEmplyee(
+        @Session() session: Record<string, any>,
+        @Res() res,
+        @Param('id', ParseIntPipe) id: number
+    ):Promise<null> {
+        if (session.userid){
+            await this.employeeService.deleteEmployee(await this.getUsersCompany(session.userid), id);
+            return
         }
         return res.redirect('/auth');
     }

@@ -3,9 +3,9 @@
     <div class="grid grid-cols-2">
         <div class="border-black border-t-2 border-r-2 p-4">
 
-            <h2>Dodávateľ</h2>
             <p>{{this.company.name}}</p>
-            <p>{{this.company.supplierResidence}}</p>
+            <p>{{this.company.street}}</p>
+            <p>{{this.company.zipCode}} {{this.company.town}}</p>
             <fm-label class="inline-block w-1/6">IČO</fm-label>             <p class="inline-block w-4/5"> {{this.company.ico}}</p>
             <fm-label class="inline-block w-1/6">DIČ</fm-label>             <p class="inline-block w-4/5"> {{this.company.dic}}</p>
             <fm-label class="inline-block">Platiteľ DPH</fm-label>          <p class="inline-block w-3/5"> {{#if this.company.payingTax}}Áno{{else}}Nie{{/if}}</p>
@@ -59,7 +59,7 @@
 
             </div>
             <div class="px-4">
-                <h2 >Odberateľ</h2>
+                <fm-label>Odberateľ</fm-label>
                 <label for="customerName"></label><fm-input     name="customerName"       type="text" placeholder="Môj klient, s.r.o." value="{{this.customer.name}}" required></fm-input>
                 <label for="customerStreet"></label><fm-input   name="customerStreet"     type="text" placeholder="Ulica, súpisné číslo" value="{{this.customer.street}}" required></fm-input>
                 <label for="customerPostCode"></label><fm-input name="customerZipCode"   type="text" placeholder="PSČ" value="{{this.customer.zipCode}}" required></fm-input>
@@ -132,38 +132,36 @@
 
     </div>
     <fm-button onclick="addItem()" type="button">Pridaj Položku</fm-button>
-    <div class="grid grid-cols-3 absolute bottom-0 w-full">
+    <div class="grid grid-cols-3 absolute bottom-0 w-full h-32">
         <div class="border-black border-t-2 border-r-2 pl-4">
-            <p>Dodávateľ:  </p>
+            <fm-label>Dodávateľ</fm-label>
         </div>
         <div class="border-black border-t-2 border-r-2 pl-4">
-            <p>Odberateľ: </p>
-            <label for="customerTitleBefore"></label><fm-input  class="inline-block w-8" name="customerTitleBefore"  type="text" placeholder="Titul" value="{{this.customerTitleBefore}}"></fm-input>
-            <label for="customerName"></label><fm-input  class="inline-block w-1/3" name="customerName"  type="text" placeholder="Meno" value="{{this.customerName}}" required></fm-input>
-            <label for="customerSurname"></label><fm-input  class="inline-block w-1/3" name="customerSurname"  type="text" placeholder="Priezvisko" value="{{this.customerSurname}}" required></fm-input>
-            <label for="customerTitleAfter"></label><fm-input  class="inline-block w-8" name="customerTitleAfter"  type="text" placeholder="Titul" value="{{this.customerTitleAfter}}"></fm-input>
+            <fm-label class="block">Odberateľ</fm-label>
+            <label for="customerTitleBefore"></label><fm-input  class="inline-block w-8" name="forDegreeBefore"  type="text" placeholder="Titul" value="{{this.customerDegreeBefore}}"></fm-input>
+            <label for="customerName"></label><fm-input  class="inline-block w-1/3" name="forName"  type="text" placeholder="Meno" value="{{this.customerName}}" required></fm-input>
+            <label for="customerSurname"></label><fm-input  class="inline-block w-1/3" name="forSurname"  type="text" placeholder="Priezvisko" value="{{this.customerSurname}}" required></fm-input>
+            <label for="customerTitleAfter"></label><fm-input  class="inline-block w-8" name="forDegreeAfter"  type="text" placeholder="Titul" value="{{this.customerDegreeAfter}}"></fm-input>
         </div>
         <div>
-            <p class="border-black border-t-2 border-b-2 pl-4">Celková suma: <text id="summaryWithVat">{{priceWithTax this}}</text> {{this.currency}}</p>
-            <p class="border-black h-16 pl-4"> K úhrade: <text id="summaryToPay">{{toPay this}}</text> {{this.currency}}</p>
+            <div class="border-black border-t-2 border-b-2 px-4">
+                <fm-label>Celková suma</fm-label><p class="inline" id="summaryWithVat"> {{priceWithTax this}} {{this.currency}}</p>
+            </div>
+            <div class="px-4">
+                <fm-label>K úhrade</fm-label><p class="inline" id="summaryToPay"> {{toPay this}} {{this.currency}}</p>
+            </div>
         </div>
     </div>
 
 </div>
 <div class="remove-on-print mt-2">
-    <fm-input-labeled name="orderName" type="text" value="{{this.orderName}}">Zákazka:</fm-input-labeled>
+    <fm-input-labeled name="orderName" type="text" value="{{this.name}}">Zákazka:</fm-input-labeled>
     <fm-input-labeled name="tag" id="tag" type="text" value="{{this.tag}}">Tag:</fm-input-labeled>
     <fm-label for="note">Poznámka</fm-label>
     <fm-textarea name="note" id="note" cols="" rows="5" value="{{this.note}}"></fm-textarea>
 </div>
-<fm-button name="action" value="save">Ulož</fm-button>
-<!--<button name="action" class="w-16 myButtonStyle" value="save">-->
-<!--    Ulož-->
-<!--</button>-->
-<fm-button name="action" type="button" onclick="generateInvoice()"  value="createInvoice">Vytvor Faktúru</fm-button>
-<!--<button name="action" type="button" onclick="generateInvoice()" class="myButtonStyle bg-purple-500" value="createInvoice">-->
-<!--    Vytvor Faktúru-->
-<!--</button>-->
+<fm-button class="block py-4" name="action" value="save">Ulož</fm-button>
+<fm-button class="block" color="purple" name="action" type="button" onclick="generateInvoice()"  value="createInvoice">Vytvor Faktúru</fm-button>
 <script>
     function generateInvoice(){
         let form = document.getElementById("orderForm");

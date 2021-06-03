@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="sk">
+<aside class="col-span-3 md:col-span-2">
+    {{> navigation}}
+</aside>
 
-<head>
-    <meta charset="utf-8">
-    <title>Auth</title>
-</head>
-
-<body>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+<main class="col-span-9 md:col-span-10 p-6">
 <table id="fancyTable">
     <thead>
     <tr>
@@ -32,8 +29,8 @@
     {{/each}}
     </tbody>
 </table>
-<fm-button onclick="redirect('/expense/create')">Vytvor Výdavok</fm-button>
-</body>
+<fm-button class="block mt-4" onclick="redirect('/expense/create')">Vytvor Výdavok</fm-button>
+</main>
+
 <script src="/initDatatables.js"></script>
 <script src="/redirectFunction.js"></script>
-</html>
