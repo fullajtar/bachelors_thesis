@@ -1,9 +1,7 @@
 TODO:
-    build select komponent
 display errors (controller -> html)
 
 BUGS:
-??? hashovat heslo este pred odoslanim na BE ???
 
 IMPROVE:
 zoradit vsetky najdene entity podla datumu
@@ -25,6 +23,7 @@ value button save je asi zbytocne v order inputs
 
 
 DONE:
+build select komponent
 pridat moznost vymazania zamestnancov
 forcenut novo-registrovaneho uzivatela vytvorit si firmu //neviem bez redirectu
 navigacia nezvyraznuje selectnutu lokaciu

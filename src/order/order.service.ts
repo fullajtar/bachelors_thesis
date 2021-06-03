@@ -82,7 +82,7 @@ export class OrderService {
         company: Company,
         id: number,
     ): Promise<void> {
-        const result = await this.orderRepository.delete({ id, company : company}); //TODO not sure about this syntax, might not work
+        const result = await this.orderRepository.delete({ id, company : company});
 
         if (result.affected === 0) {
             throw new NotFoundException(`Invoice with ID "${id}" not found`);
@@ -170,7 +170,7 @@ export class OrderService {
         if (order.customer && order.customer.invoice == null){
             order.customer = await this.customerService.editCustomer(order.customer.id, createCustomerDto);
         }
-        if (order.invoiceItemLists[0] != null && order.invoiceItemLists[0].invoice == null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
+        if (order.invoiceItemLists[0] != null && order.invoiceItemLists[0].invoice == null){
             this.invoiceItemListsService.deleteArray(order.invoiceItemLists); //not necessary await imo
         }
         order.invoiceItemLists = itemLists;

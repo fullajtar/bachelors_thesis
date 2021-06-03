@@ -84,9 +84,9 @@ export class EmployeeController{
         @Res() res,
         @Param('id', ParseIntPipe) id: number,
         @Body() createEmployeeDto: CreateEmployeeDto,
-    ):Promise<Employee | {url:string, status:number}> { //TODO NOT SECURE!
+    ):Promise<Employee | {url:string, status:number}> {
         if (session.userid){
-            return this.employeeService.editEmployee(id, createEmployeeDto);
+            return this.employeeService.editEmployee(await this.getUsersCompany(session.userid), id, createEmployeeDto);
         }
         return res.redirect('/auth');
     }

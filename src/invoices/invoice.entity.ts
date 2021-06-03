@@ -84,7 +84,7 @@ export class Invoice extends BaseEntity {
     @Column({
         nullable: true,
     })
-    issuedPhone: string; //TODO number type
+    issuedPhone: string;
 
     @Column({
         nullable: true,

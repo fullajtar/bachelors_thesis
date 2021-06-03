@@ -1,6 +1,5 @@
 import {Injectable, NotFoundException} from "@nestjs/common";
 import {CreateInvoiceDto} from "./dto/create-invoice.dto";
-import {GetInvoicesFilterDto} from "./dto/get-invoices-filter.dto";
 import {InvoiceRepository} from "./invoice.repository";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Invoice} from "./invoice.entity";
@@ -25,10 +24,9 @@ export class InvoicesService {
     ) {}
 
     async getInvoices(
-        company: Company,
-        filterDto: GetInvoicesFilterDto,
+        company: Company
     ): Promise<Invoice[]> {
-        return this.invoiceRepository.getInvoices(company, filterDto);
+        return this.invoiceRepository.getInvoices(company);
     }
 
     async getInvoiceById(
@@ -155,7 +153,7 @@ export class InvoicesService {
         if (invoice.customer && invoice.customer.order == null){
             invoice.customer = await this.customerService.editCustomer(invoice.customer.id, createCustomerDto);
         }
-        if  (invoice.invoiceItemLists[0] != null && invoice.invoiceItemLists[0].order == null){ //TODO: ZMENIT Z TYPU invoiceItemLists[] na invoiceItemList
+        if  (invoice.invoiceItemLists[0] != null && invoice.invoiceItemLists[0].order == null){
             await this.invoiceItemListsService.deleteArray(invoice.invoiceItemLists);
         }
 

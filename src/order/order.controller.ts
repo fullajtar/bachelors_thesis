@@ -52,7 +52,6 @@ export class OrderController{
             const order = new Order();
             order.company = await this.companyService.getMyCompany(session.userid);
             order.orderNumber = await this.orderService.getNewOrderNumber();
-            console.log("order: ", order)
             return order;
         }
         return res.redirect('/auth');

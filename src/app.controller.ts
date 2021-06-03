@@ -7,7 +7,7 @@ import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
 import path from "path";
 
-@Controller() //TODO ADD SESSIONS SOMEHOW
+@Controller()
 export class AppController {
   constructor(
       private readonly appService: AppService,
@@ -25,26 +25,6 @@ export class AppController {
       return
     }
     return res.redirect('/auth');
-  }
-
-  @Get('/testing')
-  @Render('component-testing.hbs')
-  testingGetMethod(
-      @Session() session: Record<string, any>,
-      @Res() res
-  ) :any | Promise<any> {
-    return
-  }
-
-  @Post('/testing')
-  @Render('component-testing.hbs')
-  @UseInterceptors(FileInterceptor('file'))
-  testingPostMethod(
-      @UploadedFile() file: Express.Multer.File,
-      @Session() session: Record<string, any>,
-      @Res() res
-  ) :any | Promise<any> {
-    return
   }
 
   @Get('/data/dashboard')

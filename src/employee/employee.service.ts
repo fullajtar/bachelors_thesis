@@ -25,10 +25,11 @@ export class EmployeeService {
   }
 
   async editEmployee(
+      company: Company,
       id: number,
-      createEmployeeDto: CreateEmployeeDto,
+      createEmployeeDto: CreateEmployeeDto
   ):Promise<Employee>{
-    const employee = await this.employeeRepository.findOne({ where: { id: id } } )
+    const employee = await this.employeeRepository.findOne({ where: { id: id, company: company.id } } )
     const {
         employeeName,
         employeeSurname,

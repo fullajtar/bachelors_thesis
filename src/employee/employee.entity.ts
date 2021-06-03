@@ -26,7 +26,7 @@ export class Employee extends BaseEntity {
   @Column({
     nullable: true,
   })
-  phone: string; //TODO number type
+  phone: string;
 
   @Column({
     nullable: true,

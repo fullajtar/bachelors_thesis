@@ -12,7 +12,7 @@ export class CreateEmployeeDto{
   employeeSurname: string;
 
   @IsOptional()
-  employeePhone: string; //TODO number type
+  employeePhone: string;
 
   @IsOptional()
   @IsEmail()

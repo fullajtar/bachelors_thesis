@@ -31,7 +31,6 @@
     window.addEventListener('DOMContentLoaded', (event) => {
         const elements = document.getElementById('myDIV').children
         if (elements[0].href === window.location.pathname){
-            console.log("element: ", elements[1])
             elements[0].setAttribute('active',"")
             setLoggedUsername()
             return

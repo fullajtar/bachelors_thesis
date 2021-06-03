@@ -42,21 +42,21 @@
             <div class="grid grid-cols-2" >
                 <div class="border-black border-r-2 px-4">
                     <fm-label for="paymentMethod">Forma úhrady</fm-label>
-                    <select class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm" name="paymentMethod" id="paymentMethod" >
+                    <fm-select name="paymentMethod" id="paymentMethod" >
                         <option {{#ifCond "POSTOVA POUKAZKA" this.paymentMethod }} selected {{/ifCond}} value="POSTOVA POUKAZKA">Poštová poukážka</option>
                         <option {{#ifCond "PREVOD" this.paymentMethod }} selected {{/ifCond}} value="PREVOD">Bankový Prevod</option>
                         <option {{#ifCond "HOTOVOST" this.paymentMethod }} selected {{/ifCond}} value="HOTOVOST">Hotovosť</option>
                         <option {{#ifCond "ZMENKA" this.paymentMethod }} selected {{/ifCond}} value="ZMENKA">Zmenka</option>
                         <option {{#ifCond "KARTA" this.paymentMethod }} selected {{/ifCond}} value="KARTA">Karta</option>
-                    </select>
-                    <br>
-                    <fm-label for="deliveryMethod">Spôsob Dopravy</fm-label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="deliveryMethod" id="deliveryMethod" type="text" placeholder="Spôsob Dopravy" value="{{this.deliveryMethod}}" required><br>
-                    <fm-label for="currency">Mena</fm-label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="currency" id="currency" type="text" placeholder="Mena" value="{{this.currency}}" required>
+                    </fm-select>
+                    <fm-label for="deliveryMethod">Spôsob Dopravy</fm-label>
+                    <fm-input name="deliveryMethod" type="text" placeholder="Spôsob Dopravy" value="{{this.deliveryMethod}}" required></fm-input>
+                    <fm-label for="currency">Mena</fm-label><fm-input name="currency" id="currency" type="text" placeholder="Mena" value="{{this.currency}}" required></fm-input>
                 </div>
                 <div class="border-black  px-4">
-                    <fm-label for="variableSymbol">Variabilný symbol</fm-label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="variableSymbol" id="variableSymbol" type="number" placeholder="Variabilný symbol" value="{{this.variableSymbol}}" required max="9999999999"><br><!--nepovinny -->
-                    <fm-label for="constantSymbol">Konštantný symbol</fm-label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="constantSymbol" id="constantSymbol" type="number" placeholder="Konštantný symbol" value="{{this.constantSymbol}}" required max="9999"><br><!--nepovinny -->
-                    <fm-label for="specificSymbol">Špecifický symbol</fm-label><input class="border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm"  name="specificSymbol" id="specificSymbol" type="number" placeholder="Špecifický symbol" value="{{this.specificSymbol}}" required max="9999999999" > <!--nepovinny -->
+                    <fm-label for="variableSymbol">Variabilný symbol</fm-label><fm-input name="variableSymbol" type="number" placeholder="Variabilný symbol" value="{{this.variableSymbol}}" required max="9999999999"></fm-input><!--nepovinny -->
+                    <fm-label for="constantSymbol">Konštantný symbol</fm-label><fm-input name="constantSymbol" type="number" placeholder="Konštantný symbol" value="{{this.constantSymbol}}" required max="9999"></fm-input><!--nepovinny -->
+                    <fm-label for="specificSymbol">Špecifický symbol</fm-label><fm-input name="specificSymbol" type="number" placeholder="Špecifický symbol" value="{{this.specificSymbol}}" required max="9999999999" ></fm-input> <!--nepovinny -->
 
                 </div>
 
@@ -117,16 +117,16 @@
             {{#each this.invoiceItemLists}}
                 <tr id="row{{plus @index 1}}">
                     <!--0--><td class="border-2 border-black">{{plus @index 1}}</td>
-                    <!--1--><td class="border-2 border-black"><input  class="w-20 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemBarcode" id="itemBarcode" type="text" placeholder="Kód položky" value="{{this.item.barcode}}" ></td>
-                    <!--2--><td class="border-2 border-black"><input  class="w-24 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemName" id="itemName" type="text" placeholder="" value="{{this.item.name}}" required></td>
-                    <!--3--><td class="border-2 border-black"><input  class="w-16 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="quantity" id="quantity" type="number"  placeholder="" value="{{this.quantity}}" min="0" required step="0.1" onchange="updateAll(this)"></td>
-                    <!--4--><td class="border-2 border-black"><input  class="w-10 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemUnit" id="itemUnit" type="text" placeholder="" value="{{this.item.unit}}" required></td>
-                    <!--5--><td class="border-2 border-black"><input  class="w-20 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemPriceWithoutTax" id="itemPriceWithoutTax"  type="number"    value="{{this.item.priceWithoutTax}}" min="0" required step="0.01" onchange="updateAll(this)"></td>
+                    <!--1--><td class="border-2 border-black"><fm-input  class="w-20" name="itemBarcode" id="itemBarcode" type="text" placeholder="Kód položky" value="{{this.item.barcode}}" ></fm-input></td>
+                    <!--2--><td class="border-2 border-black"><fm-input  class="w-24" name="itemName" id="itemName" type="text" placeholder="" value="{{this.item.name}}" required></fm-input></td>
+                    <!--3--><td class="border-2 border-black"><fm-input  class="w-16" name="quantity" id="quantity" type="number"  placeholder="" value="{{this.quantity}}" min="0" required step="0.1" onchange="updateAll(this)"></fm-input></td>
+                    <!--4--><td class="border-2 border-black"><fm-input  class="w-10" name="itemUnit" id="itemUnit" type="text" placeholder="" value="{{this.item.unit}}" required></fm-input></td>
+                    <!--5--><td class="border-2 border-black"><fm-input  class="w-20" name="itemPriceWithoutTax" id="itemPriceWithoutTax"  type="number"    value="{{this.item.priceWithoutTax}}" min="0" required step="0.01" onchange="updateAll(this)"></fm-input></td>
                     <!--6--><td class="border-2 border-black">{{singleItemWithTax this.item.tax this.item.priceWithoutTax}}</td>
                     <!--7--><td class="border-2 border-black itemSum">{{multiply this.item.priceWithoutTax this.quantity this.discount}}</td>
                     <!--8--><td class="border-2 border-black">{{absTax this.item.tax this.quantity this.item.priceWithoutTax}}</td>
-                    <!--9--><td class="border-2 border-black"><input  class="w-14 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="itemTax" id="itemTax" type="number" placeholder=""  value="{{this.item.tax}}" required onchange="updateAll(this)"></td>
-                    <!--10--><td class="border-2 border-black"><input  class="w-16 border-2 border-gray-400 bg-gray-200 rounded hover:bg-gray-100 hover:shadow-sm" name="discount" id="discount"        type="number"   value="{{this.discount}}" min="0" max="100" onchange="updateAll(this)"></td>
+                    <!--9--><td class="border-2 border-black"><fm-input  class="w-14" name="itemTax" id="itemTax" type="number" placeholder=""  value="{{this.item.tax}}" required onchange="updateAll(this)"></fm-input></td>
+                    <!--10--><td class="border-2 border-black"><fm-input  class="w-16" name="discount" id="discount"        type="number"   value="{{this.discount}}" min="0" max="100" onchange="updateAll(this)"></fm-input></td>
 
                     <!--11--><td class="border-2 border-black itemSumWithVatAndDiscount">{{totalWithVat this.item.tax this.quantity this.item.priceWithoutTax this.discount}}</td>
                     <input  name="itemNote" id="itemBarcode" type="hidden" placeholder="" value="-">

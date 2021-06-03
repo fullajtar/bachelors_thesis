@@ -14,7 +14,6 @@ import {
 import {InvoicesService} from "./invoices.service";
 import {CreateInvoiceDto} from "./dto/create-invoice.dto";
 import {InvoicePatchValidationPipe} from "./pipes/invoice-patch-validation.pipe";
-import {GetInvoicesFilterDto} from "./dto/get-invoices-filter.dto";
 import {Invoice} from "./invoice.entity";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
 import {ProductService} from "../product/product.service";
@@ -41,12 +40,11 @@ export class InvoicesController {
     @Render('invoices/invoices.hbs')
     async getInvoices(
         @Session() session: Record<string, any>,
-        @Res() res,
-        @Query(ValidationPipe) filterDto: GetInvoicesFilterDto,
+        @Res() res
     ): Promise<Invoice[] | {url:string, status:number}> {
         if (session.userid){
             const company = this.getUsersCompany(session.userid);
-            return this.invoicesService.getInvoices(await company, filterDto);
+            return this.invoicesService.getInvoices(await company);
         }
         return res.redirect('/auth');
     }

@@ -1,7 +1,6 @@
 import {Invoice} from "./invoice.entity";
 import {EntityRepository, getConnection, Repository} from "typeorm";
 import {CreateInvoiceDto} from "./dto/create-invoice.dto";
-import {GetInvoicesFilterDto} from "./dto/get-invoices-filter.dto";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
@@ -19,38 +18,14 @@ export class InvoiceRepository extends Repository<Invoice> {
     ];
 
     async getInvoices(
-        company: Company,
-        filterDto: GetInvoicesFilterDto,
+        company: Company
     ): Promise<Invoice[]> {
-        const { search } = filterDto;
-
         const query = this.createQueryBuilder('invoice')
             .leftJoinAndSelect('invoice.invoiceItemLists', 'invoiceItemList')
-            .leftJoinAndSelect('invoiceItemList.item','item');
-
-
-        query.where('invoice.companyId = :companyId', { companyId: company.id});
-
-        if (search) {
-            query.andWhere( '(invoice.paymentMethod LIKE :search ' +
-                //'OR invoice.dateOfIssue LIKE :search ' + //TODO
-                //'OR invoice.dueDate LIKE :search ' +
-                //'OR invoice.deliveryDate LIKE :search ' +
-                'OR invoice.paymentMethod LIKE :search ' +
-                'OR invoice.currency LIKE :search ' +
-                //'OR invoice.issuedBy.name LIKE :search ' + //TODO test postman
-                'OR invoice.invoiceName LIKE :search ' +
-                'OR invoice.bankNumber LIKE :search ' +
-                'OR invoice.iban LIKE :search ' +
-                'OR invoice.variableSymbol LIKE :search ' +
-                'OR invoice.specificSymbol LIKE :search ' +
-                'OR invoice.constantSymbol LIKE :search ' +
-                'OR invoice.body LIKE :search ' +
-                'OR invoice.note LIKE :search)' , { search: `%${search}%` });
-        }
-        query.orderBy('invoice.invoiceNumber');
+            .leftJoinAndSelect('invoiceItemList.item','item')
+            .where('invoice.companyId = :companyId', { companyId: company.id})
+            .orderBy('invoice.dateOfIssue');
         return await query.getMany();
-
     }
 
     async createInvoice(
@@ -189,11 +164,4 @@ export class InvoiceRepository extends Repository<Invoice> {
         //await getConnection().manager.save(invoice);
         return invoice;
     }
-
-    // async getDataDashboard(
-    //     company: Company
-    // ) :Promise<any> {
-    //     let invoices = await this.createQueryBuilder('invoices')
-    //         .select('')
-    // }
 }
