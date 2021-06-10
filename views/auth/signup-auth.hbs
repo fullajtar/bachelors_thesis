@@ -2,9 +2,9 @@
     <div class="overflow-hidden">
         <div class="h-full px-4 p1-5 bg-gray-200 sm:p-6 flex flex-wrap content-center justify-center">
             <form class="w-1/2" action="/auth/signup" method="POST" onsubmit="return matchingPasswords()">
-                <fm-input-labeled class="block mb-4" value="Dominik" name="username"  required>Login</fm-input-labeled>
-                <fm-input-labeled class="block mb-4" value="123Aa2123" type="password" name="password" required>Heslo</fm-input-labeled>
-                <fm-input-labeled class="block mb-2" value="123Aa2123" type="password" name="passwordAgain" required>Zopakovať heslo</fm-input-labeled>
+                <fm-input-labeled class="block mb-4" name="username"  required>Login</fm-input-labeled>
+                <fm-input-labeled class="block mb-4" type="password" name="password" required>Heslo</fm-input-labeled>
+                <fm-input-labeled class="block mb-2" type="password" name="passwordAgain" required>Zopakovať heslo</fm-input-labeled>
                 <label class="hidden text-center block bg-red-600 text-white fond-bold border border-red-700 rounded-md mb-4" id="passwords-not-matching">Heslá sa nezhodujú</label>
                 <a class="mb-2 block italic hover:underline hover:text-green-600" onclick="window.history.back()">Späť</a>
                 <input class="myButtonStyle" type="submit" value="Registrovať">

@@ -66,7 +66,7 @@ export class CompanyRepository extends  Repository<Company> {
         company.iban3 = companyIban3;
 
         //relations
-        company.user = [user]; //TODO create decorator @get user and add company to user, not user to company
+        company.user = [user];
 
         await getConnection().manager.save(company);
 

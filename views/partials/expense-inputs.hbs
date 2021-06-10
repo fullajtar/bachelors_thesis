@@ -1,19 +1,18 @@
 <div class="overflow-hidden">
     <div class="px-4 p1-5 bg-gray-200 sm:p-6">
         <div class="">
-            <fm-input-labeled name="expenseName" value="{{this.name}}">Názov</fm-input-labeled>
-            <fm-input-labeled type="date" name="expenseDate" value="{{this.date}}">Dátum</fm-input-labeled>
-            <fm-input-labeled type="number" name="expenseAmount" value="{{this.amount}}" step="0.01">Suma</fm-input-labeled>
+            <fm-input-labeled name="expenseName" value="{{this.name}}" required>Názov</fm-input-labeled>
+            <fm-input-labeled type="date" name="expenseDate" value="{{this.date}}" required>Dátum</fm-input-labeled>
+            <fm-input-labeled type="number" name="expenseAmount" value="{{this.amount}}" step="0.01" required>Suma</fm-input-labeled>
 
             <fm-label class="text-sm" for="expenseNote">Poznámka</fm-label>
             <fm-textarea name="expenseNote" rows="15" value="{{this.note}}"></fm-textarea>
 
-            <fm-input-labeled type="file" name="expenseFile" accept="image/png,image/jpeg,image/jpeg" >Doklad</fm-input-labeled>
+            <fm-input-labeled class="inline-block w-48" type="file" name="expenseFile" accept="image/png,image/jpeg,image/jpeg" >Doklad</fm-input-labeled>
 
             {{#if this.fileName}}
-                <fm-modal-image class="block m-4" src="/uploads/expenseImages/{{this.fileName}}" alt="Súbor nebol nájdený"></fm-modal-image>
+                <fm-modal-image class="block mt-4 w-full h-64" src="/uploads/expenseImages/{{this.fileName}}" alt="Súbor nebol nájdený"></fm-modal-image>
             {{/if}}
-
 
             <fm-button class="block py-4">Ulož</fm-button>
 

@@ -1,25 +1,13 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    ParseIntPipe,
-    Post,
-    Query,
-    Render, Res,
-    Session,
-    ValidationPipe
-} from "@nestjs/common";
-import {InvoicesService} from "./invoices.service";
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Render, Res, Session} from "@nestjs/common";
+import {InvoiceService} from "./invoice.service";
 import {CreateInvoiceDto} from "./dto/create-invoice.dto";
 import {InvoicePatchValidationPipe} from "./pipes/invoice-patch-validation.pipe";
 import {Invoice} from "./invoice.entity";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
 import {ProductService} from "../product/product.service";
 import {CreateProductDto} from "../product/dto/create-product.dto";
-import {ItemService} from "../Items/item.service";
-import {CreateItemDto} from "../Items/dto/create-item.dto";
+import {ItemService} from "../item/item.service";
+import {CreateItemDto} from "../item/dto/create-item.dto";
 import {Company} from "../company/company.entity";
 import {CompanyService} from "../company/company.service";
 import {CustomerService} from "../customer/customer.service";
@@ -27,9 +15,9 @@ import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
 
 @Controller('invoices')
-export class InvoicesController {
+export class InvoiceController {
     constructor(
-        private invoicesService: InvoicesService,
+        private invoicesService: InvoiceService,
         private invoicesListService: ProductService,
         private itemService: ItemService,
         private companyService: CompanyService,
@@ -54,7 +42,7 @@ export class InvoicesController {
     async createInvoiceForm(
         @Session() session: Record<string, any>,
         @Res() res,
-    ):Promise<Invoice | {url:string, status:number}>{
+    ):Promise<Invoice>{
         if (session.userid){
             const invoice = new Invoice();
             invoice.company = await this.companyService.getMyCompany(session.userid);
@@ -65,13 +53,12 @@ export class InvoicesController {
     }
 
     @Post('/create')
-    //@UsePipes(ValidationPipe) //TODO google wtf is this for
     @Render('invoices/invoice-detail.hbs')
     async createInvoice(
         @Session() session: Record<string, any>,
         @Res() res,
         @Body() createInvoiceDto: CreateInvoiceDto,
-        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto,
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         // @GetUser() user: User,
@@ -93,7 +80,7 @@ export class InvoicesController {
         @Session() session: Record<string, any>,
         @Res() res,
         @Body() generateInvoiceFromOrderDto: GenerateInvoiceFromOrderDto,
-        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto,
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         @Body('paymentMethod', InvoicePatchValidationPipe) paymentMethod: InvoicePaymentEnum,
@@ -115,7 +102,7 @@ export class InvoicesController {
     async addItemToInvoice(
         @Session() session: Record<string, any>,
         @Res() res,
-        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto,
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         @Body() createInvoiceDto: CreateInvoiceDto,

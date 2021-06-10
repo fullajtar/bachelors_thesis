@@ -1,7 +1,6 @@
 import {Body, Controller, Get, Post, Redirect, Render, Res, Session, ValidationPipe} from "@nestjs/common";
 import {AuthCredentialsDto} from "./dto/auth-credentials.dto";
 import {AuthService} from "./auth.service";
-import {Company} from "../company/company.entity";
 import {getRepository} from "typeorm";
 import {User} from "./user.entity";
 

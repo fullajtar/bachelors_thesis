@@ -30,7 +30,7 @@ export class CompanyController{
         @Body() createCompanyDto: CreateCompanyDto,
     ): Promise<Company> | {url:string, status:number}{
         if (session.userid){
-            const user = new User(); //TODO optimize
+            const user = new User();
             user.id = session.userid;
             return this.companyService.editMyCompany(user, createCompanyDto);
         }
@@ -53,7 +53,7 @@ export class CompanyController{
         @Body(ValidationPipe) createCompanyDto: CreateCompanyDto,
     ): Promise<Company> | {url:string, status:number}{
         if (session.userid){
-            const user = new User(); //TODO optimize
+            const user = new User();
             user.id = session.userid;
             return this.companyService.createMyCompany(user, createCompanyDto);
         }

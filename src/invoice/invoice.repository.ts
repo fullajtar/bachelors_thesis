@@ -20,12 +20,18 @@ export class InvoiceRepository extends Repository<Invoice> {
     async getInvoices(
         company: Company
     ): Promise<Invoice[]> {
-        const query = this.createQueryBuilder('invoice')
-            .leftJoinAndSelect('invoice.invoiceItemLists', 'invoiceItemList')
-            .leftJoinAndSelect('invoiceItemList.item','item')
-            .where('invoice.companyId = :companyId', { companyId: company.id})
-            .orderBy('invoice.dateOfIssue');
-        return await query.getMany();
+        // const query = this.createQueryBuilder('invoice')
+        //     .leftJoinAndSelect('invoice.invoiceItemLists', 'invoiceItemList')
+        //     .leftJoinAndSelect('invoiceItemList.item','item')
+        //     .where('invoice.companyId = :companyId', { companyId: company.id})
+        //     .orderBy('invoice.dateOfIssue');
+        // return await query.getMany();
+        return await this.find(
+            {
+                where: {company: company.id},
+                order: {dateOfIssue: "DESC"}
+            })
+
     }
 
     async createInvoice(

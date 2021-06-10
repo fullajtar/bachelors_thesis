@@ -1,6 +1,5 @@
-import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {Company} from "../company/company.entity";
-import {Invoice} from "../invoices/invoice.entity";
+import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Invoice} from "../invoice/invoice.entity";
 import {Order} from "../order/oder.entity";
 
 @Entity()

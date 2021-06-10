@@ -4,15 +4,14 @@ import {Order} from "./oder.entity";
 import {Company} from "../company/company.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
 import {CreateProductDto} from "../product/dto/create-product.dto";
-import {CreateItemDto} from "../Items/dto/create-item.dto";
+import {CreateItemDto} from "../item/dto/create-item.dto";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 import {CreateEmployeeDto} from "../employee/dto/create-employee.dto";
-import {GetUser} from "../auth/get-user.decorator";
 import {CustomerService} from "../customer/customer.service";
 import {ProductService} from "../product/product.service";
 import {CompanyService} from "../company/company.service";
-import {InvoicePatchValidationPipe} from "../invoices/pipes/invoice-patch-validation.pipe";
-import {InvoicePaymentEnum} from "../invoices/invoice-payment.enum";
+import {InvoicePatchValidationPipe} from "../invoice/pipes/invoice-patch-validation.pipe";
+import {InvoicePaymentEnum} from "../invoice/invoice-payment.enum";
 import {EmployeeService} from "../employee/employee.service";
 
 @Controller('order')
@@ -63,11 +62,10 @@ export class OrderController{
         @Session() session: Record<string, any>,
         @Res() res,
         @Body() createOrderDto: CreateOrderDto,
-        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto,
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
-        @Body() createEmployeeDto: CreateEmployeeDto,
-        @GetUser() user: Company,
+        @Body() createEmployeeDto: CreateEmployeeDto
     ): Promise<Order | {url:string, status:number}> {
         if (session.userid){
             const company = await this.getUsersCompany(session.userid)
@@ -98,7 +96,7 @@ export class OrderController{
     async editOrder(
         @Session() session: Record<string, any>,
         @Res() res,
-        @Body() createInvoiceItemListDto: CreateProductDto, //TODO optimize body
+        @Body() createInvoiceItemListDto: CreateProductDto,
         @Body() createItemDto: CreateItemDto,
         @Body() createCustomerDto: CreateCustomerDto,
         @Body() createEmployeeDto: CreateEmployeeDto,

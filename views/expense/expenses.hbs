@@ -10,9 +10,8 @@
 <table id="fancyTable">
     <thead>
     <tr>
-        <th>Číslo</th>
-        <th>Dátum vzniku</th>
         <th>Názov</th>
+        <th>Dátum vzniku</th>
         <th>Suma</th>
     </tr>
     </thead>
@@ -20,9 +19,8 @@
     {{#each this}}
         {{#if this.id}}
             <tr onclick="redirect('/expense/{{this.id}}')" class="hover:bg-gray-300 cursor-pointer text-center">
-                <td>{{this.id}}</td>
-                <td>{{this.date}}</td>
                 <td>{{this.name}}</td>
+                <td>{{this.date}}</td>
                 <td>{{this.amount}}</td>
             </tr>
         {{/if}}

@@ -4,8 +4,8 @@ import {ProductRepository} from "./product.repository";
 import {Product} from "./product.entity";
 import {CreateProductDto} from "./dto/create-product.dto";
 import {Company} from "../company/company.entity";
-import {CreateItemDto} from "../Items/dto/create-item.dto";
-import {ItemService} from "../Items/item.service";
+import {CreateItemDto} from "../item/dto/create-item.dto";
+import {ItemService} from "../item/item.service";
 
 @Injectable()
 export class ProductService {

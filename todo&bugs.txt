@@ -2,8 +2,11 @@ TODO:
 display errors (controller -> html)
 
 BUGS:
+Alert = nepodarilo sa updatnut price wihtou tax
+generovanie cisla faktury je nachuj
 
 IMPROVE:
+doplniť do zc id, miesto bydliska, pozícia
 zoradit vsetky najdene entity podla datumu
 k buttonu pridat enum na shades
 .align-inputs pravdepodobne mozne zmazat (CSS)

@@ -6,16 +6,16 @@ import {Invoice} from "./invoice.entity";
 import {InvoicePaymentEnum} from "./invoice-payment.enum";
 import {Company} from "../company/company.entity";
 import {Customer} from "../customer/customer.entity";
-import {CreateItemDto} from "../Items/dto/create-item.dto";
+import {CreateItemDto} from "../item/dto/create-item.dto";
 import {CreateProductDto} from "../product/dto/create-product.dto";
 import {ProductService} from "../product/product.service";
 import {GenerateInvoiceFromOrderDto} from "./dto/generate-invoice-from-order.dto";
-import {Between, getRepository} from "typeorm";
+import {Between} from "typeorm";
 import {CustomerService} from "../customer/customer.service";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 
 @Injectable()
-export class InvoicesService {
+export class InvoiceService {
     constructor(
         @InjectRepository(InvoiceRepository)
         private invoiceRepository: InvoiceRepository,
@@ -68,7 +68,7 @@ export class InvoicesService {
         company: Company,
         id: number,
     ): Promise<void> {
-        const result = await this.invoiceRepository.delete({ id, company : company}); //TODO not sure about this syntax, might not work
+        const result = await this.invoiceRepository.delete({ id, company : company});
 
         if (result.affected === 0) {
             throw new NotFoundException(`Invoice with ID "${id}" not found`);

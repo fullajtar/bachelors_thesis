@@ -1,11 +1,7 @@
-import {Controller, Get, Post, Redirect, Render, Res, Session, UploadedFile, UseInterceptors} from '@nestjs/common';
+import {Controller, Get, Redirect, Render, Res, Session} from '@nestjs/common';
 import {AppService} from './app.service';
 import {Company} from "./company/company.entity";
 import {CompanyService} from "./company/company.service";
-import * as url from "url";
-import {FileInterceptor} from "@nestjs/platform-express";
-import {diskStorage} from "multer";
-import path from "path";
 
 @Controller()
 export class AppController {

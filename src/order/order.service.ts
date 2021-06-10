@@ -1,15 +1,15 @@
 import {Injectable, NotFoundException} from "@nestjs/common";
-import {ItemService} from "../Items/item.service";
+import {ItemService} from "../item/item.service";
 import {InjectRepository} from "@nestjs/typeorm";
 import {OrderRepository} from "./order.repository";
 import {ProductService} from "../product/product.service";
 import {Company} from "../company/company.entity";
 import {Order} from "./oder.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
-import {CreateItemDto} from "../Items/dto/create-item.dto";
+import {CreateItemDto} from "../item/dto/create-item.dto";
 import {CreateProductDto} from "../product/dto/create-product.dto";
 import {Customer} from "../customer/customer.entity";
-import {Between, getRepository} from "typeorm";
+import {Between} from "typeorm";
 import {CustomerService} from "../customer/customer.service";
 import {CreateCustomerDto} from "../customer/dto/create-customer.dto";
 

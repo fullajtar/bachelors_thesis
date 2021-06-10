@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Query, Render, Res, Session, UsePipes, ValidationPipe} from "@nestjs/common";
+import {Body, Controller, Get, Post, Render, Res, Session, UsePipes, ValidationPipe} from "@nestjs/common";
 import {Item} from "./item.entity";
 import {Company} from "../company/company.entity";
 import {CreateItemDto} from "./dto/create-item.dto";

@@ -22,7 +22,7 @@
     {{#each this}}
         {{#if this.id}}
             <tr onclick="redirect('/order/{{this.id}}')" class="hover:bg-gray-300 cursor-pointer text-center">
-                <td>{{this.id}}</td>
+                <td>{{this.orderNumber}}</td>
                 <td> {{dateParse this.dateOfIssue}} </td>
                 <td>{{this.customerDegreeBefore}} {{this.customerName}} {{this.customerSurname}} {{this.customerDegreeAfter}}</td>
                 <td>{{this.name}}</td>

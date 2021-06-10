@@ -1,12 +1,14 @@
-    <header class="h-screen col-span-2 bg-gray-600 p-4 flex flex-col justify-between sticky top-0">
+    <header class="h-screen col-span-2 bg-gray-600 p-2 lg:p-4 flex flex-col justify-between sticky top-0">
         <div class="flex-col">
-            <div class="flex flex-row items-center">
-                <a href="/">
-                    <img class="w-24 p-3.5" src="/img/vectorpaint (1).svg" alt="LogoIpsum">
+            <div class="grid grid-cols-2 lg:gap-4">
+                <a class="col-span-2 lg:col-span-1" href="/">
+                    <img class="w-full p-3.5" src="/img/vectorpaint (1).svg" alt="LogoIpsum">
                 </a>
-                <div>
-                    <p class="block text-white">Prihlásený:</p>
-                    <p id="logged-username" class="text-white block">.</p>
+                <div class="col-span-2 lg:col-span-1 flex items-center justify-center lg:justify-start ">
+                    <div>
+                        <p class="text-white">Prihlásený:</p>
+                        <p id="logged-username" class="block text-white">.</p>
+                    </div>
                 </div>
             </div>
 
@@ -18,7 +20,6 @@
                 <fm-a href="/employee">Zamestnanci</fm-a>
                 <fm-a href="/item">Položky</fm-a>
                 <fm-a href="/company">Moja Firma</fm-a>
-                <fm-a href="/testing">Debug Page</fm-a>
             </div>
 
         </div>

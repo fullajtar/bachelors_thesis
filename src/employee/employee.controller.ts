@@ -1,16 +1,4 @@
-import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    ParseIntPipe,
-    Post,
-    Query, Redirect,
-    Render,
-    Res,
-    Session,
-    ValidationPipe
-} from "@nestjs/common";
+import {Body, Controller, Get, Param, ParseIntPipe, Post, Redirect, Render, Res, Session} from "@nestjs/common";
 import {EmployeeService} from "./employee.service";
 import {Employee} from "./employee.entity";
 import {Company} from "../company/company.entity";

@@ -1,7 +1,6 @@
 import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {Invoice} from "../invoices/invoice.entity";
-import {Customer} from "../customer/customer.entity";
-import {Item} from "../Items/item.entity";
+import {Invoice} from "../invoice/invoice.entity";
+import {Item} from "../item/item.entity";
 import {Employee} from "../employee/employee.entity";
 import {User} from "../auth/user.entity";
 import {Order} from "../order/oder.entity";
