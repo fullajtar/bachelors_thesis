@@ -1,0 +1,1 @@
+import{r as s,h as r}from"./p-e05b01c4.js";const e=class{constructor(r){s(this,r)}render(){return r("select",{class:"border-2 border-gray-400 bg-gray-200 rounded mb-0.5 hover:bg-gray-100 hover:shadow-sm",id:this.name,autocomplete:this.autocomplete,disabled:this.disabled,form:this.form,name:this.name,required:this.required,size:this.size},r("slot",null))}};export{e as fm_select}
